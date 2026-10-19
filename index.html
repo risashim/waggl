@@ -5,546 +5,545 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Waggl Pets</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Waggl Pets makes raincoats, ponchos, base layers and bandanas for dogs, in sizes XS to 9XL. Life is better together.">
+<meta name="description" content="Raincoats, base layers and bandanas for dogs of every size, from XS to 9XL. Life is better together.">
 <link rel="icon" href="assets/waggl-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Zen+Maru+Gothic:wght@500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300&display=swap">
 <style>
-/* Layout: a classic, gender-neutral dog outfitter. Sky blue, navy and Waggl red, red-and-white polka dots from the bandanas, embroidered patches, and a line-up of dogs as the hero. */
+/* Waggl Studio: white page, one stone studio floor, near-black ink, red only as a small mark.
+   The dogs carry the warmth; the interface stays quiet. */
 :root {
-  --white: #FFFFFF;
-  --cloud: #F2F5F8;
-  --sky: #D6E6F4;
-  --sky-deep: #A9C8E4;
-  --butter: #F3E7C2;
-  --sage: #DCE6D3;
-  --navy: #1B2440;
-  --navy-soft: #5E6680;
-  --mute: #C6CCD8;
-  --line: rgba(27, 36, 64, 0.12);
+  --paper: #FFFFFF;
+  --stone: #EDEDEA;
+  --mist: #F6F6F4;
+  --line: #E2E2DE;
+  --line-strong: #C8C9C4;
+  --field: #8A8D93;
+  --graphite: #5E6168;
+  --ink: #16181D;
   --red: #D9262E;
-  --serif: "Fraunces", "Iowan Old Style", Georgia, serif;
-  --sans: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "Nunito", system-ui, sans-serif;
-  --ease: cubic-bezier(.19, 1, .22, 1);
-  --spring: cubic-bezier(.34, 1.56, .64, 1);
-  --r-xl: 44px;
-  --r-lg: 26px;
-  --r-md: 16px;
-  --wrap: 1300px;
-  --gl: max(20px, env(safe-area-inset-left, 0px));
-  --gr: max(20px, env(safe-area-inset-right, 0px));
-  --inset-l: max(10px, env(safe-area-inset-left, 0px));
-  --inset-r: max(10px, env(safe-area-inset-right, 0px));
+  --on-ink-muted: #A3A6AD;
+  --serif: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --sans: "Hanken Grotesk", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --ease: cubic-bezier(.16, 1, .3, 1);
+  --wrap: 1320px;
+  --gut: clamp(16px, 3.5vw, 40px);
+  --gl: max(var(--gut), env(safe-area-inset-left, 0px));
+  --gr: max(var(--gut), env(safe-area-inset-right, 0px));
+  --space: clamp(88px, 11vw, 160px);
   color-scheme: light;
 }
 * { box-sizing: border-box; }
-html { scroll-padding-top: 90px; }
-body { margin: 0; background: var(--white); color: var(--navy); font-family: var(--sans); font-weight: 500; font-size: 16.5px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
-body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 60; background: var(--white); }
+html { scroll-padding-top: 80px; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 400 16px/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 60; background: var(--paper); }
 img { max-width: 100%; display: block; }
 button, input { font: inherit; color: inherit; }
 button { cursor: pointer; }
 a { color: inherit; }
 p { margin: 0; }
-h1, h2, h3 { margin: 0; font-family: var(--serif); font-weight: 380; font-variation-settings: "SOFT" 100, "WONK" 0; letter-spacing: -0.025em; line-height: 1.02; text-wrap: balance; }
-em { font-style: italic; font-weight: 340; color: var(--red); font-variation-settings: "SOFT" 100, "WONK" 1; letter-spacing: -0.02em; }
-:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; border-radius: 8px; }
+h1, h2, h3 { margin: 0; font-family: var(--serif); font-weight: 300; font-optical-sizing: auto; letter-spacing: -0.015em; text-wrap: balance; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
 .wrap { max-width: var(--wrap); margin-inline: auto; padding-left: var(--gl); padding-right: var(--gr); }
-.small-caps { display: block; font-size: 11.5px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--navy-soft); }
+.label { display: block; font: 500 11px/1.2 var(--sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--graphite); }
+.label-s { display: block; font: 500 13px/1.3 var(--sans); color: var(--graphite); }
 .vh { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-.section { position: relative; padding-block: clamp(84px, 10vw, 140px); }
-.panel { margin-inline: var(--inset-l) var(--inset-r); border-radius: var(--r-xl); position: relative; overflow: hidden; }
-.polka { background-color: var(--red); background-image: radial-gradient(rgba(255, 255, 255, 0.95) 2.2px, transparent 2.6px), radial-gradient(rgba(255, 255, 255, 0.95) 2.2px, transparent 2.6px); background-size: 22px 22px; background-position: 0 0, 11px 11px; }
-.sky-dots { background-color: var(--sky); background-image: radial-gradient(rgba(255, 255, 255, 0.7) 1.8px, transparent 2.2px); background-size: 24px 24px; }
+.section { padding-block: var(--space); }
+.display { font-size: clamp(40px, 5.4vw, 80px); line-height: 1; letter-spacing: -0.02em; }
+.h2 { font-size: clamp(32px, 3.6vw, 52px); line-height: 1.06; }
+.num { font-feature-settings: "tnum" 1; }
 
-[data-reveal].pre { transform: translateY(44px); }
-[data-reveal] { transition: transform 1.1s var(--ease); transition-delay: calc(var(--d, 0) * 70ms); }
+[data-reveal] { transition: opacity 0.9s var(--ease), transform 0.9s var(--ease); transition-delay: calc(var(--d, 0) * 60ms); }
+[data-reveal].pre { opacity: 0; transform: translateY(16px); }
+.reveal-img { transition: clip-path 1.2s var(--ease), transform 1.2s var(--ease); }
+.reveal-img.pre { clip-path: inset(10% 0 0 0); transform: scale(1.04); }
 
-/* Woven side tag */
-.tag { position: absolute; width: 14px; height: 42px; background: var(--white); border-radius: 2px 3px 3px 2px; pointer-events: none; box-shadow: 0 1px 2px rgba(27, 36, 64, 0.18); transform-origin: 0 50%; }
-.tag::before { content: ""; position: absolute; left: 3px; right: 3px; top: 4px; border-top: 1px dashed rgba(27, 36, 64, 0.22); }
-.tag::after { content: ""; position: absolute; left: 50%; top: 53%; width: 30px; height: 9px; transform: translate(-50%, -50%) rotate(90deg); background: url("assets/waggl-logo.png") center / contain no-repeat; }
-@keyframes wag { 0%, 100% { transform: rotate(0); } 30% { transform: rotate(-10deg); } 65% { transform: rotate(7deg); } }
+/* Buttons and links */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 48px; padding: 0 28px; border-radius: 2px; border: 1px solid transparent; font: 500 12px/1 var(--sans); letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; white-space: nowrap; transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease; }
+.btn-ink { background: var(--ink); color: var(--paper); }
+.btn-ink:hover { background: var(--paper); color: var(--ink); border-color: var(--ink); }
+.btn-line { border-color: var(--ink); color: var(--ink); background: transparent; }
+.btn-line:hover { background: var(--ink); color: var(--paper); }
+.btn-white { background: var(--paper); color: var(--ink); }
+.btn-white:hover { background: var(--stone); }
+.btn[disabled] { background: var(--stone); color: var(--graphite); border-color: transparent; cursor: not-allowed; }
+.tlink { position: relative; display: inline-block; padding: 4px 0 8px; border: 0; background: none; font: 500 12px/1 var(--sans); letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; color: inherit; }
+.tlink::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: currentColor; transform-origin: left; transition: transform 0.45s var(--ease); }
+.tlink:hover::after { animation: wipe 0.6s var(--ease); }
+@keyframes wipe { 0% { transform: scaleX(1); transform-origin: right; } 45% { transform: scaleX(0); transform-origin: right; } 46% { transform: scaleX(0); transform-origin: left; } 100% { transform: scaleX(1); transform-origin: left; } }
 
-/* Embroidered patch */
-.patch { display: block; width: 100%; height: auto; filter: drop-shadow(0 10px 16px rgba(27, 36, 64, 0.16)); }
-.patch text { font-family: var(--sans); font-weight: 700; }
-.patch .big { font-family: var(--serif); font-weight: 450; }
-
-/* Buttons */
-.btn { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: 50px; padding: 0 28px; border-radius: 999px; border: 1px solid transparent; font-size: 12.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; overflow: hidden; isolation: isolate; transition: color 0.4s var(--ease), border-color 0.4s var(--ease), transform 0.3s var(--ease); }
-.btn::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; transform: translateY(101%); transition: transform 0.5s var(--ease); }
-.btn:hover::before { transform: translateY(0); }
-.btn:active { transform: scale(0.97); }
-.btn-navy { background: var(--navy); color: var(--white); }
-.btn-navy::before { background: var(--red); }
-.btn-line { border-color: var(--navy); background: rgba(255, 255, 255, 0.5); }
-.btn-line::before { background: var(--navy); }
-.btn-line:hover { color: var(--white); }
-.btn[disabled] { opacity: 0.35; cursor: not-allowed; }
-.btn[disabled]::before { display: none; }
-.more { display: inline-flex; gap: 10px; align-items: center; font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; }
-.more i { font-style: normal; transition: transform 0.4s var(--ease); }
-a:hover .more i, .more:hover i { transform: translateX(5px); }
-
-/* Notice + header */
-.notice { color: var(--white); text-align: center; font-size: 11.5px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
-.notice .wrap { padding-block: 10px; }
-.notice span { background: var(--red); padding: 4px 12px; border-radius: 999px; }
-.site-header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50; background: rgba(255, 255, 255, 0.88); backdrop-filter: saturate(1.4) blur(16px); -webkit-backdrop-filter: saturate(1.4) blur(16px); border-bottom: 1px solid transparent; transition: transform 0.5s var(--ease), border-color 0.3s ease; }
+/* Notice and header */
+.notice { display: block; background: var(--ink); color: var(--paper); text-align: center; text-decoration: none; font: 500 12.5px/36px var(--sans); letter-spacing: 0.02em; height: 36px; overflow: hidden; }
+.notice span { position: relative; }
+.notice span::after { content: ""; position: absolute; left: 0; right: 0; bottom: -3px; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform 0.45s var(--ease); }
+.notice:hover span::after { transform: scaleX(1); }
+.site-header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50; background: var(--paper); border-bottom: 1px solid transparent; transition: transform 0.5s var(--ease), border-color 0.3s ease; }
 .site-header.scrolled { border-bottom-color: var(--line); }
 .site-header.away { transform: translateY(-110%); }
-.site-header .wrap { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; min-height: 76px; gap: 16px; transition: min-height 0.4s var(--ease); }
-.site-header.scrolled .wrap { min-height: 64px; }
-.nav { display: flex; gap: 30px; }
-.nav a { text-decoration: none; font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; position: relative; }
-.nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 1px; background: var(--red); transform: scaleX(0); transform-origin: right; transition: transform 0.45s var(--ease); }
-.nav a:hover::after { transform: scaleX(1); transform-origin: left; }
-.brand img { height: 38px; width: auto; transition: height 0.4s var(--ease); }
-.site-header.scrolled .brand img { height: 32px; }
-.tools { display: flex; justify-content: flex-end; align-items: center; gap: 2px; }
-.icon-btn { position: relative; display: inline-grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 50%; background: none; text-decoration: none; transition: background-color 0.2s ease; }
-.icon-btn:hover { background: var(--cloud); }
-.icon-btn svg { width: 21px; height: 21px; }
-.icon-btn .n { position: absolute; top: 3px; right: 1px; min-width: 17px; height: 17px; padding: 0 4px; border-radius: 999px; background: var(--red); color: var(--white); font-size: 10.5px; font-weight: 700; line-height: 17px; text-align: center; }
-.icon-btn .n:empty { display: none; }
-.icon-btn .n.bump { animation: pop 0.45s var(--spring); }
-.menu-btn, .mobile-nav { display: none; }
+.site-header .wrap { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; height: 72px; gap: 16px; transition: height 0.4s var(--ease); }
+.site-header.scrolled .wrap { height: 64px; }
+.nav, .tools { display: flex; align-items: center; gap: 32px; }
+.tools { justify-content: flex-end; gap: 28px; }
+.nav a, .tools .tool { position: relative; padding: 6px 0; border: 0; background: none; font: 500 12px/1 var(--sans); letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; white-space: nowrap; }
+.nav a::after, .tools .tool::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--ink); transform: scaleX(0); transform-origin: right; transition: transform 0.45s var(--ease); }
+.nav a:hover::after, .nav a.here::after, .tools .tool:hover::after { transform: scaleX(1); transform-origin: left; }
+.brand img { height: 34px; width: auto; transition: height 0.4s var(--ease); }
+.site-header.scrolled .brand img { height: 28px; }
+.icon { display: none; width: 44px; height: 44px; place-items: center; border: 0; background: none; padding: 0; position: relative; }
+.icon svg { width: 20px; height: 20px; fill: none; stroke: var(--ink); stroke-width: 1.5; }
+.icon .n { position: absolute; left: 32px; top: 9px; font: 600 11px/1 var(--sans); color: var(--red); }
+.mobile-nav { display: none; }
 
-/* Hero: the running-dogs film from the store */
-.hero { margin-top: 6px; height: min(calc(100svh - 120px), 860px); min-height: 560px; background: var(--navy); color: var(--white); isolation: isolate; }
-.hero video, .hero .poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; z-index: -2; }
-.hero::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(to top, rgba(18, 24, 44, 0.78), rgba(18, 24, 44, 0.12) 58%, rgba(18, 24, 44, 0) 75%), linear-gradient(to right, rgba(18, 24, 44, 0.45), rgba(18, 24, 44, 0) 55%); }
-.hero-copy { position: absolute; left: 0; right: 0; bottom: 0; padding: 0 var(--gr) clamp(36px, 5vw, 64px) var(--gl); max-width: var(--wrap); margin-inline: auto; }
-.hero .small-caps { color: rgba(255, 255, 255, 0.85); margin-bottom: 18px; animation: fadeUp 0.9s 0.1s var(--ease) both; }
-.hero h1 { font-size: clamp(60px, 9.4vw, 150px); line-height: 0.9; margin: 0 0 22px; }
-.hero h1 em { color: var(--white); }
-.hero h1 .ln { display: block; overflow: hidden; padding-bottom: 0.1em; margin-bottom: -0.1em; }
-.hero h1 .ln > span { display: inline-block; animation: rise 1.1s var(--ease) both; }
-.hero h1 .ln + .ln > span { animation-delay: 0.12s; }
-.hero .lede { font-size: 18px; max-width: 34ch; color: rgba(255, 255, 255, 0.88); animation: fadeUp 0.9s 0.3s var(--ease) both; }
-.hero .ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; animation: fadeUp 0.9s 0.42s var(--ease) both; }
-.btn-white { background: var(--white); color: var(--navy); }
-.btn-white::before { background: var(--red); }
-.btn-white:hover { color: var(--white); }
-.btn-ghost { border-color: rgba(255, 255, 255, 0.7); color: var(--white); }
-.btn-ghost::before { background: var(--white); }
-.btn-ghost:hover { color: var(--navy); }
-.hero .patch-r { position: absolute; right: clamp(20px, 4vw, 56px); top: clamp(20px, 4vw, 48px); width: clamp(96px, 10vw, 136px); transform: rotate(9deg); animation: popIn 0.9s 0.9s var(--spring) both; }
-.play { position: absolute; right: clamp(20px, 4vw, 56px); bottom: clamp(36px, 5vw, 64px); width: 46px; height: 46px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.6); background: rgba(18, 24, 44, 0.25); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); color: var(--white); display: grid; place-items: center; transition: background-color 0.3s ease; }
+/* Hero film */
+.hero { position: relative; height: min(calc(100svh - 108px), 880px); min-height: 560px; background: var(--ink); color: var(--paper); overflow: hidden; isolation: isolate; }
+.hero video, .hero .poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%; z-index: -2; }
+.hero video { opacity: 0; transition: opacity 0.8s ease; }
+.hero video.ready { opacity: 1; }
+.hero::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(to top, rgba(15, 17, 21, 0.55), rgba(15, 17, 21, 0) 55%); }
+.hero-copy { position: absolute; left: 0; right: 0; bottom: 0; max-width: var(--wrap); margin-inline: auto; padding: 0 var(--gr) clamp(40px, 6vw, 80px) var(--gl); display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 24px; }
+.hero .label { color: rgba(255, 255, 255, 0.85); margin-bottom: 20px; animation: fadeUp 0.7s 0.25s var(--ease) both; }
+.hero h1 { font-size: clamp(52px, 8vw, 124px); line-height: 0.96; letter-spacing: -0.025em; margin-bottom: 22px; }
+.hero h1 .ln { display: block; overflow: hidden; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+.hero h1 .ln > span { display: inline-block; animation: rise 1s var(--ease) both; }
+.hero h1 .ln + .ln > span { animation-delay: 0.09s; }
+.hero .lede { font-size: 18px; max-width: 38ch; color: rgba(255, 255, 255, 0.9); animation: fadeUp 0.7s 0.3s var(--ease) both; }
+.hero .ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 32px; margin-top: 30px; animation: fadeUp 0.7s 0.38s var(--ease) both; }
+.hero .tlink { color: var(--paper); }
+.play { color: var(--paper); font-size: 11px; }
 .play[hidden] { display: none; }
-.play:hover { background: rgba(18, 24, 44, 0.5); }
-.play svg { width: 16px; height: 16px; fill: currentColor; }
+@keyframes rise { from { transform: translateY(100%); } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } }
 
-/* The crew: dogs in bandanas, standing in a row */
-.crew { position: relative; overflow: hidden; text-align: center; padding-top: clamp(72px, 9vw, 120px); }
-.crew h2 { font-size: clamp(44px, 6vw, 84px); }
-.crew p { color: var(--navy-soft); max-width: 40ch; margin: 16px auto 0; }
-.crew .floor { position: relative; margin-top: clamp(20px, 3vw, 36px); }
-.crew .floor::before { content: ""; position: absolute; left: var(--inset-l); right: var(--inset-r); bottom: 0; height: 46%; border-radius: var(--r-xl); background-color: var(--sky); background-image: radial-gradient(rgba(255, 255, 255, 0.75) 1.8px, transparent 2.2px); background-size: 24px 24px; }
-.lineup { position: relative; display: flex; justify-content: center; align-items: flex-end; height: clamp(250px, 31vw, 450px); padding-inline: 2%; }
-.pup { position: relative; height: calc(var(--h) * 100%); margin-inline: -1.6%; border: 0; padding: 0; background: none; animation: pupUp 1s calc(0.35s + var(--i) * 0.08s) var(--spring) both; }
-.pup img { height: 100%; width: auto; max-width: none; filter: drop-shadow(0 12px 18px rgba(27, 36, 64, 0.14)); transition: transform 0.6s var(--spring); transform-origin: 50% 100%; }
-.pup:hover img, .pup:focus-visible img { transform: translateY(-12px) rotate(-1.5deg); }
-.pup .chip { position: absolute; left: 50%; top: 0; transform: translate(-50%, -70%) scale(0.92); opacity: 0; pointer-events: none; white-space: nowrap; background: var(--white); border-radius: 999px; padding: 7px 14px; font-size: 13px; box-shadow: 0 12px 24px -14px rgba(27, 36, 64, 0.45); transition: opacity 0.3s ease, transform 0.5s var(--spring); }
-.pup .chip b { font-weight: 700; margin-left: 4px; }
-.pup:hover .chip, .pup:focus-visible .chip { opacity: 1; transform: translate(-50%, -110%) scale(1); }
-@keyframes pupUp { from { transform: translateY(40%); } }
-@keyframes rise { from { transform: translateY(108%); } }
-@keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } }
-@keyframes popIn { from { opacity: 0; transform: scale(0.4) rotate(-14deg); } }
-@keyframes pop { 40% { transform: scale(1.28); } }
-
-/* Promise strip */
-.promises { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 4vw, 56px); }
-.promise { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 20px; align-items: center; }
-.promise h3 { font-size: 24px; margin-bottom: 6px; }
-.promise p { font-size: 15px; color: var(--navy-soft); }
+/* Facts strip */
+.facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-bottom: 1px solid var(--line); }
+.fact { padding: 28px 32px 32px; border-left: 1px solid var(--line); }
+.fact:first-child { border-left: 0; padding-left: 0; }
+.fact:last-child { padding-right: 0; }
+.fact .label-s { margin-bottom: 6px; font-size: 15px; color: var(--ink); }
+.fact p { font-size: 15px; line-height: 1.55; max-width: 36ch; color: var(--graphite); }
 
 /* Shop by kind */
-.kinds-head { display: flex; justify-content: space-between; align-items: end; gap: 20px; flex-wrap: wrap; margin-bottom: 40px; }
-.kinds-head h2, .shop-head h2 { font-size: clamp(40px, 5vw, 68px); }
-.kinds { display: grid; grid-template-columns: 1.25fr 1fr 1fr; grid-template-rows: auto auto; gap: 16px; }
-.kind { position: relative; display: block; border-radius: var(--r-lg); overflow: hidden; text-decoration: none; background: var(--cloud); min-height: 260px; }
-.kind img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 100%; transition: transform 1.2s var(--ease); }
-.kind:hover img { transform: scale(1.05); }
-.kind .txt { position: absolute; left: 0; top: 0; right: 0; padding: clamp(20px, 2.4vw, 30px); display: flex; justify-content: space-between; align-items: start; gap: 12px; }
-.kind h3 { font-size: clamp(26px, 2.6vw, 38px); }
-.kind .n { font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; background: rgba(255, 255, 255, 0.85); border-radius: 999px; padding: 6px 12px; white-space: nowrap; }
-.kind.k-rain { grid-row: 1 / 3; min-height: 620px; }
-.kind.k-bandanas { grid-column: 2 / 4; aspect-ratio: 1.75; min-height: 0; }
-.kind.k-home, .kind.k-town { aspect-ratio: 0.9; min-height: 0; }
+.kinds-grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(32px, 5vw, 80px); align-items: start; }
+.kinds-list .label-s { margin-bottom: 24px; }
+.kinds-list ul { list-style: none; margin: 0 0 32px; padding: 0; border-bottom: 1px solid var(--line); }
+.kind-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 24px; padding: 26px 0 30px; border-top: 1px solid var(--line); text-decoration: none; transition: color 0.3s ease; }
+.kind-row .kname { font: 300 clamp(40px, 5.4vw, 76px)/1 var(--serif); letter-spacing: -0.02em; }
+.kind-row .kdesc { font-size: 13px; line-height: 1.5; color: var(--graphite); text-align: right; transition: color 0.3s ease; }
+.kind-row .thumb { display: none; }
+@media (hover: hover) {
+  .kinds-list ul:hover .kind-row:not(:hover) { color: var(--graphite); }
+}
+.kinds-panel { position: sticky; top: 96px; aspect-ratio: 4 / 5; background: var(--stone); overflow: hidden; }
+.kinds-panel::before, .tile .open.stand::before, .pd-stage.stand::before { content: ""; position: absolute; left: 50%; bottom: 4.6%; width: 60%; height: 5%; transform: translateX(-50%); background: radial-gradient(closest-side, rgba(22, 24, 29, 0.16), rgba(22, 24, 29, 0)); transition: opacity 0.5s ease; }
+.kinds-panel img { position: absolute; left: 50%; bottom: 6%; width: 86%; height: 82%; object-fit: contain; object-position: 50% 100%; transform: translateX(-50%); opacity: 0; transition: opacity 0.5s ease; }
+.kinds-panel img.bust { bottom: 0; height: 92%; }
+.kinds-panel img.on { opacity: 1; }
 
-/* Puddle Parade story */
-.story { background: var(--sky); overflow: clip; }
+/* Puddle Parade */
+.story { background: var(--stone); }
 .story .wrap { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: clamp(32px, 6vw, 96px); }
-.stage { position: sticky; top: 90px; height: calc(100vh - 130px); min-height: 460px; display: grid; place-items: center; }
-.look { position: relative; height: min(76%, 640px); aspect-ratio: 601 / 860; transition: transform 1.1s var(--ease); }
-.look img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; opacity: 0; transition: opacity 0.6s ease; filter: drop-shadow(0 30px 30px rgba(27, 36, 64, 0.18)); }
+.stage { position: sticky; top: 96px; height: calc(100vh - 140px); min-height: 460px; display: grid; place-items: center; }
+.look { position: relative; height: min(78%, 640px); aspect-ratio: 601 / 860; transition: transform 1.1s var(--ease); }
+.look img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; opacity: 0; transition: opacity 0.6s ease; filter: drop-shadow(0 18px 14px rgba(22, 24, 29, 0.12)); }
 .look img.on { opacity: 1; }
-.pin { position: absolute; width: 26px; height: 26px; margin: -13px 0 0 -13px; border-radius: 50%; background: var(--white); font-size: 12px; font-weight: 700; display: grid; place-items: center; box-shadow: 0 4px 10px rgba(27, 36, 64, 0.2); transition: transform 0.5s var(--spring), background-color 0.3s ease, color 0.3s ease; }
-.pin.on { background: var(--red); color: var(--white); transform: scale(1.25); }
-.pin.on::after { content: ""; position: absolute; inset: -6px; border-radius: 50%; border: 2px solid var(--red); animation: ring 1.6s ease-out infinite; }
-@keyframes ring { from { transform: scale(0.8); opacity: 1; } to { transform: scale(1.8); opacity: 0; } }
+.pin { position: absolute; width: 22px; height: 22px; margin: -11px 0 0 -11px; border-radius: 50%; background: var(--paper); border: 1px solid rgba(22, 24, 29, 0.12); font: 500 11px/20px var(--sans); text-align: center; transition: transform 0.4s var(--ease), background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
+.pin.on { background: var(--red); border-color: var(--red); color: var(--paper); transform: scale(1.12); }
 .stage .meta { position: absolute; left: 0; right: 0; bottom: 4px; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
-.stage .cname { font-family: var(--serif); font-style: italic; font-weight: 340; font-size: 18px; }
-.ticks { display: flex; gap: 6px; }
-.ticks i { width: 22px; height: 3px; border-radius: 3px; background: rgba(27, 36, 64, 0.15); transition: background-color 0.4s ease, width 0.4s var(--ease); }
-.ticks i.on { width: 40px; background: var(--navy); }
-.steps-col { padding-block: clamp(88px, 11vw, 150px); }
-.steps-col h2 { font-size: clamp(56px, 8vw, 120px); line-height: 0.92; }
-.steps-col .intro { color: var(--navy-soft); max-width: 36ch; margin-top: 22px; }
-.step { min-height: 64vh; display: flex; flex-direction: column; justify-content: center; gap: 12px; padding-block: 40px; opacity: 0.35; transition: opacity 0.6s ease; }
+.stage .cname { font: 400 13px/1.4 var(--sans); color: var(--graphite); }
+.ticks { display: flex; gap: 6px; align-items: center; }
+.ticks i { width: 24px; height: 1px; background: var(--line-strong); transition: width 0.4s var(--ease), background-color 0.4s ease; }
+.ticks i.on { width: 48px; background: var(--ink); }
+.steps-col { padding-block: var(--space); }
+.steps-col .label { margin-bottom: 18px; }
+.steps-col .intro { color: var(--graphite); max-width: 38ch; margin-top: 20px; }
+.step { min-height: 62vh; display: flex; flex-direction: column; justify-content: center; gap: 12px; padding-block: 40px; opacity: 0.3; transition: opacity 0.6s ease; }
 .step.on { opacity: 1; }
-.step .num { font-family: var(--serif); font-style: italic; font-weight: 340; color: var(--red); font-size: 20px; }
-.step h3 { font-size: clamp(30px, 3.2vw, 44px); }
-.step p { color: var(--navy-soft); max-width: 34ch; }
-.buy { background: var(--white); border-radius: var(--r-lg); padding: clamp(26px, 3vw, 40px); display: grid; gap: 22px; margin-top: 20px; box-shadow: 0 40px 60px -40px rgba(27, 36, 64, 0.4); }
-.buy .line { font-family: var(--serif); font-weight: 380; font-size: 32px; line-height: 1.1; letter-spacing: -0.02em; }
-.buy .sub { color: var(--navy-soft); font-size: 15px; margin-top: -14px; }
+.step .no { font: 500 12px/1 var(--sans); color: var(--graphite); font-feature-settings: "tnum" 1; }
+.step h3 { font-size: clamp(24px, 2.2vw, 32px); font-weight: 400; line-height: 1.15; letter-spacing: -0.01em; }
+.step p { color: var(--graphite); max-width: 34ch; }
+.buy { background: var(--paper); border: 1px solid rgba(22, 24, 29, 0.08); padding: 32px; display: grid; gap: 22px; margin-top: 24px; }
+.buy .name { font: 400 28px/1.1 var(--serif); letter-spacing: -0.01em; }
+.buy .sub { color: var(--graphite); font-size: 14px; margin-top: -12px; }
 .buy-m-wrap { display: none; }
-.price { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
-.price .now { font-family: var(--serif); font-weight: 400; font-size: 30px; }
-.price .was { font-size: 13px; color: var(--navy-soft); }
+.price { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; font-feature-settings: "tnum" 1; }
+.price .now { font-size: 20px; }
+.price .cur { font: 500 11px/1 var(--sans); letter-spacing: 0.12em; color: var(--graphite); }
+.price .was { font-size: 13px; color: var(--graphite); }
 .opt { display: grid; gap: 12px; }
-.opt-head { display: flex; gap: 12px; align-items: baseline; font-size: 15px; }
-.opt-head .small-caps { font-size: 10.5px; }
-.swatches, .sizes { display: flex; flex-wrap: wrap; gap: 9px; }
-.swatch { width: 34px; height: 34px; padding: 0; border-radius: 50%; border: 0; box-shadow: inset 0 0 0 1px rgba(27, 36, 64, 0.14); transition: transform 0.3s var(--spring); }
-.swatch:hover { transform: scale(1.1); }
-.swatch[aria-checked="true"] { box-shadow: inset 0 0 0 1px rgba(27, 36, 64, 0.14), 0 0 0 3px var(--white), 0 0 0 4px var(--navy); }
-.size { min-width: 52px; height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--white); font-size: 13.5px; font-weight: 700; letter-spacing: 0.04em; transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease; }
-.size:hover { border-color: var(--navy); }
-.size[aria-checked="true"] { background: var(--navy); color: var(--white); border-color: var(--navy); }
-.size:disabled { opacity: 0.35; text-decoration: line-through; cursor: not-allowed; border-color: var(--line); }
-.row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
-.stock { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--navy-soft); }
-.stock::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #3CB46E; animation: ping 2s ease-out infinite; }
-.stock.off::before { background: var(--navy-soft); animation: none; }
-@keyframes ping { 0% { box-shadow: 0 0 0 0 rgba(60, 180, 110, 0.5); } 70%, 100% { box-shadow: 0 0 0 7px rgba(60, 180, 110, 0); } }
+.opt-head { display: flex; gap: 12px; align-items: baseline; font-size: 14px; }
+.opt-head .tlink { margin-left: auto; font-size: 11px; padding-bottom: 6px; }
+.swatches, .sizes { display: flex; flex-wrap: wrap; gap: 8px; }
+.swatch { width: 28px; height: 28px; padding: 0; border-radius: 50%; border: 0; box-shadow: inset 0 0 0 1px rgba(22, 24, 29, 0.14); }
+.swatch[aria-checked="true"] { box-shadow: inset 0 0 0 1px rgba(22, 24, 29, 0.14), 0 0 0 2px var(--paper), 0 0 0 3px var(--ink); }
+.size { position: relative; min-width: 48px; height: 40px; padding: 0 12px; border-radius: 2px; border: 1px solid var(--line-strong); background: var(--paper); font: 500 13px/1 var(--sans); transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease; }
+.size:hover { border-color: var(--ink); }
+.size[aria-checked="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.size.out { color: rgba(94, 97, 104, 0.55); border-color: var(--line); cursor: not-allowed; overflow: hidden; }
+.size.out::after { content: ""; position: absolute; left: -4px; right: -4px; top: 50%; height: 1px; background: var(--line-strong); transform: rotate(-24deg); }
+.row { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; }
+.stock { font-size: 13px; color: var(--graphite); }
 
-/* Shop */
-.shop-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; margin-bottom: 28px; }
-.shop-head .count { font-family: var(--serif); font-style: italic; font-weight: 340; font-size: 22px; color: var(--navy-soft); }
-.filters { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; padding-block: 14px; margin-bottom: 40px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-.chips { display: flex; flex-wrap: wrap; gap: 6px; }
-.chip { height: 38px; padding: 0 16px; border-radius: 999px; border: 0; background: none; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; display: inline-flex; align-items: center; gap: 7px; color: var(--navy-soft); transition: background-color 0.3s var(--ease), color 0.3s ease; }
-.chip:hover { color: var(--navy); background: var(--cloud); }
-.chip[aria-pressed="true"] { background: var(--navy); color: var(--white); }
-.chip svg { width: 13px; height: 13px; fill: var(--red); }
-.chip[aria-pressed="true"] svg { fill: #FF9EA2; }
-.chip small { font-size: 11px; opacity: 0.7; letter-spacing: 0.04em; }
-.find { position: relative; flex: 0 1 280px; min-width: 0; }
-.find input { width: 100%; height: 40px; padding: 0 16px 0 40px; border-radius: 999px; border: 1px solid var(--line); background: var(--white); font-size: 14.5px; }
-.find input:focus { outline: none; border-color: var(--navy); }
-.find svg { position: absolute; left: 15px; top: 50%; width: 16px; height: 16px; transform: translateY(-50%); color: var(--navy-soft); }
-.grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 52px 24px; }
-.card { position: relative; min-width: 0; }
-.tile { position: relative; aspect-ratio: 4 / 5; border-radius: var(--r-lg); background: var(--cloud); margin-bottom: 18px; }
-.tile .open { position: absolute; inset: 0; padding: 0; border: 0; background: none; border-radius: inherit; overflow: hidden; }
-.tile .flat { position: absolute; left: 15%; top: 13%; width: 70%; height: 70%; object-fit: contain; filter: drop-shadow(0 18px 16px rgba(27, 36, 64, 0.13)); transition: transform 0.9s var(--ease); }
-.tile .photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.06); transition: opacity 0.6s ease, transform 1.2s var(--ease); }
-.tile:hover .photo { opacity: 1; transform: scale(1); }
-.tile:hover .flat { transform: scale(1.05); }
-.tile .tag { right: -13px; top: 47%; }
-.tile:hover .tag { animation: wag 0.9s ease; }
-.quick { position: absolute; left: 10px; right: 10px; bottom: 10px; z-index: 2; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; padding: 8px; border-radius: 20px; background: rgba(255, 255, 255, 0.86); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); opacity: 0; transform: translateY(10px); transition: opacity 0.4s var(--ease), transform 0.5s var(--ease); pointer-events: none; }
-.tile:hover .quick, .tile:focus-within .quick { opacity: 1; transform: translateY(0); pointer-events: auto; }
-.quick span { flex: 1 0 100%; padding: 0 4px 2px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--navy-soft); }
-.quick button { height: 32px; min-width: 40px; padding: 0 10px; border-radius: 999px; border: 1px solid var(--line); background: var(--white); font-size: 12px; font-weight: 700; transition: background-color 0.2s ease, color 0.2s ease; }
-.quick button:hover { background: var(--navy); color: var(--white); border-color: var(--navy); }
-.quick button:disabled { opacity: 0.35; text-decoration: line-through; cursor: not-allowed; }
-.quick button:disabled:hover { background: var(--white); color: inherit; border-color: var(--line); }
-.love { position: absolute; top: 12px; right: 12px; z-index: 2; width: 38px; height: 38px; border-radius: 50%; border: 0; background: rgba(255, 255, 255, 0.88); display: grid; place-items: center; }
-.love svg { width: 17px; height: 17px; fill: none; stroke: var(--navy); stroke-width: 1.6; transition: fill 0.2s ease, stroke 0.2s ease; }
-.love[aria-pressed="true"] svg { fill: var(--red); stroke: var(--red); }
-.love.pop { animation: pop 0.45s var(--spring); }
-.card .info { display: block; width: 100%; padding: 0; border: 0; background: none; text-align: left; }
-.card .top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
-.card h3 { font-size: 21px; font-weight: 400; letter-spacing: -0.01em; }
-.card .p { font-size: 15px; font-weight: 700; }
-.card .kind-t { font-size: 14px; color: var(--navy-soft); margin-top: 2px; }
-.dots { display: flex; gap: 5px; margin-top: 12px; }
-.dots i { width: 10px; height: 10px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(27, 36, 64, 0.14); }
-.insert { grid-column: span 2; position: relative; border-radius: var(--r-lg); overflow: hidden; text-decoration: none; background: var(--cloud); align-self: start; }
-.insert img { width: 100%; aspect-ratio: 1.64; object-fit: cover; transition: transform 1.4s var(--ease); }
-.insert:hover img { transform: scale(1.05); }
-.insert div { position: absolute; left: 0; top: 0; bottom: 0; width: 46%; padding: clamp(20px, 3vw, 36px); display: flex; flex-direction: column; justify-content: space-between; gap: 16px; }
-.insert h3 { font-size: clamp(28px, 3.2vw, 46px); line-height: 1; }
-.empty { grid-column: 1 / -1; padding: 40px 0; color: var(--navy-soft); }
-.empty button { border: 0; background: none; padding: 0; text-decoration: underline; color: var(--navy); }
+/* The line-up */
+.lineup-sec { padding-top: var(--space); overflow: hidden; }
+.lineup-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; margin-bottom: clamp(28px, 4vw, 48px); }
+.lineup-head h2 { max-width: 18ch; }
+.lineup-head p { font-size: 13px; color: var(--graphite); }
+.floor { position: relative; }
+.floor::before { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 38%; background: var(--stone); }
+.lineup { position: relative; display: flex; justify-content: center; align-items: flex-end; height: clamp(260px, 32vw, 470px); padding-inline: 1%; }
+.pup { position: relative; height: calc(var(--h) * 100%); margin-inline: -1.6%; border: 0; padding: 0; background: none; transition: transform 0.4s var(--ease); }
+.pup img { height: 100%; width: auto; max-width: none; }
+.pup:hover, .pup:focus-visible { transform: translateY(-6px); }
+.pup:focus-visible { outline-offset: -2px; }
+.pup-label { display: block; height: 40px; padding-top: 14px; text-align: center; font: 500 13px/1 var(--sans); color: var(--ink); opacity: 0; transition: opacity 0.25s ease; pointer-events: none; }
+.pup-label.on { opacity: 1; }
+[data-reveal-pup] { transition: opacity 1s var(--ease), transform 1s var(--ease); transition-delay: calc(var(--i) * 70ms); }
+[data-reveal-pup].pre { opacity: 0; transform: translateY(24px); }
 
 /* Bandana wall */
-.wall { background: var(--butter); }
-.wall-head { display: grid; grid-template-columns: 150px minmax(0, 1fr) auto; gap: 28px; align-items: center; margin-bottom: 44px; }
-.wall-head h2 { font-size: clamp(40px, 5vw, 68px); }
-.wall-head p { color: var(--navy-soft); max-width: 46ch; margin-top: 12px; }
-.bandanas { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 12px; }
-.bd { position: relative; aspect-ratio: 0.82; border: 0; padding: 0; border-radius: 18px; background: rgba(255, 255, 255, 0.72); display: grid; place-items: center; transition: background-color 0.3s ease, transform 0.5s var(--spring); }
-.bd img { width: 80%; height: 80%; object-fit: contain; filter: drop-shadow(0 10px 10px rgba(27, 36, 64, 0.12)); transition: transform 0.5s var(--spring); }
-.bd:hover { background: var(--white); transform: translateY(-4px); }
-.bd:hover img { transform: rotate(-4deg) scale(1.05); }
-.bd .lbl { position: absolute; left: 8px; right: 8px; bottom: 8px; font-size: 11px; line-height: 1.3; text-align: center; opacity: 0; transform: translateY(4px); transition: opacity 0.3s ease, transform 0.4s var(--ease); }
-.bd:hover .lbl, .bd:focus-visible .lbl { opacity: 1; transform: none; }
+.wall { padding-top: clamp(56px, 6vw, 88px); }
+.wall-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px 48px; align-items: end; margin-bottom: 40px; }
+.wall-head p { color: var(--graphite); max-width: 44ch; margin-bottom: 20px; }
+.wall-group + .wall-group { margin-top: 48px; }
+.wg-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 14px 0 18px; border-top: 1px solid var(--line); }
+.wg-head > div { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; }
+.wg-head .n { font-size: 13px; color: var(--graphite); font-feature-settings: "tnum" 1; white-space: nowrap; }
+.wg-head h3 { font: 500 14px/1.3 var(--sans); letter-spacing: 0; }
+.wg-head p { font-size: 14px; color: var(--graphite); }
+.swatchbook { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 20px 1px; }
+.bd { display: block; border: 0; padding: 0; background: none; text-align: left; }
+.bd .sq { position: relative; display: block; aspect-ratio: 4 / 5; background: var(--stone); overflow: hidden; }
+.bd img { position: absolute; left: 50%; top: 13%; width: 76%; height: 74%; object-fit: contain; transform: translateX(-50%); transition: opacity 0.4s ease; }
+.bd img.dog { top: auto; bottom: 0; width: 100%; height: 86%; object-position: 50% 100%; opacity: 0; }
+.bd img.dog.stand { bottom: 4%; height: 80%; }
+.bd .lbl { display: block; padding: 10px 2px 0; font-size: 13px; line-height: 1.4; }
+.bd .lbl b { display: block; font-weight: 500; }
+.bd .lbl span { color: var(--graphite); }
+@media (hover: hover) {
+  .bd:hover img.flat, .bd:focus-visible img.flat { opacity: 0; }
+  .bd:hover img.dog, .bd:focus-visible img.dog { opacity: 1; }
+}
 
-/* Fit */
-.fit .wrap { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: clamp(32px, 6vw, 96px); align-items: center; }
-.measure { position: relative; max-width: 430px; width: 100%; justify-self: center; padding-top: 16%; border-radius: 999px 999px var(--r-lg) var(--r-lg); overflow: hidden; }
-.measure .m { position: relative; aspect-ratio: 609 / 860; width: 92%; margin-inline: auto; }
+/* Shop all */
+.shop-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+.shop-head .count { font-size: 13px; color: var(--graphite); }
+.filters { display: flex; justify-content: space-between; align-items: stretch; gap: 24px; margin: 28px 0 44px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); height: 52px; }
+.tabs { display: flex; gap: 28px; overflow-x: auto; scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab { position: relative; flex: none; border: 0; background: none; padding: 0; font: 500 13px/1 var(--sans); color: var(--graphite); }
+.tab small { font-size: 12px; margin-left: 5px; font-feature-settings: "tnum" 1; }
+.tab[aria-pressed="true"] { color: var(--ink); }
+.tab[aria-pressed="true"]::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: var(--ink); }
+.find { position: relative; flex: 0 1 260px; display: flex; align-items: center; }
+.find input { width: 100%; height: 36px; border: 0; border-bottom: 1px solid transparent; background: none; padding: 0 0 0 26px; font-size: 14px; }
+.find input::placeholder { color: var(--graphite); }
+.find input { border-bottom-color: var(--field); }
+.find input:focus { outline: none; border-bottom-color: var(--ink); }
+.find svg { position: absolute; left: 0; width: 16px; height: 16px; fill: none; stroke: var(--graphite); stroke-width: 1.5; }
+.grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 56px 16px; }
+.card { position: relative; min-width: 0; }
+.tile { position: relative; aspect-ratio: 4 / 5; background: var(--stone); margin-bottom: 16px; overflow: hidden; }
+.tile .open { position: absolute; inset: 0; padding: 0; border: 0; background: none; }
+.tile img { position: absolute; left: 50%; transition: opacity 0.5s ease, transform 1.2s var(--ease); }
+.tile img.dog { bottom: 6%; width: 82%; height: 80%; object-fit: contain; object-position: 50% 100%; transform: translateX(-50%); }
+.tile img.dog.bust { bottom: 0; width: 92%; height: 90%; }
+.tile img.flat { top: 12%; width: 70%; height: 70%; object-fit: contain; transform: translateX(-50%); opacity: 0; }
+@media (hover: hover) {
+  .tile:hover img.dog, .tile:hover .open.stand::before { opacity: 0; }
+  .tile:hover img.flat { opacity: 1; transform: translateX(-50%) scale(1.03); }
+}
+.quick { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; padding: 10px 12px; background: var(--paper); opacity: 0; transform: translateY(12px); transition: opacity 0.35s var(--ease), transform 0.35s var(--ease); pointer-events: none; }
+.tile:hover .quick, .tile:focus-within .quick { opacity: 1; transform: none; pointer-events: auto; }
+.quick span { flex: 1 0 100%; font: 500 12px/1.2 var(--sans); color: var(--graphite); margin-bottom: 4px; }
+.quick button { min-width: 36px; height: 32px; padding: 0 8px; border-radius: 2px; border: 1px solid var(--line-strong); background: var(--paper); font: 500 12px/1 var(--sans); }
+.quick button:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.quick button:disabled { opacity: 0.4; cursor: not-allowed; }
+.quick button:disabled:hover { background: var(--paper); color: inherit; border-color: var(--line-strong); }
+.save { position: absolute; top: 6px; right: 6px; z-index: 2; width: 44px; height: 44px; border: 0; background: none; display: grid; place-items: center; }
+.save svg { width: 17px; height: 17px; fill: none; stroke: var(--ink); stroke-width: 1.5; transition: fill 0.2s ease, stroke 0.2s ease; }
+.save[aria-pressed="true"] svg { fill: var(--red); stroke: var(--red); }
+.card .info { display: block; width: 100%; padding: 0; border: 0; background: none; text-align: left; }
+.card .top { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; }
+.card .top b { font-weight: 500; }
+.card .top s { color: var(--graphite); font-size: 13px; margin-left: 6px; }
+.card .kind-t { font-size: 13px; color: var(--graphite); margin-top: 2px; line-height: 1.45; }
+.dots { display: flex; gap: 6px; margin-top: 10px; }
+.dots i { width: 8px; height: 8px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(22, 24, 29, 0.16); }
+.insert { grid-column: span 2; text-decoration: none; }
+.insert .pic { overflow: hidden; background: var(--stone); }
+.insert img { width: 100%; aspect-ratio: 1.64; object-fit: cover; transition: transform 1.2s var(--ease); }
+.insert:hover img { transform: scale(1.03); }
+.insert .cap { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-top: 16px; }
+.insert h3 { font-size: clamp(24px, 2.2vw, 32px); font-weight: 400; letter-spacing: -0.01em; }
+.empty { grid-column: 1 / -1; padding: 24px 0; color: var(--graphite); }
+.empty button { border: 0; background: none; padding: 0; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+
+/* Fit guide */
+.fit { border-top: 1px solid var(--line); }
+.fit-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 6vw, 96px); align-items: center; }
+.measure { position: relative; background: var(--stone); aspect-ratio: 1 / 1.12; display: flex; align-items: flex-end; justify-content: center; overflow: hidden; }
+.measure .m { position: relative; width: 80%; aspect-ratio: 609 / 860; }
 .measure img { width: 100%; height: 100%; object-fit: contain; }
 .measure svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-.measure .tape { fill: none; stroke: var(--white); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 1 10; animation: march 1.4s linear infinite; }
-.measure .tape-back { fill: none; stroke: var(--white); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 1 10; opacity: 0.55; }
-@keyframes march { to { stroke-dashoffset: -22; } }
-.measure .lbl { position: absolute; font-family: var(--serif); font-style: italic; font-weight: 340; font-size: 18px; background: var(--white); padding: 2px 14px 4px; border-radius: 999px; box-shadow: 0 10px 20px -10px rgba(27, 36, 64, 0.3); transition: transform 0.5s var(--spring); }
-.measure .lbl.on { transform: scale(1.12); color: var(--red); }
-.fit h2 { font-size: clamp(42px, 5.4vw, 74px); margin-bottom: 18px; }
-.fit .intro { color: var(--navy-soft); max-width: 46ch; }
-.engine { margin-top: 34px; border: 1px solid var(--line); border-radius: var(--r-lg); padding: clamp(20px, 2.6vw, 32px); }
-.sliders { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; padding-bottom: 22px; border-bottom: 1px solid var(--line); }
-.sl { display: grid; gap: 8px; }
-.sl label { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
-.sl output { font-family: var(--serif); font-weight: 400; font-size: 30px; letter-spacing: -0.02em; text-transform: none; font-variant-numeric: tabular-nums; }
-.sl output small { font-family: var(--sans); font-size: 12px; color: var(--navy-soft); margin-left: 3px; letter-spacing: 0; }
-input[type="range"] { -webkit-appearance: none; appearance: none; width: 100%; height: 24px; background: none; margin: 0; cursor: pointer; }
-input[type="range"]::-webkit-slider-runnable-track { height: 4px; border-radius: 999px; background: linear-gradient(to right, var(--navy) var(--p, 50%), var(--cloud) var(--p, 50%)); }
-input[type="range"]::-moz-range-track { height: 4px; border-radius: 999px; background: var(--cloud); }
-input[type="range"]::-moz-range-progress { height: 4px; border-radius: 999px; background: var(--navy); }
-input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; margin-top: -10px; border-radius: 50%; background: var(--white); border: 1px solid var(--line); box-shadow: 0 4px 12px rgba(27, 36, 64, 0.25); transition: transform 0.3s var(--spring); }
-input[type="range"]:active::-webkit-slider-thumb { transform: scale(1.18); }
-input[type="range"]::-moz-range-thumb { width: 24px; height: 24px; border-radius: 50%; background: var(--white); border: 1px solid var(--line); box-shadow: 0 4px 12px rgba(27, 36, 64, 0.25); }
-.res { display: grid; grid-template-columns: 46px minmax(0, 1fr) 58px; gap: 6px 16px; align-items: center; padding: 15px 0; border-bottom: 1px solid var(--line); }
+.measure path { fill: none; stroke: rgba(22, 24, 29, 0.45); stroke-width: 1.5; stroke-dasharray: 5 5; }
+.measure .back { opacity: 0.45; }
+.measure .tag { position: absolute; padding: 5px 8px; background: var(--paper); border: 1px solid var(--line); font: 500 10px/1 var(--sans); letter-spacing: 0.14em; text-transform: uppercase; transition: background-color 0.25s ease, color 0.25s ease; }
+.measure .tag.on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.fit .label { margin-bottom: 18px; }
+.fit .intro { color: var(--graphite); max-width: 46ch; margin-top: 18px; }
+.engine { margin-top: 36px; border: 1px solid var(--line); padding: 28px; }
+.engine-top { display: flex; justify-content: flex-end; gap: 14px; margin: -8px 0 12px; }
+.unit { border: 0; background: none; padding: 2px 0; font: 500 12px/1 var(--sans); letter-spacing: 0.12em; color: var(--graphite); }
+.unit[aria-pressed="true"] { color: var(--ink); text-decoration: underline; text-underline-offset: 5px; }
+.sliders { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--line); }
+.sl { display: grid; gap: 10px; }
+.sl label { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; font: 500 11px/1 var(--sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--graphite); }
+.sl output { font: 300 34px/1 var(--serif); letter-spacing: -0.01em; color: var(--ink); text-transform: none; font-variant-numeric: lining-nums tabular-nums; }
+.sl output small { font: 400 12px/1 var(--sans); color: var(--graphite); margin-left: 4px; letter-spacing: 0; }
+input[type="range"] { -webkit-appearance: none; appearance: none; width: 100%; height: 20px; background: none; margin: 0; cursor: pointer; }
+input[type="range"]::-webkit-slider-runnable-track { height: 1px; background: linear-gradient(to right, var(--ink) var(--p, 50%), var(--line-strong) var(--p, 50%)); }
+input[type="range"]::-moz-range-track { height: 1px; background: var(--line-strong); }
+input[type="range"]::-moz-range-progress { height: 1px; background: var(--ink); }
+input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; margin-top: -7px; border-radius: 50%; background: var(--ink); border: 0; }
+input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 50%; background: var(--ink); border: 0; }
+.res { display: grid; grid-template-columns: 48px minmax(0, 1fr) 52px; gap: 6px 18px; align-items: center; padding: 16px 0; border-bottom: 1px solid var(--line); }
 .res:last-child { border-bottom: 0; padding-bottom: 0; }
-.res .thumb { width: 46px; height: 46px; border-radius: 50%; background: var(--cloud); display: grid; place-items: center; overflow: hidden; }
-.res .thumb img { width: 74%; height: 74%; object-fit: contain; }
+.res .thumb { width: 48px; height: 48px; background: var(--stone); display: grid; place-items: center; }
+.res .thumb img { width: 76%; height: 76%; object-fit: contain; }
 .res .who { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
-.res strong { font-family: var(--serif); font-weight: 400; font-size: 18px; line-height: 1.25; }
-.res .who small { font-size: 12.5px; color: var(--navy-soft); }
-.scale { position: relative; height: 22px; margin-top: 6px; }
-.scale .track { position: absolute; left: 0; right: 0; top: 9px; height: 4px; border-radius: 999px; background: var(--cloud); display: flex; overflow: hidden; }
-.scale .s { height: 100%; border-right: 2px solid var(--white); transition: background-color 0.3s ease; }
-.scale .s.on { background: var(--sky-deep); }
-.scale .mk { position: absolute; top: 3px; width: 16px; height: 16px; margin-left: -8px; border-radius: 50%; background: var(--red); border: 3px solid var(--white); box-shadow: 0 2px 6px rgba(27, 36, 64, 0.25); transition: left 0.45s var(--ease); }
-.res .sz { justify-self: end; width: 58px; height: 58px; border-radius: 50%; background: var(--navy); color: var(--white); display: grid; place-items: center; border: 0; font-family: var(--serif); font-size: 19px; transition: background-color 0.3s ease, transform 0.4s var(--spring); }
-.res .sz:hover { background: var(--red); transform: scale(1.06); }
-.res .sz.flip { animation: pop 0.45s var(--spring); }
-.res .msg { grid-column: 2 / 4; font-size: 13px; color: var(--navy-soft); }
-.fit .note { margin-top: 16px; font-size: 13.5px; color: var(--navy-soft); }
+.res strong { font: 400 18px/1.25 var(--serif); }
+.res .who small { font-size: 12px; color: var(--graphite); }
+.scale { position: relative; height: 30px; margin-top: 6px; }
+.scale .code { position: absolute; top: 16px; transform: translateX(-50%); font-size: 10px; line-height: 1; color: var(--graphite); font-feature-settings: "tnum" 1; }
+.scale .code.on { color: var(--ink); font-weight: 600; }
+.scale .track { position: absolute; left: 0; right: 0; top: 8px; height: 1px; background: var(--line-strong); }
+.scale .tick { position: absolute; top: 5px; width: 1px; height: 7px; background: var(--line-strong); }
+.scale .seg { position: absolute; top: 8px; height: 1px; background: var(--ink); transition: left 0.45s var(--ease), width 0.45s var(--ease); }
+.scale .mk { position: absolute; top: 5px; width: 8px; height: 8px; margin-left: -4px; border-radius: 50%; background: var(--red); transition: left 0.45s var(--ease); }
+.res .sz { justify-self: end; width: 52px; height: 52px; border: 1px solid var(--ink); background: var(--paper); display: grid; place-items: center; font: 400 18px/1 var(--serif); transition: background-color 0.25s ease, color 0.25s ease; }
+.res .sz:hover { background: var(--ink); color: var(--paper); }
+.res .msg { grid-column: 2 / 4; font-size: 13px; color: var(--graphite); }
+.fit .note { margin-top: 18px; font-size: 13px; color: var(--graphite); }
 
-/* Join card with dogs peeking over the top */
-.join-wrap { padding-top: clamp(110px, 12vw, 160px); }
-.join { position: relative; background: var(--sky); border-radius: var(--r-xl); padding: clamp(40px, 6vw, 80px) clamp(24px, 5vw, 72px); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px 56px; align-items: end; }
-.peek { position: absolute; left: 50%; top: 0; transform: translate(-50%, -78%); display: flex; align-items: flex-end; gap: 0; pointer-events: none; }
-.peek img { height: clamp(110px, 12vw, 160px); width: auto; max-width: none; margin-inline: -10px; clip-path: inset(0 0 22% 0); }
-.peek img:nth-child(2) { height: clamp(130px, 14vw, 190px); }
-.join h2 { font-size: clamp(44px, 6vw, 88px); }
-.join p { color: var(--navy-soft); }
-.join form { display: flex; gap: 8px; margin-top: 20px; flex-wrap: wrap; }
-.join input { flex: 1 1 220px; min-width: 0; height: 50px; padding: 0 22px; border-radius: 999px; border: 1px solid rgba(27, 36, 64, 0.2); background: var(--white); }
-.join input:focus { outline: none; border-color: var(--navy); }
-.join .small { margin-top: 12px; font-size: 13.5px; color: var(--navy-soft); min-height: 1.5em; }
+/* Newsletter */
+.join { border-top: 1px solid var(--line); padding-block: clamp(88px, 10vw, 140px); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px 64px; align-items: end; }
+.join p { color: var(--graphite); font-size: 15px; max-width: 46ch; }
+.join form { display: flex; gap: 12px; margin-top: 20px; }
+.join input { flex: 1 1 auto; min-width: 0; height: 48px; border: 0; border-bottom: 1px solid var(--field); background: none; padding: 0; font-size: 15px; }
+.join input::placeholder { color: var(--graphite); }
+.join input:focus { outline: none; border-bottom-color: var(--ink); }
+.join .small { margin-top: 12px; font-size: 13px; min-height: 1.5em; }
 
 /* Footer */
-.foot { background: var(--navy); color: var(--white); margin-top: clamp(64px, 8vw, 110px); }
-.foot-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr)); gap: 32px; padding-block: 64px 48px; }
-.foot-grid .say { font-family: var(--serif); font-style: italic; font-weight: 340; font-size: 24px; color: rgba(255, 255, 255, 0.9); max-width: 14ch; line-height: 1.2; }
-.foot-col h3 { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255, 255, 255, 0.55); margin-bottom: 16px; }
-.foot-col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; font-size: 15px; }
-.foot-col a, .foot-col button { color: var(--white); text-decoration: none; background: none; border: 0; padding: 0; text-align: left; }
-.foot-col a:hover, .foot-col button:hover { color: #FF9EA2; }
-.wordmark { display: block; width: 100%; height: auto; margin-top: 4px; translate: 0 calc((1 - var(--fp, 1)) * 60px); }
-.foot-base { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-block: 22px 28px; font-size: 13px; color: rgba(255, 255, 255, 0.6); }
-.foot-strip { height: 18px; }
+.foot { background: var(--ink); color: var(--paper); }
+.foot-grid { display: grid; grid-template-columns: minmax(0, 2fr) repeat(3, minmax(0, 1fr)); gap: 32px; padding-block: 72px 56px; }
+.foot-brand img { width: 132px; height: auto; }
+.foot-brand p { font: 300 24px/1.25 var(--serif); color: #DCDCDD; max-width: 14ch; margin-top: 20px; }
+.foot-col h3 { font: 500 13px/1.2 var(--sans); color: var(--on-ink-muted); margin-bottom: 18px; }
+.foot-col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; font-size: 15px; }
+.foot-col a, .foot-col button { color: var(--paper); text-decoration: none; background: none; border: 0; padding: 0; text-align: left; }
+.foot-col a:hover, .foot-col button:hover { text-decoration: underline; text-underline-offset: 4px; }
+.foot-col li span { color: var(--on-ink-muted); }
+.sizerun { display: flex; justify-content: space-between; gap: 8px; padding-block: 20px; border-top: 1px solid rgba(255, 255, 255, 0.12); font: 300 clamp(15px, 2.3vw, 32px)/1 var(--serif); color: rgba(255, 255, 255, 0.32); font-variant-numeric: lining-nums tabular-nums; }
+.sizerun .r { color: var(--red); }
+.foot-base { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-block: 22px 28px; border-top: 1px solid rgba(255, 255, 255, 0.12); font-size: 13px; color: var(--on-ink-muted); }
+.foot-base a { color: inherit; }
 
-/* Floating mini bag */
-.dock { position: fixed; left: 50%; bottom: max(18px, calc(env(safe-area-inset-bottom, 0px) + 12px)); z-index: 45; display: flex; align-items: center; gap: 14px; padding: 7px 7px 7px 8px; border-radius: 999px; background: rgba(255, 255, 255, 0.86); backdrop-filter: saturate(1.4) blur(18px); -webkit-backdrop-filter: saturate(1.4) blur(18px); border: 1px solid var(--line); box-shadow: 0 20px 40px -20px rgba(27, 36, 64, 0.45); transform: translate(-50%, 140%); transition: transform 0.7s var(--ease); max-width: calc(100% - 24px); }
+/* Bag dock: only when the bag has something in it */
+.dock { position: fixed; left: 50%; bottom: max(16px, calc(env(safe-area-inset-bottom, 0px) + 12px)); z-index: 45; display: flex; align-items: center; gap: 20px; max-width: calc(100% - 32px); padding: 8px 8px 8px 18px; border-radius: 2px; background: var(--ink); color: var(--paper); font-size: 14px; font-feature-settings: "tnum" 1; transform: translate(-50%, 160%); transition: transform 0.5s var(--ease); white-space: nowrap; }
 .dock.show { transform: translate(-50%, 0); }
-.dock .face { position: relative; width: 40px; height: 40px; flex: none; }
-.dock .face::before { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--sky); }
-.dock .face .clip { position: absolute; left: 0; right: 0; bottom: 0; top: -30%; border-radius: 0 0 999px 999px; overflow: hidden; }
-.dock .face img { position: absolute; left: 50%; bottom: -14%; height: 112%; width: auto; max-width: none; transform: translateX(-50%); }
-.dock .txt { font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
-.dock .txt b { font-family: var(--serif); font-weight: 500; }
-.dock .btn { min-height: 42px; padding: 0 20px; font-size: 11.5px; flex: none; }
+.dock button { border: 0; background: none; padding: 0; color: var(--paper); font: 500 14px/1 var(--sans); font-feature-settings: "tnum" 1; }
+@media (min-width: 1081px) { .dock { display: none; } }
+.dock .btn { height: 40px; padding: 0 18px; }
 
 /* Dialogs */
-dialog { border: 0; padding: 0; background: var(--white); color: var(--navy); max-width: none; max-height: none; }
-dialog::backdrop { background: rgba(27, 36, 64, 0.4); backdrop-filter: blur(5px); }
-dialog[open] { animation: dlgIn 0.6s var(--ease); }
-dialog[open]::backdrop { animation: fade 0.4s ease; }
-@keyframes dlgIn { from { opacity: 0; transform: translateY(26px) scale(0.98); } }
+dialog { border: 0; padding: 0; background: var(--paper); color: var(--ink); max-width: none; max-height: none; }
+dialog::backdrop { background: rgba(22, 24, 29, 0.32); }
+dialog[open] { animation: dlgIn 0.5s var(--ease); }
+dialog[open]::backdrop { animation: fade 0.3s ease; }
+@keyframes dlgIn { from { opacity: 0; transform: translateY(12px); } }
 @keyframes fade { from { opacity: 0; } }
-.x { position: absolute; top: 16px; right: 16px; z-index: 3; width: 44px; height: 44px; border-radius: 50%; border: 0; background: var(--white); display: grid; place-items: center; box-shadow: 0 2px 10px rgba(27, 36, 64, 0.1); transition: transform 0.4s var(--ease); }
-.x:hover { transform: rotate(90deg); }
-.x svg { width: 18px; height: 18px; }
-.pd { width: min(1120px, calc(100% - 32px)); max-height: calc(100% - 32px); border-radius: var(--r-xl); overflow: auto; overscroll-behavior: contain; }
+.x { position: absolute; top: 8px; right: 8px; z-index: 3; width: 44px; height: 44px; border: 0; background: var(--paper); display: grid; place-items: center; }
+.x svg { width: 18px; height: 18px; fill: none; stroke: var(--ink); stroke-width: 1.5; }
+.pd { width: min(1120px, calc(100% - 48px)); max-height: calc(100% - 48px); overflow: auto; overscroll-behavior: contain; }
 .pd-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); }
-.pd-media { padding: 18px; display: grid; gap: 14px; align-content: start; }
-.pd-stage { position: relative; aspect-ratio: 1 / 1.1; border-radius: var(--r-lg); overflow: hidden; background: var(--cloud); }
-.pd-stage img { position: absolute; inset: 0; width: 100%; height: 100%; animation: fade 0.5s ease; }
-.pd-stage img.flat { object-fit: contain; padding: 14%; filter: drop-shadow(0 20px 18px rgba(27, 36, 64, 0.14)); }
-.pd-stage img.cover { object-fit: cover; }
-.pd-thumbs { display: flex; gap: 10px; }
-.pd-thumbs button { width: 64px; height: 64px; border-radius: 50%; padding: 0; overflow: hidden; border: 1.5px solid transparent; background: var(--cloud); }
-.pd-thumbs button[aria-current="true"] { border-color: var(--navy); }
-.pd-thumbs img { width: 100%; height: 100%; object-fit: cover; }
-.pd-thumbs img.c { object-fit: contain; padding: 9px; }
+.pd-media { padding: 16px; display: grid; gap: 8px; align-content: start; }
+.pd-stage { position: relative; aspect-ratio: 4 / 5; background: var(--stone); overflow: hidden; }
+.pd-stage img { position: absolute; left: 50%; transform: translateX(-50%); object-fit: contain; animation: fade 0.45s ease; }
+.pd-stage img.dog { bottom: 6%; width: 84%; height: 82%; object-position: 50% 100%; }
+.pd-stage img.dog.bust { bottom: 0; width: 92%; height: 92%; }
+.pd-stage img.flat { top: 12%; width: 72%; height: 74%; }
+.pd-thumbs { display: flex; gap: 8px; flex-wrap: wrap; }
+.pd-thumbs button { width: 64px; height: 80px; padding: 0; border: 1px solid transparent; background: var(--stone); display: grid; place-items: center; overflow: hidden; }
+.pd-thumbs button[aria-current="true"] { border-color: var(--ink); }
+.pd-thumbs img { width: 84%; height: 84%; object-fit: contain; }
 .pd-info { padding: clamp(28px, 3.6vw, 52px); display: grid; gap: 22px; align-content: start; }
-.pd-info h2 { font-size: clamp(38px, 4vw, 56px); margin-top: 12px; }
-.pd-info .line { font-family: var(--serif); font-style: italic; font-weight: 340; font-size: 20px; margin-top: 12px; color: var(--navy-soft); }
-.pd-info .blurb { color: var(--navy-soft); font-size: 15px; }
-.pd-info .love { position: static; width: 50px; height: 50px; border: 1px solid var(--line); background: var(--white); flex: none; }
-.pd-info .row .btn { flex: 1 1 auto; }
+.pd-info h2 { font-size: clamp(36px, 3.4vw, 48px); line-height: 1.02; margin-top: 12px; }
+.pd-info .blurb { color: var(--graphite); font-size: 15px; }
+.pd-info .actions { flex-wrap: nowrap; gap: 8px; }
+.pd-info .row .btn { flex: 1 1 auto; height: 52px; }
+.pd-info .save { position: static; width: 52px; height: 52px; border: 1px solid var(--line); flex: none; }
 .acc { border-top: 1px solid var(--line); }
 .acc details { border-bottom: 1px solid var(--line); }
-.acc summary { list-style: none; cursor: pointer; padding: 16px 0; font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; display: flex; justify-content: space-between; align-items: center; }
+.acc summary { list-style: none; cursor: pointer; height: 52px; display: flex; justify-content: space-between; align-items: center; font: 500 12px/1 var(--sans); letter-spacing: 0.12em; text-transform: uppercase; }
 .acc summary::-webkit-details-marker { display: none; }
-.acc summary::after { content: "+"; font-family: var(--serif); font-weight: 300; font-size: 24px; letter-spacing: 0; line-height: 1; transition: transform 0.4s var(--ease); }
-.acc details[open] summary::after { transform: rotate(45deg); }
-.acc .body { padding-bottom: 18px; color: var(--navy-soft); display: grid; gap: 10px; font-size: 15px; }
+.acc summary i { position: relative; width: 12px; height: 12px; }
+.acc summary i::before, .acc summary i::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--ink); transition: transform 0.3s var(--ease); }
+.acc summary i::after { transform: rotate(90deg); }
+.acc details[open] summary i::after { transform: rotate(0); }
+.acc .body { padding-bottom: 20px; color: var(--graphite); display: grid; gap: 10px; font-size: 15px; }
 .acc ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
 .chart-wrap { overflow-x: auto; }
-.chart { width: 100%; border-collapse: collapse; font-size: 13.5px; font-variant-numeric: tabular-nums; color: var(--navy); }
+.chart { width: 100%; border-collapse: collapse; font-size: 13.5px; font-feature-settings: "tnum" 1; color: var(--ink); }
 .chart th, .chart td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; }
-.chart th { font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--navy-soft); }
-.chart tr.hit td { background: var(--sky); }
-.store-link { font-size: 11.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; text-underline-offset: 4px; }
-
+.chart th { font: 500 10.5px/1.2 var(--sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--graphite); }
+.chart tr.hit td { background: var(--mist); }
 .drawer { margin: 0 0 0 auto; width: min(440px, 100%); height: 100%; max-height: 100%; display: none; flex-direction: column; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
-.drawer[open] { display: flex; animation: drawerIn 0.6s var(--ease); }
-@keyframes drawerIn { from { transform: translateX(60px); opacity: 0; } }
-.d-head { display: flex; justify-content: space-between; align-items: center; padding: 22px 24px; padding-right: max(24px, env(safe-area-inset-right, 0px)); border-bottom: 1px solid var(--line); }
-.d-head h2 { font-size: 32px; }
-.d-head .x { position: static; box-shadow: none; background: var(--cloud); }
-.d-body { flex: 1; overflow: auto; padding: 6px 24px; padding-right: max(24px, env(safe-area-inset-right, 0px)); }
-.d-foot { padding: 20px 24px 26px; padding-right: max(24px, env(safe-area-inset-right, 0px)); border-top: 1px solid var(--line); display: grid; gap: 12px; }
-.li { display: grid; grid-template-columns: 76px minmax(0, 1fr) auto; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--line); align-items: start; animation: fadeUp 0.5s var(--ease) both; }
-.li .thumb { width: 76px; height: 92px; border-radius: 14px; background: var(--cloud); display: grid; place-items: center; }
-.li .thumb img { width: 76%; height: 76%; object-fit: contain; }
-.li strong { display: block; font-family: var(--serif); font-weight: 400; font-size: 19px; }
-.li .sub { font-size: 14px; color: var(--navy-soft); }
-.qty { display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: 999px; margin-top: 10px; }
-.qty button { width: 32px; height: 32px; border: 0; background: none; border-radius: 50%; font-size: 17px; }
-.qty span { min-width: 20px; text-align: center; font-size: 14px; font-weight: 700; }
-.remove { border: 0; background: none; padding: 0; margin-left: 12px; font-size: 13px; color: var(--navy-soft); text-decoration: underline; }
-.li .lp { font-weight: 700; }
-.total { display: flex; justify-content: space-between; align-items: baseline; }
-.total > span { font-size: 11.5px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
-.total strong { font-family: var(--serif); font-weight: 400; font-size: 28px; }
-.total small { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.14em; color: var(--navy-soft); }
-.d-foot .note { font-size: 13px; color: var(--navy-soft); }
-.bag-empty { padding: 48px 0; display: grid; gap: 20px; justify-items: start; }
-.bag-empty p { font-family: var(--serif); font-weight: 380; font-size: 24px; }
-
-.search-dlg { width: min(720px, calc(100% - 32px)); margin-top: max(80px, calc(env(safe-area-inset-top, 0px) + 64px)); border-radius: var(--r-lg); }
+.drawer[open] { display: flex; animation: drawerIn 0.45s var(--ease); }
+@keyframes drawerIn { from { transform: translateX(100%); } }
+.d-head { display: flex; justify-content: space-between; align-items: center; padding: 22px 24px; border-bottom: 1px solid var(--line); }
+.d-head h2 { font-size: 28px; }
+.d-head h2 small { font: 400 13px/1 var(--sans); color: var(--graphite); margin-left: 6px; letter-spacing: 0; }
+.d-head .x { position: static; }
+.d-body { flex: 1; overflow: auto; padding: 0 24px; }
+.d-foot { padding: 20px 24px 26px; border-top: 1px solid var(--line); display: grid; gap: 14px; }
+.li { display: grid; grid-template-columns: 72px minmax(0, 1fr) auto; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--line); align-items: start; }
+.li .thumb { width: 72px; height: 90px; background: var(--stone); display: grid; place-items: center; }
+.li .thumb img { width: 80%; height: 80%; object-fit: contain; }
+.li strong { display: block; font-weight: 500; font-size: 14px; }
+.li .sub { font-size: 13px; color: var(--graphite); }
+.qty { display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: 2px; margin-top: 12px; }
+.qty button { width: 32px; height: 32px; border: 0; background: none; font-size: 16px; }
+.qty span { min-width: 22px; text-align: center; font-size: 13px; font-feature-settings: "tnum" 1; }
+.remove { border: 0; background: none; padding: 0; margin-left: 14px; font-size: 12px; color: var(--graphite); text-decoration: underline; text-underline-offset: 3px; }
+.li .lp { font-size: 14px; font-feature-settings: "tnum" 1; }
+.total { display: flex; justify-content: space-between; align-items: baseline; font-feature-settings: "tnum" 1; }
+.total span { font: 500 11px/1 var(--sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--graphite); }
+.total strong { font-weight: 600; font-size: 18px; }
+.total small { font: 500 11px/1 var(--sans); color: var(--graphite); letter-spacing: 0.12em; }
+.d-foot .note { font-size: 13px; color: var(--graphite); }
+.d-foot .btn { width: 100%; height: 52px; }
+.d-foot .tlink { justify-self: center; }
+.bag-empty { padding: 40px 0; display: grid; gap: 14px; justify-items: start; }
+.bag-empty strong { font: 300 24px/1.2 var(--serif); }
+.bag-empty p { color: var(--graphite); font-size: 15px; margin-bottom: 8px; }
+.search-dlg { width: min(720px, calc(100% - 32px)); margin-top: max(84px, calc(env(safe-area-inset-top, 0px) + 72px)); border-radius: 2px; }
 .search-dlg .in { position: relative; border-bottom: 1px solid var(--line); }
-.search-dlg input { width: 100%; height: 70px; border: 0; background: none; padding: 0 70px 0 58px; font-family: var(--serif); font-size: 21px; }
+.search-dlg input { width: 100%; height: 70px; border: 0; background: none; padding: 0 64px 0 56px; font: 300 24px/1 var(--serif); }
 .search-dlg input:focus { outline: none; }
-.search-dlg .in > svg { position: absolute; left: 22px; top: 50%; width: 21px; height: 21px; transform: translateY(-50%); color: var(--navy-soft); }
-.search-dlg .x { top: 13px; box-shadow: none; background: var(--cloud); }
-.found { list-style: none; margin: 0; padding: 10px; max-height: min(60vh, 520px); overflow: auto; }
-.found li { animation: fadeUp 0.45s var(--ease) both; }
-.found button { width: 100%; display: grid; grid-template-columns: 56px minmax(0, 1fr) auto; gap: 14px; align-items: center; padding: 8px; border: 0; border-radius: 18px; background: none; text-align: left; }
-.found button:hover, .found button:focus-visible { background: var(--cloud); }
-.found .thumb { width: 56px; height: 56px; border-radius: 50%; background: var(--cloud); display: grid; place-items: center; }
-.found .thumb img { width: 74%; height: 74%; object-fit: contain; }
-.found strong { display: block; font-family: var(--serif); font-weight: 400; font-size: 19px; }
-.found span { font-size: 14px; color: var(--navy-soft); }
-.found .none { padding: 24px 12px; color: var(--navy-soft); }
-
-.toast { position: fixed; left: 50%; top: max(90px, calc(env(safe-area-inset-top, 0px) + 80px)); z-index: 90; transform: translate(-50%, -16px); opacity: 0; pointer-events: none; display: flex; align-items: center; gap: 16px; max-width: calc(100% - 32px); background: var(--navy); color: var(--white); border-radius: 999px; padding: 10px 10px 10px 22px; transition: opacity 0.4s var(--ease), transform 0.5s var(--ease); font-size: 14.5px; }
-.toast.show { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
-.toast button { border: 0; border-radius: 999px; height: 36px; padding: 0 16px; background: var(--white); color: var(--navy); font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; white-space: nowrap; }
+.search-dlg .in > svg { position: absolute; left: 22px; top: 50%; width: 18px; height: 18px; transform: translateY(-50%); fill: none; stroke: var(--graphite); stroke-width: 1.5; }
+.search-dlg .x { top: 13px; }
+.found { list-style: none; margin: 0; padding: 8px; max-height: min(60vh, 520px); overflow: auto; }
+.found button { width: 100%; display: grid; grid-template-columns: 56px minmax(0, 1fr) auto; gap: 16px; align-items: center; padding: 8px; border: 0; background: none; text-align: left; }
+.found button:hover, .found button:focus-visible { background: var(--mist); }
+.found .thumb { width: 56px; height: 56px; background: var(--stone); display: grid; place-items: center; }
+.found .thumb img { width: 78%; height: 78%; object-fit: contain; }
+.found strong { display: block; font-weight: 500; font-size: 14px; }
+.found span { font-size: 13px; color: var(--graphite); }
+.found .p { font-size: 14px; color: var(--ink); font-feature-settings: "tnum" 1; }
+.found .none { padding: 24px 12px; color: var(--graphite); }
+.toast { position: fixed; right: var(--gr); top: max(84px, calc(env(safe-area-inset-top, 0px) + 76px)); z-index: 90; display: flex; align-items: center; gap: 20px; max-width: calc(100% - 32px); padding: 14px 18px; border-radius: 2px; background: var(--ink); color: var(--paper); font-size: 14px; opacity: 0; transform: translateY(-8px); pointer-events: none; transition: opacity 0.4s var(--ease), transform 0.4s var(--ease); }
+.toast.show { opacity: 1; transform: none; pointer-events: auto; }
+.toast button { border: 0; background: none; padding: 0; color: var(--paper); font: 500 12px/1 var(--sans); letter-spacing: 0.12em; text-transform: uppercase; text-decoration: underline; text-underline-offset: 4px; white-space: nowrap; }
 
 @media (max-width: 1080px) {
   .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .bandanas { grid-template-columns: repeat(6, minmax(0, 1fr)); }
-  .nav { gap: 20px; }
-  .promises { grid-template-columns: minmax(0, 1fr); max-width: 560px; }
+  .tools .tool { display: none; }
+  .tools .icon { display: grid; }
+  .tools { gap: 0; }
+  .nav { gap: 24px; }
 }
 @media (max-width: 900px) {
+  .notice { font-size: 12px; }
   .nav { display: none; }
-  .menu-btn { display: inline-grid; justify-self: start; }
-  .mobile-nav.open { display: block; border-top: 1px solid var(--line); }
-  .mobile-nav ul { list-style: none; margin: 0; padding: 10px 0 18px; }
-  .mobile-nav a { display: block; padding: 10px 0; font-family: var(--serif); font-weight: 380; font-size: 30px; text-decoration: none; }
-  .hero .patch-r { width: 92px; }
-  .lineup { height: clamp(200px, 52vw, 340px); }
-  .pup:nth-child(1), .pup:nth-child(7) { display: none; }
-  .kinds { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
-  .kind.k-rain { grid-row: auto; grid-column: 1 / -1; min-height: 0; aspect-ratio: 1.1; }
-  .kind.k-bandanas { grid-column: 1 / -1; }
+  .site-header .wrap, .site-header.scrolled .wrap { height: 56px; }
+  .brand img, .site-header.scrolled .brand img { height: 26px; }
+  .menu-btn { display: grid; justify-self: start; margin-left: -12px; }
+  .tools .saved-icon { display: none; }
+  .mobile-nav.open { display: block; border-top: 1px solid var(--line); background: var(--paper); }
+  .mobile-nav ul { list-style: none; margin: 0; padding: 0 0 20px; }
+  .mobile-nav li a { display: block; padding: 14px 0; border-bottom: 1px solid var(--line); font: 300 32px/1.1 var(--serif); text-decoration: none; }
+  .mobile-nav .tlink { margin: 4px 0 22px; }
+  .hero { height: calc(100svh - 92px); min-height: 560px; }
+  .hero-copy { grid-template-columns: minmax(0, 1fr); }
+  .play { position: absolute; top: 20px; left: var(--gl); }
+  .facts { grid-template-columns: minmax(0, 1fr); border-bottom: 0; }
+  .fact { border-left: 0; border-bottom: 1px solid var(--line); padding: 20px 0; }
+  .kinds-grid { grid-template-columns: minmax(0, 1fr); }
+  .kinds-panel { display: none; }
+  .kind-row { grid-template-columns: minmax(0, 1fr) 64px; align-items: center; }
+  .kind-row .kname { font-size: 40px; }
+  .kind-row .kdesc { grid-column: 1; grid-row: 2; text-align: left; margin-top: -12px; }
+  .kind-row .thumb { display: block; grid-column: 2; grid-row: 1 / 3; width: 64px; height: 80px; background: var(--stone); position: relative; overflow: hidden; }
+  .kind-row .thumb img { position: absolute; left: 50%; bottom: 0; width: 92%; height: 92%; object-fit: contain; object-position: 50% 100%; transform: translateX(-50%); }
   .story .wrap { grid-template-columns: minmax(0, 1fr); gap: 0; }
-  .stage { top: 64px; height: 46vh; min-height: 300px; z-index: 2; background: var(--sky); padding-bottom: 34px; }
+  .stage { top: 56px; height: 46vh; min-height: 300px; z-index: 2; background: var(--stone); padding-bottom: 34px; }
   .steps-col { padding-block: 24px 72px; }
   .story-steps { position: relative; z-index: 1; }
   .step { min-height: 52vh; justify-content: flex-start; padding-top: 20px; }
   .buy-d { display: none; }
   .buy-m-wrap { display: block; padding-bottom: 72px; }
   .buy-m { margin-top: 0; }
-  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 14px; }
-  .wall-head { grid-template-columns: 110px minmax(0, 1fr); }
-  .wall-head .btn { grid-column: 1 / -1; justify-self: start; }
-  .bandanas { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  .fit .wrap, .join { grid-template-columns: minmax(0, 1fr); }
+  .lineup { height: clamp(220px, 56vw, 380px); }
+  .pup:nth-child(1), .pup:nth-child(7) { display: none; }
+  .wall-head { grid-template-columns: minmax(0, 1fr); }
+  .swatchbook { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .wg-head { flex-direction: column; gap: 4px; }
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 8px; }
+  .fit-grid, .join { grid-template-columns: minmax(0, 1fr); }
   .foot-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .foot-grid > :first-child { grid-column: 1 / -1; }
-  .pd { width: 100%; max-height: calc(100% - 20px); margin: auto 0 0; border-radius: var(--r-xl) var(--r-xl) 0 0; padding-bottom: env(safe-area-inset-bottom, 0px); }
+  .pd { width: 100%; max-height: calc(100% - 20px); margin: auto 0 0; padding-bottom: env(safe-area-inset-bottom, 0px); }
   .pd-grid { grid-template-columns: minmax(0, 1fr); }
+  .pd-info .actions { position: sticky; bottom: 0; z-index: 2; background: var(--paper); border-top: 1px solid var(--line); padding: 12px 0; margin-inline: -4px; }
+  .toast { left: 16px; right: 16px; justify-content: space-between; }
 }
 @media (max-width: 560px) {
-  body { font-size: 16px; }
-  .brand img { height: 34px; }
-  .hero { min-height: 600px; height: calc(100svh - 110px); }
-  .hero h1 { font-size: 64px; }
-  .hero .lede { font-size: 16.5px; }
-  .play { width: 40px; height: 40px; bottom: auto; top: 20px; right: auto; left: var(--gl); }
-  .hero .patch-r { width: 84px; }
-  .lineup { height: 64vw; margin-inline: -8%; }
-  .pup { margin-inline: -3%; }
-  .promise { grid-template-columns: 76px minmax(0, 1fr); }
-  .kinds { grid-template-columns: minmax(0, 1fr); }
-  .kind.k-home, .kind.k-town { aspect-ratio: 1.2; }
-  .filters { display: grid; grid-template-columns: minmax(0, 1fr); }
-  .chips { flex-wrap: nowrap; overflow-x: auto; margin-inline: calc(-1 * var(--gl)) calc(-1 * var(--gr)); padding-inline: var(--gl) var(--gr); scrollbar-width: none; }
-  .chips::-webkit-scrollbar { display: none; }
-  .chip { flex: 0 0 auto; }
-  .card h3 { font-size: 18px; }
-  .card .top { flex-direction: column; gap: 0; }
+  body { font-size: 15px; }
+  .hero .lede { font-size: 16px; }
+  .hero .ctas { gap: 24px; }
+  .lineup { height: 64vw; margin-inline: -6%; }
+  .pup { margin-inline: -2.6%; }
+  .lineup-head p { width: 100%; }
+  .filters { margin-inline: calc(-1 * var(--gl)) calc(-1 * var(--gr)); padding-inline: var(--gl) var(--gr); height: auto; flex-direction: column; gap: 0; }
+  .tabs { height: 48px; align-items: stretch; }
+  .tab { display: flex; align-items: center; }
+  .find { flex: none; border-top: 1px solid var(--line); height: 48px; }
+  .card .top { flex-direction: column; gap: 2px; }
   .card .kind-t { display: none; }
-  .tile .tag { right: -10px; width: 12px; height: 34px; }
-  .love { width: 34px; height: 34px; top: 8px; right: 8px; }
-  .insert div { padding: 16px; width: 52%; }
-  .insert .more { display: none; }
-  .bandanas { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
-  .sliders { grid-template-columns: minmax(0, 1fr); gap: 12px; }
-  .res { grid-template-columns: 40px minmax(0, 1fr) 52px; gap: 6px 12px; }
+  .save { top: 0; right: 0; }
+  .insert .cap { flex-direction: column; gap: 8px; }
+  .swatchbook { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .sliders { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .engine { padding: 20px; }
+  .res { grid-template-columns: 40px minmax(0, 1fr) 48px; gap: 6px 12px; }
   .res .thumb { width: 40px; height: 40px; }
-  .res .sz { width: 52px; height: 52px; font-size: 17px; }
+  .res .sz { width: 48px; height: 48px; font-size: 17px; }
   .res .who small { display: none; }
-  .dock .txt .long { display: none; }
-  .peek img { height: 100px; margin-inline: -8px; }
-  .peek img:nth-child(2) { height: 120px; }
+  .join form { flex-direction: column; }
+  .join .btn { width: 100%; }
+  .sizerun { font-size: 13px; gap: 2px; padding-block: 16px; }
 }
-@media (hover: none) { .quick { display: none; } .bd .lbl { opacity: 1; transform: none; } }
+@media (hover: none) { .quick { display: none; } }
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { transition-duration: 0.01ms !important; animation: none !important; }
-  [data-reveal].pre { transform: none; }
+  *, *::before, *::after { animation: none !important; transition-duration: 150ms !important; transition-delay: 0s !important; }
+  [data-reveal].pre, .reveal-img.pre, [data-reveal-pup].pre { opacity: 1; transform: none; clip-path: none; }
+  .step { opacity: 1; }
+  .look, .pup:hover, .pup:focus-visible { transform: none !important; }
 }
 </style>
 </head>
 <body>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20.5s-7.3-4.5-9.2-9C1.4 8.2 3.5 5 6.8 5c2 0 3.5 1.1 5.2 2.9C13.7 6.1 15.2 5 17.2 5c3.3 0 5.4 3.2 4 6.5-1.9 4.5-9.2 9-9.2 9z"/></symbol>
-  <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></g></symbol>
-  <symbol id="i-bag" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M5 8h14l-1.2 12H6.2L5 8Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8" stroke-linecap="round"/></g></symbol>
-  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
-  <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3.5c3.6 4.3 5.6 7.6 5.6 10.4a5.6 5.6 0 0 1-11.2 0C6.4 11.1 8.4 7.8 12 3.5z"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20.3s-7.2-4.4-9.1-8.9C1.5 8.2 3.6 5 6.8 5c2 0 3.5 1.1 5.2 2.9C13.7 6.1 15.2 5 17.2 5c3.2 0 5.3 3.2 3.9 6.4-1.9 4.5-9.1 8.9-9.1 8.9z"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5" stroke-linecap="round"/></symbol>
+  <symbol id="i-bag" viewBox="0 0 24 24"><path d="M5 8h14l-1.2 12H6.2L5 8Z" stroke-linejoin="round"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8" stroke-linecap="round"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" stroke-linecap="round"/></symbol>
 </svg>
 
-<div class="notice polka"><div class="wrap"><span>Bandanas are $13 right now</span></div></div>
+<a class="notice" href="#bandanas"><span>Bandanas are $13 right now, usually $20.</span></a>
 
 <header class="site-header" id="top">
   <div class="wrap">
@@ -553,14 +552,17 @@ dialog[open]::backdrop { animation: fade 0.4s ease; }
       <a href="#bandanas">Bandanas</a>
       <a href="#fit">Size guide</a>
     </nav>
-    <button class="icon-btn menu-btn" type="button" id="menu-btn" aria-expanded="false" aria-controls="mobile-nav" aria-label="Menu">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M4 9h16M4 15h16"/></svg>
+    <button class="icon menu-btn" type="button" id="menu-btn" aria-expanded="false" aria-controls="mobile-nav" aria-label="Menu">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9h18M3 15h18" stroke-linecap="round"/></svg>
     </button>
     <a class="brand" href="#top" aria-label="Waggl Pets, back to top"><img src="assets/waggl-logo.png" alt="Waggl Pets" width="900" height="274"></a>
     <div class="tools">
-      <button class="icon-btn" type="button" id="open-search" aria-label="Search"><svg aria-hidden="true"><use href="#i-search"/></svg></button>
-      <a class="icon-btn" href="#shop" data-show-loved aria-label="Loved items" id="loved-link"><svg aria-hidden="true" style="fill:none;stroke:currentColor;stroke-width:1.6"><use href="#i-heart"/></svg><span class="n" id="loved-count"></span></a>
-      <button class="icon-btn" type="button" id="open-bag" aria-label="Bag, 0 items"><svg aria-hidden="true"><use href="#i-bag"/></svg><span class="n" id="bag-count"></span></button>
+      <button class="tool" type="button" data-search>Search</button>
+      <a class="tool" href="#shop" data-show-saved id="saved-link">Saved</a>
+      <button class="tool" type="button" data-open-bag id="bag-text">Bag</button>
+      <button class="icon" type="button" data-search aria-label="Search"><svg aria-hidden="true"><use href="#i-search"/></svg></button>
+      <a class="icon saved-icon" href="#shop" data-show-saved id="saved-icon" aria-label="Saved, 0 items"><svg aria-hidden="true"><use href="#i-heart"/></svg></a>
+      <button class="icon" type="button" data-open-bag id="bag-icon" aria-label="Bag, 0 items"><svg aria-hidden="true"><use href="#i-bag"/></svg><span class="n" id="bag-n"></span></button>
     </div>
   </div>
   <div class="mobile-nav" id="mobile-nav">
@@ -570,66 +572,62 @@ dialog[open]::backdrop { animation: fade 0.4s ease; }
         <li><a href="#shop" data-filter="home">Base layers</a></li>
         <li><a href="#bandanas">Bandanas</a></li>
         <li><a href="#fit">Size guide</a></li>
+        <li><a href="#shop" data-show-saved>Saved</a></li>
       </ul>
+      <a class="tlink" href="https://fkrc04-us.myshopify.com/" target="_blank" rel="noopener">Visit the Waggl store ↗</a>
     </div>
   </div>
 </header>
 
 <main>
-  <section class="hero panel" id="hero" aria-labelledby="hero-title">
+  <section class="hero" id="hero" aria-labelledby="hero-title">
     <img class="poster" src="assets/video/hero-poster.webp" alt="" fetchpriority="high">
     <video id="hero-video" muted loop playsinline preload="metadata" poster="assets/video/hero-poster.webp" aria-hidden="true">
       <source src="assets/video/hero.mp4" type="video/mp4">
       <source src="assets/video/hero.webm" type="video/webm">
     </video>
-    <div class="patch-r" id="patch-hero"></div>
     <div class="hero-copy">
-      <span class="small-caps">Everyday dogwear · XS to 9XL</span>
-      <h1 id="hero-title"><span class="ln"><span>Good days.</span></span><span class="ln"><span><em>Together.</em></span></span></h1>
-      <p class="lede">For muddy paths, slow mornings, and everything in between.</p>
-      <div class="ctas">
-        <a class="btn btn-white" href="#shop">Shop all dogwear</a>
-        <a class="btn btn-ghost" href="#fit">Find their size</a>
+      <div>
+        <h1 id="hero-title"><span class="ln"><span>Good days.</span></span><span class="ln"><span>Together.</span></span></h1>
+        <p class="lede">For muddy paths, slow mornings, and everything in between.</p>
+        <div class="ctas">
+          <a class="btn btn-white" href="#shop">Shop the collection</a>
+          <a class="tlink" href="#fit">Find their size</a>
+        </div>
       </div>
-    </div>
-    <button class="play" type="button" id="hero-play" aria-label="Pause the video" hidden>
-      <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="2" width="3.4" height="12" rx="1"/><rect x="9.6" y="2" width="3.4" height="12" rx="1"/></svg>
-    </button>
-  </section>
-
-  <section class="crew" aria-labelledby="crew-title">
-    <div class="wrap">
-      <h2 id="crew-title">Meet the <em>crew.</em></h2>
-      <p>Everyone here is wearing a $13 bandana. Tap a dog to shop theirs.</p>
-    </div>
-    <div class="floor">
-      <div class="lineup" id="lineup" aria-label="Dogs wearing Waggl bandanas. Choose one to shop it."></div>
+      <button class="tlink play" type="button" id="hero-play" hidden>Pause</button>
     </div>
   </section>
 
-  <section class="section" aria-label="What makes Waggl different">
-    <div class="wrap promises" id="promises"></div>
+  <section class="wrap" aria-label="About Waggl">
+    <div class="facts">
+      <div class="fact" data-reveal><span class="label-s">Sizes XS to 9XL</span><p>Every piece has a size chart in inches, and the Cloud Cruise poncho goes all the way to 9XL.</p></div>
+      <div class="fact" data-reveal style="--d:1"><span class="label-s">Made for wet weather</span><p>Waterproof fabric and reflective trim. There’s an opening at the back of the neck, so you can clip the leash on without taking the coat off.</p></div>
+      <div class="fact" data-reveal style="--d:2"><span class="label-s">The little white tag</span><p>Every bandana has our tag sewn into the side, so you can tell it’s ours.</p></div>
+    </div>
   </section>
 
-  <section class="section" style="padding-top:0" aria-labelledby="kinds-title">
-    <div class="wrap">
-      <div class="kinds-head">
-        <h2 id="kinds-title">What do they need?</h2>
-        <a class="more" href="#shop">See everything <i aria-hidden="true">→</i></a>
+  <section class="section" id="kinds" aria-labelledby="kinds-title">
+    <div class="wrap kinds-grid">
+      <div class="kinds-list">
+        <h2 class="label-s" id="kinds-title">Shop by kind</h2>
+        <ul id="kind-rows"></ul>
+        <a class="tlink" href="#shop" data-filter="all">See everything</a>
       </div>
-      <div class="kinds" id="kinds"></div>
+      <div class="kinds-panel" id="kind-panel" aria-hidden="true"></div>
     </div>
   </section>
 
-  <section class="story panel" id="spotlight" aria-labelledby="spot-title">
+  <section class="story" id="spotlight" aria-labelledby="spot-title">
     <div class="wrap">
       <div class="stage">
         <div class="look" id="look"></div>
         <div class="meta"><span class="cname" id="cname">City Yellow</span><span class="ticks" id="ticks"></span></div>
       </div>
       <div class="steps-col">
-        <h2 id="spot-title">Puddle Parade</h2>
-        <p class="intro">Our hooded raincoat for medium and large dogs. Keep scrolling to see the details.</p>
+        <span class="label">In detail</span>
+        <h2 class="display" id="spot-title">Puddle Parade</h2>
+        <p class="intro">Our hooded raincoat for medium and large dogs, in four colours and sizes L to 5XL.</p>
         <div class="story-steps" id="steps"></div>
         <div class="buy buy-d" id="spot-buy"></div>
       </div>
@@ -637,17 +635,41 @@ dialog[open]::backdrop { animation: fade 0.4s ease; }
     <div class="wrap buy-m-wrap"><div class="buy buy-m" id="spot-buy-m"></div></div>
   </section>
 
+  <section class="lineup-sec" aria-labelledby="crew-title">
+    <div class="wrap lineup-head">
+      <h2 class="h2" id="crew-title" data-reveal>Everyone here is wearing a $13 bandana.</h2>
+      <p data-reveal style="--d:1">Choose a dog to shop theirs.</p>
+    </div>
+    <div class="floor">
+      <div class="lineup" id="lineup" role="group" aria-label="Dogs wearing Waggl bandanas. Choose one to shop it."></div>
+    </div>
+    <span class="pup-label" id="pup-label" aria-hidden="true"></span>
+  </section>
+
+  <section class="wall" id="bandanas" aria-labelledby="wall-title">
+    <div class="wrap">
+      <div class="wall-head">
+        <h2 class="display" id="wall-title" data-reveal>Every colour we make.</h2>
+        <div data-reveal style="--d:1">
+          <p>Eight designs in 24 colours, all $13 right now (usually $20). Plaid, houndstooth and dots, in two shapes.</p>
+          <a class="btn btn-line" href="#shop" data-filter="accessories">Shop bandanas</a>
+        </div>
+      </div>
+      <div id="wall"></div>
+    </div>
+  </section>
+
   <section class="section" id="shop" aria-labelledby="shop-title">
     <div class="wrap">
       <div class="shop-head">
-        <h2 id="shop-title">Shop all</h2>
+        <h2 class="display" id="shop-title">Shop all</h2>
         <span class="count" id="shop-count">12 pieces</span>
       </div>
       <div class="filters">
-        <div class="chips" id="chips" role="group" aria-label="Filter"></div>
+        <div class="tabs" id="tabs" role="group" aria-label="Filter"></div>
         <div class="find">
-          <svg aria-hidden="true"><use href="#i-search"/></svg>
-          <label class="vh" for="shop-q">Search the collection</label>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-search"/></svg>
+          <label class="vh" for="shop-q">Search the shop</label>
           <input id="shop-q" type="search" placeholder="Search by name or colour" autocomplete="off">
         </div>
       </div>
@@ -655,65 +677,55 @@ dialog[open]::backdrop { animation: fade 0.4s ease; }
     </div>
   </section>
 
-  <section class="wall panel section" id="bandanas" aria-labelledby="wall-title">
-    <div class="wrap">
-      <div class="wall-head">
-        <div id="patch-wall"></div>
+  <section class="wrap" id="fit" aria-labelledby="fit-title">
+    <div class="fit section">
+      <div class="fit-grid">
+        <div class="measure reveal-img" id="measure">
+          <div class="m">
+            <img src="assets/cutouts/dot-and-dash-polka-dot-dog-bandana-red-dog.webp" alt="A golden retriever in the Dot &amp; Dash Classic bandana, with dotted lines where to measure the neck and chest" loading="lazy">
+            <svg viewBox="0 0 609 860" preserveAspectRatio="none" aria-hidden="true">
+              <path class="back" d="M86 392 Q 264 350 443 392"/>
+              <path d="M86 392 Q 264 438 443 392"/>
+              <path class="back" d="M13 727 Q 306 681 596 727"/>
+              <path d="M13 727 Q 306 787 596 727"/>
+            </svg>
+            <span class="tag" id="tag-neck" style="left:2%;top:40%">Neck</span>
+            <span class="tag" id="tag-chest" style="right:0;top:79%">Chest</span>
+          </div>
+        </div>
         <div>
-          <h2 id="wall-title">Pick a bandana</h2>
-          <p>Eight designs and twenty-four colours, all $13 right now. Every one has our little white tag sewn into the side.</p>
+          <span class="label">Size guide</span>
+          <h2 class="display" id="fit-title">Find their size.</h2>
+          <p class="intro">You’ll need a soft tape measure. Measure around the neck, then around the widest part of the chest, and move the sliders to match.</p>
+          <div class="engine">
+            <div class="engine-top" role="group" aria-label="Units">
+              <button class="unit" type="button" data-unit="in" aria-pressed="true">in</button>
+              <button class="unit" type="button" data-unit="cm" aria-pressed="false">cm</button>
+            </div>
+            <form class="sliders" id="fit-form" novalidate>
+              <div class="sl"><label for="fit-neck">Neck <output for="fit-neck" id="o-neck"></output></label><input id="fit-neck" type="range" min="8" max="30" step="0.5" value="15" data-tag="tag-neck"></div>
+              <div class="sl"><label for="fit-chest">Chest <output for="fit-chest" id="o-chest"></output></label><input id="fit-chest" type="range" min="12" max="42" step="0.5" value="22" data-tag="tag-chest"></div>
+              <div class="sl"><label for="fit-girth">Belly <output for="fit-girth" id="o-girth"></output></label><input id="fit-girth" type="range" min="12" max="42" step="0.5" value="22"></div>
+            </form>
+            <div id="fit-results" aria-live="polite"></div>
+          </div>
+          <p class="note">The starting numbers are only an example. Belly is only used for the poncho. If they’re between two sizes, go up one.</p>
         </div>
-        <a class="btn btn-navy" href="#shop" data-filter="accessories">Shop bandanas</a>
-      </div>
-      <div class="bandanas" id="wall"></div>
-    </div>
-  </section>
-
-  <section class="fit section" id="fit" aria-labelledby="fit-title">
-    <div class="wrap">
-      <div class="measure sky-dots">
-        <div class="m">
-          <img src="assets/cutouts/dot-and-dash-polka-dot-dog-bandana-red-dog.webp" alt="A golden retriever in the Dot &amp; Dash Classic bandana, with dotted lines showing where to measure the neck and chest" loading="lazy">
-          <svg viewBox="0 0 609 860" preserveAspectRatio="none" aria-hidden="true">
-            <path class="tape-back" d="M86 392 Q 264 350 443 392"/>
-            <path class="tape" d="M86 392 Q 264 438 443 392"/>
-            <path class="tape-back" d="M13 727 Q 306 681 596 727"/>
-            <path class="tape" d="M13 727 Q 306 787 596 727"/>
-          </svg>
-          <span class="lbl" id="lbl-neck" style="left:0;top:38%">neck</span>
-          <span class="lbl" id="lbl-chest" style="right:0;top:80%">chest</span>
-        </div>
-      </div>
-      <div>
-        <h2 id="fit-title">What size is my dog?</h2>
-        <p class="intro">Grab a soft tape measure. Measure around the neck and around the widest part of the chest, then move the sliders.</p>
-        <div class="engine">
-          <form class="sliders" id="fit-form" novalidate>
-            <div class="sl"><label for="fit-neck">Neck <output for="fit-neck" id="o-neck">15<small>in</small></output></label><input id="fit-neck" type="range" min="8" max="30" step="0.5" value="15" data-lbl="lbl-neck"></div>
-            <div class="sl"><label for="fit-chest">Chest <output for="fit-chest" id="o-chest">22<small>in</small></output></label><input id="fit-chest" type="range" min="12" max="42" step="0.5" value="22" data-lbl="lbl-chest"></div>
-            <div class="sl"><label for="fit-girth">Belly <output for="fit-girth" id="o-girth">22<small>in</small></output></label><input id="fit-girth" type="range" min="12" max="42" step="0.5" value="22"></div>
-          </form>
-          <div id="fit-results" aria-live="polite"></div>
-        </div>
-        <p class="note">The starting numbers are just an example. Belly is only for the poncho. If your dog is between two sizes, go up one.</p>
       </div>
     </div>
   </section>
 
-  <section class="wrap join-wrap" aria-labelledby="join-title">
+  <section class="wrap" aria-labelledby="join-title">
     <div class="join">
-      <div class="peek" aria-hidden="true" id="peek"></div>
-      <div>
-        <h2 id="join-title">Stay in the WAGGL.</h2>
-      </div>
-      <div>
-        <p>Hear about new colours and restocks before anyone else.</p>
+      <h2 class="display" id="join-title" data-reveal>Hear about new colours first.</h2>
+      <div data-reveal style="--d:1">
+        <p>We’ll email when new colours arrive or something comes back in stock. That’s all.</p>
         <form id="join-form" novalidate>
           <label class="vh" for="join-email">Email address</label>
-          <input id="join-email" type="email" placeholder="Your email address" autocomplete="email">
-          <button class="btn btn-navy" type="submit">Join</button>
+          <input id="join-email" type="email" placeholder="Email address" autocomplete="email">
+          <button class="btn btn-ink" type="submit">Sign up</button>
         </form>
-        <p class="small" id="join-msg" aria-live="polite">You can unsubscribe any time.</p>
+        <p class="small" id="join-msg" aria-live="polite">You can unsubscribe at any time.</p>
       </div>
     </div>
   </section>
@@ -722,7 +734,10 @@ dialog[open]::backdrop { animation: fade 0.4s ease; }
 <footer class="foot" id="foot">
   <div class="wrap">
     <div class="foot-grid">
-      <div><p class="say">Life is better together.</p></div>
+      <div class="foot-brand">
+        <img src="assets/waggl-logo-white.png" alt="Waggl Pets" width="900" height="274" loading="lazy">
+        <p>Life is better together.</p>
+      </div>
       <div class="foot-col">
         <h3>Shop</h3>
         <ul>
@@ -737,52 +752,48 @@ dialog[open]::backdrop { animation: fade 0.4s ease; }
         <ul>
           <li><a href="#fit">Size guide</a></li>
           <li><button type="button" data-open-bag>Your bag</button></li>
-          <li><a href="https://fkrc04-us.myshopify.com/" target="_blank" rel="noopener">Waggl store ↗</a></li>
+          <li><a href="https://fkrc04-us.myshopify.com/" target="_blank" rel="noopener">Visit the Waggl store ↗</a></li>
         </ul>
       </div>
       <div class="foot-col">
         <h3>Country</h3>
         <ul>
-          <li>Canada · CAD $</li>
-          <li>United States · USD $</li>
+          <li>Canada · CAD</li>
+          <li>United States · USD</li>
         </ul>
       </div>
     </div>
-    <img class="wordmark" id="wordmark" src="assets/waggl-logo-white.png" alt="Waggl Pets" width="900" height="274" loading="lazy">
-    <div class="foot-base"><span>© 2026 Waggl Pets</span><a href="#top">Back to top ↑</a></div>
+    <div class="sizerun" role="img" aria-label="Sizes XS to 9XL"><span>XS</span><span>S</span><span>M</span><span>L</span><span>XL</span><span>2XL</span><span>3XL</span><span>4XL</span><span>5XL</span><span>6XL</span><span>7XL</span><span>8XL</span><span class="r">9XL</span></div>
+    <div class="foot-base"><span>© 2026 Waggl Pets</span><span>Prices on this page are in Canadian dollars</span><a href="#top">Back to top</a></div>
   </div>
-  <div class="foot-strip polka" aria-hidden="true"></div>
 </footer>
-
-<div class="dock" id="dock" aria-label="Quick bag">
-  <div class="face"><div class="clip"><img src="assets/cutouts/trail-tails-buffalo-plaid-dog-bandana-green-dog.webp" alt=""></div></div>
-  <span class="txt" id="dock-txt"></span>
-  <span id="dock-btn"></span>
-</div>
 
 <dialog class="pd" id="pd" aria-labelledby="pd-name"></dialog>
 
 <dialog class="drawer" id="bag" aria-labelledby="bag-title">
-  <div class="d-head"><h2 id="bag-title">Your bag</h2><button class="x" type="button" data-close aria-label="Close bag"><svg aria-hidden="true"><use href="#i-x"/></svg></button></div>
+  <div class="d-head"><h2 id="bag-title">Your bag<small id="bag-title-n"></small></h2><button class="x" type="button" data-close aria-label="Close bag"><svg aria-hidden="true"><use href="#i-x"/></svg></button></div>
   <div class="d-body" id="bag-body"></div>
   <div class="d-foot" id="bag-foot"></div>
 </dialog>
 
 <dialog class="search-dlg" id="search" aria-label="Search Waggl">
   <div class="in">
-    <svg aria-hidden="true"><use href="#i-search"/></svg>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-search"/></svg>
     <label class="vh" for="search-q">Search</label>
-    <input id="search-q" type="search" placeholder="Try “yellow”, “bandana” or “rain”" autocomplete="off">
+    <input id="search-q" type="search" placeholder="Try “yellow”, “plaid” or “poncho”" autocomplete="off">
     <button class="x" type="button" data-close aria-label="Close search"><svg aria-hidden="true"><use href="#i-x"/></svg></button>
   </div>
   <ul class="found" id="search-results"></ul>
 </dialog>
+
+<div class="dock" id="dock" aria-label="Your bag"><button type="button" id="dock-txt" data-open-bag></button><a class="btn btn-white" id="dock-go" href="#" target="_blank" rel="noopener">Checkout ↗</a></div>
 
 <div class="toast" id="toast" role="status" aria-live="polite"><span id="toast-text"></span><button type="button" data-open-bag>View bag</button></div>
 
 <script>
 const STORE = 'https://fkrc04-us.myshopify.com';
 const PRODUCTS = [{"h":"puddle-parade-waterproof-dog-jacket","name":"Puddle Parade","kind":"Hooded waterproof jacket","cat":"outdoors","price":65.0,"was":78.0,"tagline":"Gray skies. Colorful walks.","blurb":"Meet Puddle Parade, the hooded waterproof dog jacket that brings a little color to rainy-day routines. Its waterproof Taslan outer fabric helps shed rain and splashes, while a breathable mesh lining adds an airy layer underneath. Bold color-block panels make every neighborhood stroll feel a little brighter.","details":["Waterproof Taslan outer fabric","Breathable mesh lining","Adjustable hood with cord toggles","Hook-and-loop belly fastenings","Reflective detailing for visibility when illuminated","Covered leash-access opening near the back of the neck","Elastic tail loop to help hold the coat in place","Four colorways; sizes L, XL, 2XL, 3XL, 4XL and 5XL"],"fit":["Measure your dog’s back length, chest girth, and neck girth before ordering. Check all three against the size guide, prioritizing a comfortable chest fit. Weight and breed are references only. If your dog falls between sizes, compare the larger size and leave room for any layer worn underneath.","Size numbers are product size codes, not measurements in inches. Manual measurements may vary slightly.","Keep the hood clear of your dog’s eyes and ears. Attach the leash to a suitable collar or harness, with its attachment point aligned to the coat opening."],"colours":[{"v":"Yellow","name":"City Yellow","hex":"#F2C230","s":"yellow"},{"v":"Green","name":"Neon Lime","hex":"#C6E03A","s":"green"},{"v":"Blue","name":"Harbor Aqua","hex":"#5DC1E6","s":"blue"},{"v":"Orange","name":"Orange","hex":"#F06A1F","s":"orange"}],"sizes":["L","XL","2XL","3XL","4XL","5XL"],"var":{"Yellow/L":[62890365222993,1],"Yellow/XL":[62890365255761,1],"Yellow/2XL":[62890365288529,1],"Yellow/3XL":[62890365321297,1],"Yellow/4XL":[62890365354065,1],"Yellow/5XL":[62890365386833,1],"Green/L":[62890365419601,1],"Green/XL":[62890365452369,1],"Green/2XL":[62890365485137,1],"Green/3XL":[62890365517905,1],"Green/4XL":[62890365550673,1],"Green/5XL":[62890365583441,1],"Blue/L":[62890365616209,1],"Blue/XL":[62890365648977,1],"Blue/2XL":[62890365681745,1],"Blue/3XL":[62890365714513,1],"Blue/4XL":[62890365747281,1],"Blue/5XL":[62890365780049,1],"Orange/L":[62891695374417,1],"Orange/XL":[62891695407185,1],"Orange/2XL":[62891695439953,1],"Orange/3XL":[62891695472721,1],"Orange/4XL":[62891695505489,1],"Orange/5XL":[62891695538257,1]},"chart":{"by":"chest","kind":"range","cols":["Back","Neck","Chest","Weight (lb)"],"rows":[["L","14.6–16.9","13.0–14.6","19.7–23.6","16.5–27.6"],["XL","16.5–18.9","13.8–16.5","22.8–26.8","27.6–38.6"],["2XL","18.5–20.9","15.0–17.3","23.6–28.3","38.6–49.6"],["3XL","20.5–22.8","16.1–18.9","25.6–30.3","49.6–60.6"],["4XL","22.4–24.8","17.7–20.5","28.7–33.1","60.6–71.7"],["5XL","26.4–28.7","20.9–25.2","33.1–38.2","71.7–88.2"]]}},{"h":"drizzle-scout-outdoor-dog-jacket","name":"Drizzle Scout","kind":"Outdoor dog jacket","cat":"outdoors","price":65.0,"was":79.0,"tagline":"Built for the next sniff, stroll, and trail.","blurb":"Meet Drizzle Scout, an outdoor dog jacket for curious noses and everyday adventures. Its shell-style design pairs a water-resistant outer fabric with a high collar for added coverage, making it a practical layer for neighborhood walks and leafy trails. The sleeveless cut leaves your dog’s legs free to move.","details":["Water-resistant outer fabric for light rain and everyday splashes","High collar with a reflective band","Adjustable drawcords at the collar and back hem","Hook-and-loop closure for an adjustable fit","Zippered back opening for access to a harness worn underneath","Sleeveless design with open leg openings","Four colors and six sizes: S, M, L, XL, 2XL, and 3XL"],"fit":["Measure your dog’s chest, neck, and back before ordering. Prioritize chest fit and check all three measurements against the size guide. Weight is a reference only, since dogs of the same weight can have different proportions. If your dog falls between sizes, compare the larger size and allow room for any layer worn underneath.","Measurements are approximate; allow 0.4–0.8 in variation.","Attach the leash to your dog’s harness or collar. The jacket itself is not a restraint device."],"colours":[{"v":"Olive Green","name":"Olive Green","hex":"#6E7449","s":"olive-green"},{"v":"Amber Brown","name":"Amber Brown","hex":"#B5652A","s":"amber-brown"}],"sizes":["S","M","L","XL","2XL","3XL"],"var":{"Olive Green/S":[62935424368721,1],"Olive Green/M":[62935424401489,1],"Olive Green/L":[62935424434257,1],"Olive Green/XL":[62935424467025,1],"Olive Green/2XL":[62935424499793,1],"Olive Green/3XL":[62935424532561,1],"Amber Brown/S":[62935424565329,0],"Amber Brown/M":[62935424598097,1],"Amber Brown/L":[62935424630865,1],"Amber Brown/XL":[62935424663633,1],"Amber Brown/2XL":[62935424696401,1],"Amber Brown/3XL":[62935424729169,1]},"chart":{"by":"chest","kind":"point","cols":["Back","Chest","Neck","Weight (lb)"],"rows":[["S","8.3","16.1","13.0","5.5–7.7"],["M","9.8","17.7","14.2","7.7–11.0"],["L","11.4","19.3","15.0","11.0–15.4"],["XL","13.0","20.9","16.1","15.4–19.8"],["2XL","14.6","22.4","16.9","19.8–26.5"],["3XL","16.1","24.0","18.1","26.5–33.1"]]}},{"h":"cloud-cruise-waterproof-dog-rain-poncho","name":"Cloud Cruise","kind":"Waterproof rain poncho","cat":"urban","price":35.0,"was":49.0,"tagline":"For walks beneath the clouds.","blurb":"Meet Cloud Cruise, a waterproof dog rain poncho made for rainy-day wandering. Its soft, flexible PU outer fabric drapes over the back and sides, while the open-leg cape design gives your dog room to step, sniff, and explore.","details":["Waterproof PU outer fabric with a soft, flexible feel","Sleeveless poncho shape with coverage over the back and sides","Hood with a clear TPU brim","Extended neck coverage with an adjustable drawcord","Adjustable body strap with a buckle","Elastic rear straps to help hold the cape in place","Protective belly panel for added coverage from ground splashes","Hidden leash-access opening","Three colors; eleven sizes from M to 9XL"],"fit":["Measure your dog’s back length, neck girth, and body girth where the strap sits. Check the maximum measurements in the size guide and allow room for a comfortable fit. Poncho length and maximum dog back length are different measurements. Weight and breed are guides only.","If your dog falls between sizes, compare the larger size. Adjust the hood so it stays clear of the eyes and ears, and attach the leash to a suitable collar or harness. The poncho is not a restraint device."],"colours":[{"v":"Yellow","name":"Sunbeam Yellow","hex":"#F4C430","s":"yellow"},{"v":"Blue","name":"Sky Blue","hex":"#7CC8EC","s":"blue"},{"v":"Green","name":"Neon Lime","hex":"#C9E84A","s":"green"}],"sizes":["M","L","XL","2XL","3XL","4XL","5XL","6XL","7XL","8XL","9XL"],"var":{"Yellow/M":[62907667644497,1],"Yellow/L":[62907681865809,1],"Yellow/XL":[62907681898577,1],"Yellow/2XL":[62907681931345,1],"Yellow/3XL":[62907681964113,1],"Yellow/4XL":[62907681996881,1],"Yellow/5XL":[62907682029649,1],"Yellow/6XL":[62907682062417,1],"Yellow/7XL":[62907682095185,1],"Yellow/8XL":[62907682127953,1],"Yellow/9XL":[62907682160721,1],"Blue/M":[62907667677265,1],"Blue/L":[62907682193489,1],"Blue/XL":[62907682226257,1],"Blue/2XL":[62907682259025,1],"Blue/3XL":[62907682291793,1],"Blue/4XL":[62907682324561,1],"Blue/5XL":[62907682357329,1],"Blue/6XL":[62907682390097,1],"Blue/7XL":[62907682422865,1],"Blue/8XL":[62907682455633,1],"Blue/9XL":[62907682488401,1],"Green/M":[62907667710033,1],"Green/L":[62907682521169,1],"Green/XL":[62907682553937,1],"Green/2XL":[62907682586705,1],"Green/3XL":[62907682619473,1],"Green/4XL":[62907682652241,1],"Green/5XL":[62907682685009,1],"Green/6XL":[62907682717777,1],"Green/7XL":[62907682750545,1],"Green/8XL":[62907682783313,1],"Green/9XL":[62907682816081,1]},"chart":{"by":"girth","kind":"max","cols":["Poncho length","Back max","Neck max","Girth max","Weight (lb)"],"rows":[["M","9.1","9.1","12.6","15.7","4.4–6.6"],["L","11.0","11.0","13.4","16.5","7.7–11.0"],["XL","13.0","13.8","15.0","17.7","11.0–16.5"],["2XL","14.6","15.4","16.5","19.7","16.5–22.0"],["3XL","17.3","18.1","18.9","22.8","22.0–30.9"],["4XL","18.1","18.9","20.5","23.6","30.9–38.6"],["5XL","20.5","21.3","22.8","25.6","38.6–49.6"],["6XL","22.0","22.8","24.4","29.5","49.6–55.1"],["7XL","24.0","24.8","26.0","31.5","55.1–66.1"],["8XL","26.0","26.8","28.3","33.5","66.1–99.2"],["9XL","31.9","32.7","31.5","39.4","99.2–132.3"]]}},{"h":"daydream-dog-base-layer-onesie","name":"Daydream","kind":"Base layer onesie","cat":"home","price":41.0,"was":57.0,"tagline":"For slow mornings and everyday adventures.","blurb":"Meet Daydream, a simple dog base layer that brings a relaxed look to your best friend’s wardrobe. A soft brushed finish and gentle stretch make it an inviting choice for lounging at home, everyday outings, or layering beneath a suitably sized coat on cooler days.","details":["Soft brushed fabric with stretch","Four-leg design with a raised neckline","Pullover construction","Open underside and tail opening","Wear on its own or as a base layer","Available in XS, S, M, L, XL, and 2XL"],"fit":["Measure your dog’s chest, neck, and back length before ordering, then compare with the size chart. Allow room for comfortable movement and choose by measurements rather than breed or weight alone.","Measurements are taken manually and may vary by 0.5–1.0 in. Colors may appear slightly different across screens."],"colours":[{"v":"Yellow","name":"Butter Yellow","hex":"#EBCB6B","s":"yellow"},{"v":"Silver","name":"Light Grey","hex":"#C4C4C2","s":"silver"},{"v":"Gray","name":"Charcoal Grey","hex":"#4A4B4D","s":"gray"},{"v":"Brown","name":"Brown","hex":"#A89283","s":"brown"}],"sizes":["XS","S","M","L","XL","2XL"],"var":{"Yellow/XS":[62872146018385,1],"Yellow/S":[62872146051153,1],"Yellow/M":[62872146083921,1],"Yellow/L":[62872146116689,1],"Yellow/XL":[62872146149457,1],"Yellow/2XL":[62872146182225,1],"Silver/XS":[62872146214993,1],"Silver/S":[62872146247761,1],"Silver/M":[62872146280529,1],"Silver/L":[62872146313297,1],"Silver/XL":[62872146346065,1],"Silver/2XL":[62872146378833,1],"Gray/XS":[62872146411601,1],"Gray/S":[62872146444369,1],"Gray/M":[62872146477137,1],"Gray/L":[62872146509905,1],"Gray/XL":[62872146542673,1],"Gray/2XL":[62872146575441,1],"Brown/XS":[62872146608209,1],"Brown/S":[62872146640977,1],"Brown/M":[62872146673745,1],"Brown/L":[62872146706513,1],"Brown/XL":[62872146739281,1],"Brown/2XL":[62872146772049,1]},"chart":{"by":"chest","kind":"point","cols":["Back","Chest","Neck"],"rows":[["XS","10.2","15.0","9.8"],["S","11.8","16.5","10.6"],["M","13.4","18.1","11.4"],["L","15.0","19.7","12.4"],["XL","16.5","21.3","13.4"],["2XL","18.1","23.6","14.2"]]}},{"h":"trail-tails-buffalo-plaid-dog-bandana","name":"Trail Tails","kind":"Tie-strap bandana, buffalo plaid","cat":"accessories","price":13.0,"was":20.0,"tagline":"Big checks. Happy trails.","blurb":"Bring a little outdoor spirit to everyday walks with Trail Tails by WAGGL Pets. Bold buffalo plaid gives this dog bandana a classic, adventurous look, while four colorful combinations make it easy to find your pup’s perfect match.","details":["Bold buffalo plaid pattern","Dedicated tie straps for easy fastening","Adjustable fit through knot placement","Pointed front panel with WAGGL Pets logo detailing","Four color options: Orange & Black, Hot Pink & Black, Blue & Black, and Teal & Navy","Three sizes: M, L, and XL","Sold individually: one bandana in your chosen color and size"],"fit":["Measure your dog’s neck before ordering and allow enough strap length for tying. Leave room for two fingers between the bandana and your dog’s neck.","Supervise your dog while wearing this accessory. Remove it during sleep or unattended time. This bandana is not a collar and must not be used to attach a leash."],"colours":[{"v":"Orange","name":"Orange & Black","hex":"#E8642C","s":"orange"},{"v":"Red","name":"Hot Pink & Black","hex":"#D8325A","s":"red"},{"v":"Blue","name":"Blue & Black","hex":"#2F6BD8","s":"blue"},{"v":"Green","name":"Teal & Navy","hex":"#1F7F73","s":"green"}],"sizes":["M","L","XL"],"var":{"Orange/M":[62916711940177,1],"Orange/L":[62916711972945,1],"Orange/XL":[62916712005713,1],"Red/M":[62916712038481,1],"Red/L":[62916712071249,1],"Red/XL":[62916712104017,1],"Blue/M":[62916712136785,1],"Blue/L":[62916712169553,1],"Blue/XL":[62916712202321,1],"Green/M":[62916712235089,1],"Green/L":[62916712267857,1],"Green/XL":[62916712300625,1]},"chart":{"by":"neck","kind":"max","cols":["Fits necks up to","Panel depth"],"rows":[["M","13","7"],["L","18","9.5"],["XL","26","11.5"]]}},{"h":"dapper-hound-houndstooth-dog-bandana","name":"Dapper Hound","kind":"Tie-strap bandana, houndstooth","cat":"accessories","price":13.0,"was":20.0,"tagline":"Classic checks. A little canine charm.","blurb":"Give everyday outings a stylish finishing touch with Dapper Hound by WAGGL Pets. The timeless houndstooth pattern brings a hint of vintage charm, while four distinctive color combinations let your dog’s personality shine—from classic Black & White to cheerful Mustard & Black.","details":["Classic houndstooth pattern","Dedicated tie straps for easy fastening","Adjustable fit through knot placement","Pointed front panel with WAGGL Pets logo detailing","Four color options: Mustard & Black, Teal & Black, Black & White, and Dusty Rose & White","Three sizes: M, L, and XL","Sold individually: one bandana in your selected color and size"],"fit":["Measure your dog’s neck before ordering and allow enough strap length for tying. Once fastened, leave room for two fingers between the bandana and your dog’s neck.","Supervise your dog while wearing this accessory. Remove it during sleep or unattended time. This bandana is not a collar and must not be used to attach a leash."],"colours":[{"v":"Red","name":"Dusty Rose & White","hex":"#D58AA6","s":"red"},{"v":"Green","name":"Teal & Black","hex":"#2C8A8E","s":"green"},{"v":"Yellow","name":"Mustard & Black","hex":"#B98A2E","s":"yellow"},{"v":"Black","name":"Black & White","hex":"#58595B","s":"black"}],"sizes":["M","L","XL"],"var":{"Red/M":[62912662110289,1],"Red/L":[62912662143057,1],"Red/XL":[62912662175825,1],"Green/M":[62912662208593,1],"Green/L":[62912662241361,1],"Green/XL":[62912662274129,1],"Yellow/M":[62912662306897,1],"Yellow/L":[62912662339665,1],"Yellow/XL":[62912662372433,1],"Black/M":[62912662405201,1],"Black/L":[62912662437969,1],"Black/XL":[62912662470737,1]},"chart":{"by":"neck","kind":"max","cols":["Fits necks up to","Panel depth"],"rows":[["M","13","7"],["L","18","9.5"],["XL","26","11.5"]]}},{"h":"dottie-days-polka-dot-dog-bandana","name":"Dottie Days","kind":"Tie-strap bandana, small dots","cat":"accessories","price":13.0,"was":20.0,"tagline":"Little dots. Happy days.","blurb":"Bring a little charm to your dog’s daily adventures with Dottie Days by WAGGL Pets. Delicate white polka dots pair with rich Navy Blue or Burgundy for a timeless look, finished with WAGGL Pets logo detailing.","details":["Dedicated tie straps for easy fastening","Adjustable fit through knot placement","Small white polka dots for a classic, playful look","Pointed front panel with WAGGL Pets logo detailing","Available in Navy Blue and Burgundy","Sizes: M, L, and XL","Sold individually: one bandana in your chosen color and size"],"fit":["Measure your dog’s neck before ordering and allow enough strap length for tying. Leave room for two fingers between the bandana and your dog’s neck.","Supervise your dog while wearing this accessory and remove it during sleep or unattended time. This bandana is not a collar and must not be used to attach a leash."],"colours":[{"v":"Red","name":"Burgundy","hex":"#8E1F2C","s":"red"},{"v":"Blue","name":"Navy Blue","hex":"#1E2C4F","s":"blue"}],"sizes":["M","L","XL"],"var":{"Red/M":[62912644448337,1],"Red/L":[62912644481105,0],"Red/XL":[62912644513873,0],"Blue/M":[62912644546641,0],"Blue/L":[62912644579409,0],"Blue/XL":[62912644612177,0]},"chart":{"by":"neck","kind":"max","cols":["Fits necks up to","Panel depth"],"rows":[["M","13","7"],["L","18","9.5"],["XL","26","11.5"]]}},{"h":"dot-and-dash-tie-strap-dog-bandana","name":"Dot & Dash","kind":"Tie-strap bandana, polka dot","cat":"accessories","price":13.0,"was":20.0,"tagline":"A little knot. A lot of personality.","blurb":"Meet Dot & Dash, the WAGGL Pets dog bandana that brings a playful touch to everyday outings. Crisp white polka dots stand out against Navy Blue or Burgundy, while WAGGL Pets logo detailing adds a signature finishing touch.","details":["Dedicated tie straps for easy fastening","Adjustable fit through knot placement","Classic white polka dot pattern","Pointed front panel with WAGGL Pets logo detailing","Two color options: Navy Blue and Burgundy","Three size options: M, L, and XL"],"fit":["Measure your dog’s neck before choosing a size and allow enough strap length for tying. Once fastened, leave room for two fingers between the bandana and your dog’s neck.","Supervise your dog while wearing the bandana. Remove it during sleep or unattended time. This accessory is not a collar and must not be used to attach a leash.","Includes one bandana in your selected color and size."],"colours":[{"v":"Red","name":"Burgundy","hex":"#9A1E2B","s":"red"},{"v":"Blue","name":"Navy Blue","hex":"#1C2850","s":"blue"}],"sizes":["M","L","XL"],"var":{"Red/M":[62912641728593,1],"Red/L":[62912641761361,1],"Red/XL":[62912641794129,1],"Blue/M":[62912641826897,0],"Blue/L":[62912641859665,1],"Blue/XL":[62912641892433,1]},"chart":{"by":"neck","kind":"max","cols":["Fits necks up to","Panel depth"],"rows":[["M","13","7"],["L","18","9.5"],["XL","26","11.5"]]}},{"h":"little-dots-polka-dot-dog-bandana","name":"Little Dots","kind":"Classic bandana, mini dots","cat":"accessories","price":13.0,"was":20.0,"tagline":"Little dots. Big charm.","blurb":"Give everyday outings a touch of vintage charm with Little Dots. Neat white mini polka dots bring a playful rhythm to rich red or classic navy, creating a look that feels equally at home on a neighborhood stroll or at a weekend gathering.","details":["Fine white polka dot pattern in two classic colorways","Triangular shape with a tie-on fastening","White embroidered WAGGL Pets logo","Branded side label","A charming accessory for everyday walks, photos, and special occasions"],"fit":["Measure your dog’s neck and check the size guide before ordering. Allow room for tying and a comfortable fit. Select the size by measurements rather than breed alone."],"colours":[{"v":"Red","name":"Classic Red","hex":"#B3202E","s":"red"},{"v":"Blue","name":"Navy Blue","hex":"#1D2A4E","s":"blue"}],"sizes":["M","L","XL"],"var":{"Red/XL":[62866663407697,1],"Red/L":[62866663440465,1],"Red/M":[62866663473233,1],"Blue/XL":[62866663506001,1],"Blue/L":[62866663538769,1],"Blue/M":[62866663571537,1]},"chart":null},{"h":"dot-and-dash-polka-dot-dog-bandana","name":"Dot & Dash Classic","kind":"Classic bandana, polka dot","cat":"accessories","price":13.0,"was":20.0,"tagline":"Classic dots. A dash of personality.","blurb":"Meet Dot & Dash, a playful finishing touch for your dog’s everyday adventures. Crisp white polka dots stand out against Cherry Red or Navy Blue, bringing a little retro charm to neighborhood walks, weekend outings, and moments worth capturing.","details":["Classic white polka dots in two distinctive colorways","Cherry Red for a cheerful pop of color, or Navy Blue for timeless style","Triangular shape with a tie-on fastening","White embroidered WAGGL Pets logo and branded side label","An easy way to dress up everyday outings and special occasions"],"fit":["Measure your dog’s neck and refer to the size guide before ordering. Leave enough room for the knot and a comfortable fit. Choose by measurements rather than breed alone."],"colours":[{"v":"Red","name":"Cherry Red","hex":"#C21F2F","s":"red"},{"v":"Blue","name":"Navy Blue","hex":"#1C2850","s":"blue"}],"sizes":["M","L","XL"],"var":{"Red/XL":[62866507399249,1],"Red/L":[62866507432017,1],"Red/M":[62866507464785,1],"Blue/XL":[62866507497553,1],"Blue/L":[62866507530321,1],"Blue/M":[62866507563089,1]},"chart":null},{"h":"dapper-days-houndstooth-dog-bandana","name":"Dapper Days","kind":"Classic bandana, houndstooth","cat":"accessories","price":13.0,"was":20.0,"tagline":"A little charm for every outing.","blurb":"Meet Dapper Days: a classic houndstooth dog bandana with a playful WAGGL Pets touch. Its intricate two-tone pattern and embroidered logo bring a polished look to everyday walks, café stops, and photo-worthy moments with your best friend.","details":["Classic houndstooth pattern in four distinctive colorways","Triangular shape with a tie-on fastening","Embroidered WAGGL Pets logo and branded side label","A finishing touch for everyday outings and special occasions"],"fit":["Measure your dog’s neck and check the size guide before ordering. Allow enough room for a comfortable knot and a relaxed fit."],"colours":[{"v":"Gold","name":"Mustard Yellow","hex":"#B58B2C","s":"gold"},{"v":"Green","name":"Teal","hex":"#2B8E95","s":"green"},{"v":"Black","name":"Black & White","hex":"#505052","s":"black"},{"v":"Red","name":"Rose Pink","hex":"#D98AA8","s":"red"}],"sizes":["M","L","XL"],"var":{"Gold/M":[62861073842257,1],"Gold/L":[62861073875025,1],"Gold/XL":[62861073907793,1],"Green/M":[62861073940561,1],"Green/L":[62861073973329,1],"Green/XL":[62861074006097,1],"Black/M":[62861074038865,1],"Black/L":[62861074071633,1],"Black/XL":[62861074104401,1],"Red/M":[62861074137169,1],"Red/L":[62861074169937,1],"Red/XL":[62861074202705,1]},"chart":null},{"h":"plaid-dog-bandana","name":"Buffalo Plaid","kind":"Classic bandana, buffalo plaid","cat":"accessories","price":13.0,"was":20.0,"tagline":"Add a classic plaid look to your dog’s everyday style.","blurb":"This triangular dog bandana features a bold buffalo check pattern, a tie-on design, and embroidered WAGGL Pets branding. Available in four colors: orange, blue, red, and green.","details":["Triangular plaid dog bandana","Tie-on design","Embroidered WAGGL Pets logo","Four color options: orange, blue, red, and green"],"fit":["Tie the bandana comfortably around your dog’s neck and adjust the knot for a secure fit. Please measure your dog’s neck before ordering and supervise your pet while wearing the bandana."],"colours":[{"v":"Orange","name":"Orange & Black","hex":"#E8642C","s":"orange"},{"v":"Blue","name":"Blue & Black","hex":"#2F6BD8","s":"blue"},{"v":"Green","name":"Green & Black","hex":"#1F7F73","s":"green"},{"v":"Red","name":"Red & Black","hex":"#C62A2F","s":"red"}],"sizes":["M","L","XL"],"var":{"Orange/M":[62850956492881,1],"Orange/L":[62850956525649,1],"Orange/XL":[62850956558417,1],"Blue/M":[62850956591185,1],"Blue/L":[62850956623953,1],"Blue/XL":[62850956656721,1],"Green/M":[62850956689489,1],"Green/L":[62850956722257,1],"Green/XL":[62850956755025,1],"Red/M":[62850956787793,1],"Red/L":[62850956820561,1],"Red/XL":[62850956853329,1]},"chart":null}];
+const BUST = new Set(["dapper-hound-houndstooth-dog-bandana-black", "dapper-hound-houndstooth-dog-bandana-green", "dapper-hound-houndstooth-dog-bandana-red", "dapper-hound-houndstooth-dog-bandana-yellow", "dot-and-dash-polka-dot-dog-bandana-blue", "dot-and-dash-polka-dot-dog-bandana-red", "dot-and-dash-tie-strap-dog-bandana-blue", "dot-and-dash-tie-strap-dog-bandana-red", "plaid-dog-bandana-blue", "plaid-dog-bandana-green", "plaid-dog-bandana-orange", "plaid-dog-bandana-red", "trail-tails-buffalo-plaid-dog-bandana-blue", "trail-tails-buffalo-plaid-dog-bandana-green", "trail-tails-buffalo-plaid-dog-bandana-orange", "trail-tails-buffalo-plaid-dog-bandana-red"]);
 
 const GROUPS = {
   rain: { label: 'Rain gear', cats: ['outdoors', 'urban'] },
@@ -791,39 +802,38 @@ const GROUPS = {
 };
 const groupOf = p => Object.keys(GROUPS).find(k => GROUPS[k].cats.includes(p.cat));
 const KINDS = [
-  { key: 'rain', cls: 'k-rain', title: 'Something for the rain', img: 'scene-rain-tall', alt: 'A golden retriever in the Puddle Parade raincoat in City Yellow' },
-  { key: 'accessories', cls: 'k-bandanas', title: 'A bandana for every mood', img: 'scene-bandanas', alt: 'Three dogs in Waggl bandanas' },
-  { key: 'home', cls: 'k-home', title: 'A layer for cold floors', img: 'scene-home', alt: 'A westie in the Daydream base layer in Charcoal Grey' },
-  { key: 'rain', cls: 'k-town', title: 'A poncho for town', img: 'scene-urban', alt: 'A corgi in the Cloud Cruise rain poncho in Neon Lime' }
+  { key: 'rain', name: 'Rain gear', desc: 'Two jackets and a poncho', img: 'puddle-parade-waterproof-dog-jacket-yellow' },
+  { key: 'home', name: 'Base layers', desc: 'A soft onesie for cold floors', img: 'daydream-dog-base-layer-onesie-gray' },
+  { key: 'accessories', name: 'Bandanas', desc: 'Eight designs in 24 colours', img: 'dapper-days-houndstooth-dog-bandana-black' }
 ];
 const LINEUP = [
-  { h: 'trail-tails-buffalo-plaid-dog-bandana', c: 'Blue', size: 0.96 },
-  { h: 'little-dots-polka-dot-dog-bandana', c: 'Red', size: 0.7 },
+  { h: 'dot-and-dash-polka-dot-dog-bandana', c: 'Blue', size: 0.98 },
+  { h: 'dapper-days-houndstooth-dog-bandana', c: 'Gold', size: 0.74 },
   { h: 'trail-tails-buffalo-plaid-dog-bandana', c: 'Green', size: 0.84 },
-  { h: 'dot-and-dash-tie-strap-dog-bandana', c: 'Red', size: 0.92 },
-  { h: 'plaid-dog-bandana', c: 'Green', size: 0.9 },
-  { h: 'dapper-days-houndstooth-dog-bandana', c: 'Green', size: 0.72 },
+  { h: 'dapper-hound-houndstooth-dog-bandana', c: 'Black', size: 0.92 },
+  { h: 'dot-and-dash-tie-strap-dog-bandana', c: 'Red', size: 0.86 },
+  { h: 'dapper-days-houndstooth-dog-bandana', c: 'Green', size: 0.74 },
   { h: 'plaid-dog-bandana', c: 'Blue', size: 1 }
 ];
 const BLURB = {
-  'puddle-parade-waterproof-dog-jacket': 'A hooded raincoat made from waterproof Taslan, with a mesh lining so it doesn’t get stuffy. The belly panel closes with hook-and-loop, the hood has cord toggles, and there’s a covered opening at the back of the neck for the leash. Reflective trim helps on dark walks.',
+  'puddle-parade-waterproof-dog-jacket': 'A hooded raincoat in waterproof Taslan, with a mesh lining so it doesn’t get stuffy. The belly panel closes with hook-and-loop, the hood has cord toggles, and there’s a covered opening at the back of the neck for the leash. Reflective trim helps on dark walks.',
   'drizzle-scout-outdoor-dog-jacket': 'A sleeveless shell for light rain and splashes. It has a high collar with a reflective band, drawcords at the collar and hem, and a zip opening on the back so you can clip the leash to a harness underneath.',
   'cloud-cruise-waterproof-dog-rain-poncho': 'A waterproof poncho that covers the back and sides and leaves the legs free. The hood has a clear brim so they can still see where they’re going, and a belly panel keeps splashes off. Eleven sizes, from M to 9XL.',
   'daydream-dog-base-layer-onesie': 'A soft, brushed layer with a little stretch. It covers the body and legs and is open underneath. Wear it on its own around the house, or under a coat when it’s cold out.',
-  'trail-tails-buffalo-plaid-dog-bandana': 'Buffalo plaid with straps you tie behind the neck, so there’s no folding. Our logo is stitched on the front.',
-  'dapper-hound-houndstooth-dog-bandana': 'Houndstooth in four colours, with tie straps and our logo stitched on the front.',
+  'trail-tails-buffalo-plaid-dog-bandana': 'Buffalo plaid with straps you tie behind the neck, so there’s no folding. Our logo is stitched small on the front.',
+  'dapper-hound-houndstooth-dog-bandana': 'Houndstooth in four colours, with tie straps and our logo stitched small on the front.',
   'dottie-days-polka-dot-dog-bandana': 'Small white dots on navy or burgundy. The tie straps mean it goes on in seconds.',
-  'dot-and-dash-tie-strap-dog-bandana': 'Bigger white dots on navy or burgundy, with tie straps and our logo stitched on the front.',
+  'dot-and-dash-tie-strap-dog-bandana': 'Larger white dots on navy or burgundy, with tie straps and our logo stitched small on the front.',
   'little-dots-polka-dot-dog-bandana': 'Tiny white dots on red or navy. The classic triangle shape, tied at the back, with our little tag on the side.',
   'dot-and-dash-polka-dot-dog-bandana': 'White polka dots on cherry red or navy, in the classic tie-on shape.',
-  'dapper-days-houndstooth-dog-bandana': 'Houndstooth in mustard, teal, rose or black and white. Classic tie-on shape with our logo on the front.',
+  'dapper-days-houndstooth-dog-bandana': 'Houndstooth in mustard, teal, rose or black and white. Classic tie-on shape with our logo stitched small on the front.',
   'plaid-dog-bandana': 'Buffalo check in orange, blue, red or green. Tie it at the back and adjust the knot until it sits right.'
 };
 const STEPS = [
-  { t: 'A hood that stays put', d: 'Pull the cord toggles to keep it out of their eyes and ears.', c: 'Yellow', x: 50, y: 9 },
-  { t: 'A hole for the leash', d: 'There’s a covered opening at the back of the neck, so you can clip on without taking the coat off.', c: 'Blue', x: 50, y: 31 },
-  { t: 'Properly waterproof', d: 'The outside is waterproof Taslan, and the inside has a mesh lining so it doesn’t get stuffy.', c: 'Green', x: 62, y: 52 },
-  { t: 'Reflective trim', d: 'It catches headlights on early morning and late evening walks.', c: 'Orange', x: 22, y: 80 },
+  { t: 'A hood that stays put', d: 'Cord toggles pull it snug, so it stays out of their eyes and ears.', c: 'Yellow', x: 50, y: 9 },
+  { t: 'An opening for the leash', d: 'There’s a covered slot at the back of the neck, so you can clip on without taking the coat off.', c: 'Blue', x: 50, y: 31 },
+  { t: 'Properly waterproof', d: 'Waterproof Taslan on the outside and a mesh lining inside, so it doesn’t get stuffy.', c: 'Green', x: 62, y: 52 },
+  { t: 'Reflective trim', d: 'It picks up headlights on early mornings and late evenings.', c: 'Orange', x: 22, y: 80 },
   { t: 'A loop for the tail', d: 'A stretchy loop goes around the tail and keeps the back of the coat in place.', c: 'Yellow', x: 50, y: 95 }
 ];
 const INSERTS = [
@@ -831,7 +841,6 @@ const INSERTS = [
   { after: 8, filter: 'home', img: 'scene-cosy', title: 'Made for naps.', alt: 'A westie in the Daydream base layer in Light Grey', link: 'Shop base layers' }
 ];
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
 const wide = () => innerWidth > 900;
 
 const $ = (s, el = document) => el.querySelector(s);
@@ -842,205 +851,152 @@ const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 const byH = Object.fromEntries(PRODUCTS.map(p => [p.h, p]));
 const colourOf = (p, v) => p.colours.find(c => c.v === v);
 const cut = (p, c, kind) => `assets/cutouts/${p.h}-${c.s}-${kind}.webp`;
-const photo = (p, c) => `assets/studio/${p.h}-${c.s}.webp`;
+const isBust = (p, c) => BUST.has(`${p.h}-${c.s}`);
 const variant = (p, c, s) => p.var[c + '/' + s];
 const available = (p, c, s) => { const v = variant(p, c, s); return !!(v && v[1]); };
-const heart = '<svg aria-hidden="true"><use href="#i-heart"/></svg>';
+const heart = '<svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-heart"/></svg>';
 
 const store = {
   get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
   set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* storage unavailable */ } }
 };
-const bump = el => { el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump'); };
 
-/* Embroidered patches */
-let patchId = 0;
-function patch({ ring, big, fill, ink, stitch, icon }) {
-  const id = 'pp' + (++patchId);
-  const centre = icon === 'drop'
-    ? `<use href="#i-drop" x="44" y="40" width="32" height="32" fill="${ink}"/>`
-    : icon === 'tag'
-      ? `<g transform="translate(60 58) rotate(-8)"><rect x="-11" y="-26" width="22" height="52" rx="3" fill="#FFFFFF"/><line x1="-8" y1="-21" x2="8" y2="-21" stroke="${fill}" stroke-dasharray="2 2"/><image href="assets/waggl-logo.png" x="-22" y="-6" width="44" height="13" transform="rotate(90)"/></g>`
-      : `<text class="big" x="60" y="${big.length > 4 ? 67 : 70}" text-anchor="middle" font-size="${big.length > 4 ? 20 : 26}" fill="${ink}">${big}</text>`;
-  return `<svg class="patch" viewBox="0 0 120 120" role="img" aria-label="${esc(ring.replace(/·/g, ''))}">
-    <defs><path id="${id}" d="M60 60 m-41 0 a41 41 0 1 1 82 0 a41 41 0 1 1 -82 0"/></defs>
-    <circle cx="60" cy="60" r="58" fill="${fill}"/>
-    <circle cx="60" cy="60" r="53" fill="none" stroke="${stitch}" stroke-width="1.6" stroke-dasharray="3 3"/>
-    <text font-size="9.6" letter-spacing="2.2" fill="${ink}"><textPath href="#${id}">${ring}</textPath></text>
-    <circle cx="60" cy="60" r="29" fill="none" stroke="${stitch}" stroke-width="1" opacity="0.5"/>
-    ${centre}
-  </svg>`;
+/* Saved */
+let saved = new Set(store.get('waggl-loved', []).filter(h => byH[h]));
+const saveLabel = h => saved.has(h) ? `Remove ${byH[h].name} from saved` : `Save ${byH[h].name}`;
+function toggleSaved(h) {
+  saved.has(h) ? saved.delete(h) : saved.add(h);
+  store.set('waggl-loved', [...saved]);
+  $$(`.save[data-save="${h}"]`).forEach(b => { b.setAttribute('aria-pressed', saved.has(h)); b.setAttribute('aria-label', saveLabel(h)); });
+  showCounts();
+  renderTabs();
+  if (filter === 'saved') renderGrid();
 }
-const P_SIZE = { ring: 'SIZED IN INCHES · XS TO 9XL · WAGGL ·', big: '9XL', fill: '#1B2440', ink: '#FFFFFF', stitch: '#FFFFFF' };
-const P_RAIN = { ring: 'MADE FOR RAINY DAYS · WATERPROOF ·', icon: 'drop', fill: '#D9262E', ink: '#FFFFFF', stitch: '#FFFFFF' };
-const P_TAG = { ring: 'LOOK FOR THE LITTLE TAG · WAGGL ·', icon: 'tag', fill: '#F3E7C2', ink: '#1B2440', stitch: '#1B2440' };
-const P_BAND = { ring: 'EVERY BANDANA $13 · RIGHT NOW ·', big: '$13', fill: '#D9262E', ink: '#FFFFFF', stitch: '#FFFFFF' };
-
-/* Loved */
-let loved = new Set(store.get('waggl-loved', []).filter(h => byH[h]));
-const loveLabel = h => `${loved.has(h) ? 'Remove' : 'Save'} ${byH[h].name} ${loved.has(h) ? 'from' : 'to'} loved`;
-function setLoved(h, btn) {
-  loved.has(h) ? loved.delete(h) : loved.add(h);
-  store.set('waggl-loved', [...loved]);
-  $$(`.love[data-love="${h}"]`).forEach(b => { b.setAttribute('aria-pressed', loved.has(h)); b.setAttribute('aria-label', loveLabel(h)); });
-  if (btn) { btn.classList.remove('pop'); void btn.offsetWidth; btn.classList.add('pop'); }
-  $('#loved-count').textContent = loved.size || '';
-  bump($('#loved-count'));
-  $('#loved-link').setAttribute('aria-label', `Loved items, ${loved.size}`);
-  renderChips();
-  if (filter === 'loved') renderGrid();
-}
-const loveBtn = p => `<button type="button" class="love" data-love="${p.h}" aria-pressed="${loved.has(p.h)}" aria-label="${esc(loveLabel(p.h))}">${heart}</button>`;
-document.addEventListener('click', e => { const b = e.target.closest('[data-love]'); if (b) { e.stopPropagation(); setLoved(b.dataset.love, b); } }, true);
+const saveBtn = p => `<button type="button" class="save" data-save="${p.h}" aria-pressed="${saved.has(p.h)}" aria-label="${esc(saveLabel(p.h))}">${heart}</button>`;
+document.addEventListener('click', e => { const b = e.target.closest('[data-save]'); if (b) { e.stopPropagation(); toggleSaved(b.dataset.save); } }, true);
 
 /* Bag */
 let bag = store.get('waggl-bag', []).filter(l => byH[l.h] && variant(byH[l.h], l.c, l.s));
 const bagCount = () => bag.reduce((a, l) => a + l.q, 0);
 const bagTotal = () => bag.reduce((a, l) => a + byH[l.h].price * l.q, 0);
 const cartURL = () => `${STORE}/cart/${bag.map(l => variant(byH[l.h], l.c, l.s)[0] + ':' + l.q).join(',')}`;
+function showCounts() {
+  const n = bagCount();
+  $('#bag-text').textContent = n ? `Bag (${n})` : 'Bag';
+  $('#bag-n').textContent = n || '';
+  $('#bag-icon').setAttribute('aria-label', `Bag, ${n} item${n === 1 ? '' : 's'}`);
+  $('#saved-link').textContent = saved.size ? `Saved (${saved.size})` : 'Saved';
+  $('#saved-icon').setAttribute('aria-label', `Saved, ${saved.size} item${saved.size === 1 ? '' : 's'}`);
+}
 function saveBag() {
   store.set('waggl-bag', bag);
-  const n = bagCount();
-  $('#bag-count').textContent = n || '';
-  $('#open-bag').setAttribute('aria-label', `Bag, ${n} item${n === 1 ? '' : 's'}`);
+  showCounts();
   renderBag();
   renderDock();
+}
+const vis = { hero: true, foot: false };
+function renderDock() {
+  const n = bagCount();
+  if (n) {
+    $('#dock-txt').textContent = `${n} ${n === 1 ? 'piece' : 'pieces'} · ${money(bagTotal())} CAD`;
+    $('#dock-go').href = cartURL();
+  }
+  const busy = $$('dialog').some(d => d.open) || $('#mobile-nav').classList.contains('open');
+  $('#dock').classList.toggle('show', !!n && !vis.hero && !vis.foot && !busy);
 }
 function addToBag(p, c, s) {
   const line = bag.find(l => l.h === p.h && l.c === c && l.s === s);
   if (line) line.q += 1; else bag.push({ h: p.h, c, s, q: 1 });
   saveBag();
-  bump($('#bag-count'));
-  toast(`Added ${p.name}, ${colourOf(p, c).name}, size ${s}`);
+  toast(`Added to your bag: ${p.name}, ${colourOf(p, c).name}, ${s}`);
 }
 function renderBag() {
-  const body = $('#bag-body'), foot = $('#bag-foot');
+  const body = $('#bag-body'), foot = $('#bag-foot'), n = bagCount();
+  $('#bag-title-n').textContent = n ? ` (${n})` : '';
   if (!bag.length) {
-    body.innerHTML = `<div class="bag-empty"><p>Your bag is empty, for now.</p><a class="btn btn-navy" href="#shop" data-close>Shop all</a></div>`;
+    body.innerHTML = `<div class="bag-empty"><strong>Your bag is empty.</strong><p>Bandanas are a good place to start. They’re $13 right now.</p><a class="btn btn-line" href="#bandanas" data-close>Shop bandanas</a></div>`;
     foot.innerHTML = '';
     return;
   }
   body.innerHTML = bag.map((l, i) => {
     const p = byH[l.h], c = colourOf(p, l.c);
-    return `<div class="li" style="animation-delay:${i * 50}ms">
+    return `<div class="li">
       <div class="thumb"><img src="${cut(p, c, 'flat')}" alt="" loading="lazy"></div>
       <div>
         <strong>${esc(p.name)}</strong>
-        <span class="sub">${esc(c.name)} · ${esc(l.s)}</span>
-        <div><span class="qty"><button type="button" data-qty="${i}" data-d="-1" aria-label="One fewer">−</button><span>${l.q}</span><button type="button" data-qty="${i}" data-d="1" aria-label="One more">+</button></span><button class="remove" type="button" data-remove="${i}">Remove</button></div>
+        <span class="sub">${esc(c.name)} · Size ${esc(l.s)}</span>
+        <div><span class="qty"><button type="button" data-qty="${i}" data-d="-1" aria-label="Decrease quantity">−</button><span>${l.q}</span><button type="button" data-qty="${i}" data-d="1" aria-label="Increase quantity">+</button></span><button class="remove" type="button" data-remove="${i}">Remove</button></div>
       </div>
       <span class="lp">${money(p.price * l.q)}</span>
     </div>`;
   }).join('');
   foot.innerHTML = `<div class="total"><span>Subtotal</span><strong>${money(bagTotal())} <small>CAD</small></strong></div>
-    <a class="btn btn-navy" href="${cartURL()}" target="_blank" rel="noopener">Check out ↗</a>
-    <p class="note">You’ll finish checking out on the Waggl store, in a new tab. Shipping and tax are added there.</p>`;
+    <p class="note">Checkout opens the Waggl store in a new tab. Shipping and tax are added there.</p>
+    <a class="btn btn-ink" href="${cartURL()}" target="_blank" rel="noopener">Checkout ↗</a>
+    <button class="tlink" type="button" data-close>Keep shopping</button>`;
 }
 $('#bag').addEventListener('click', e => {
   const q = e.target.closest('[data-qty]'), r = e.target.closest('[data-remove]');
   if (q) { const l = bag[+q.dataset.qty]; l.q += +q.dataset.d; if (l.q < 1) bag.splice(+q.dataset.qty, 1); saveBag(); }
   else if (r) { bag.splice(+r.dataset.remove, 1); saveBag(); }
 });
-function renderDock() {
-  const n = bagCount();
-  $('#dock-txt').innerHTML = n
-    ? `<b>${n} ${n === 1 ? 'piece' : 'pieces'}</b> <span class="long">in your bag · </span>${money(bagTotal())}`
-    : `Bandanas are <b>$13</b><span class="long"> right now</span>`;
-  $('#dock-btn').innerHTML = n
-    ? `<a class="btn btn-navy" href="${cartURL()}" target="_blank" rel="noopener">Check out ↗</a>`
-    : `<a class="btn btn-navy" href="#bandanas">See bandanas</a>`;
-}
 
 /* Dialogs */
-function openDlg(d) { if (!d.open) d.showModal(); document.documentElement.style.overflow = 'hidden'; }
+function openDlg(d) { if (!d.open) d.showModal(); document.documentElement.style.overflow = 'hidden'; renderDock(); }
 function closeDlg(d) { if (d.open) d.close(); }
 $$('dialog').forEach(d => {
-  d.addEventListener('close', () => { if (!$$('dialog').some(x => x.open)) document.documentElement.style.overflow = ''; });
+  d.addEventListener('close', () => { if (!$$('dialog').some(x => x.open)) document.documentElement.style.overflow = ''; renderDock(); });
   d.addEventListener('click', e => { if (e.target === d || e.target.closest('[data-close]')) closeDlg(d); });
 });
 document.addEventListener('click', e => {
-  if (e.target.closest('[data-open-bag]')) { e.preventDefault(); $$('dialog[open]').forEach(closeDlg); openDlg($('#bag')); }
+  if (e.target.closest('[data-open-bag]')) { e.preventDefault(); $$('dialog[open]').forEach(closeDlg); $('#toast').classList.remove('show'); openDlg($('#bag')); }
+  if (e.target.closest('[data-search]')) { $('#search-q').value = ''; renderSearch(); openDlg($('#search')); $('#search-q').focus(); }
 });
-$('#open-bag').addEventListener('click', () => openDlg($('#bag')));
 let toastTimer;
 function toast(t) {
   $('#toast-text').textContent = t;
   $('#toast').classList.add('show');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => $('#toast').classList.remove('show'), 3400);
+  toastTimer = setTimeout(() => $('#toast').classList.remove('show'), 4000);
 }
 
 /* Pickers */
 const swatches = (p, cur) => p.colours.map(c => `<button type="button" class="swatch" role="radio" aria-checked="${c.v === cur}" aria-label="${esc(c.name)}" data-colour="${esc(c.v)}" style="background:${c.hex}"></button>`).join('');
 const sizes = (p, c, cur) => p.sizes.map(s => available(p, c, s)
   ? `<button type="button" class="size" role="radio" aria-checked="${s === cur}" data-size="${s}">${s}</button>`
-  : `<button type="button" class="size" disabled aria-label="${s}, sold out">${s}</button>`).join('');
-const priceRow = p => `<div class="price"><span class="now">${money(p.price)} <span class="small-caps" style="display:inline">CAD</span></span>${p.was > p.price ? `<span class="was">Usually <s>${money(p.was)}</s></span>` : ''}</div>`;
+  : `<button type="button" class="size out" aria-disabled="true" aria-label="${s}, sold out">${s}</button>`).join('');
+const priceRow = p => `<div class="price"><span class="now">${money(p.price)}</span><span class="cur">CAD</span>${p.was > p.price ? `<span class="was">Usually ${money(p.was)}</span>` : ''}</div>`;
 const stock = (p, c, s) => {
   const ok = s ? available(p, c, s) : p.sizes.some(x => available(p, c, x));
-  return `<span class="stock ${ok ? '' : 'off'}">${ok ? (s ? `Size ${s} in stock` : 'In stock') : 'Sold out'}</span>`;
+  return `<span class="stock">${ok ? 'In stock' : s ? 'This size is sold out' : 'Sold out'}</span>`;
 };
-
-/* Hero line-up */
-function renderLineup() {
-  $('#lineup').innerHTML = LINEUP.map((d, i) => {
-    const p = byH[d.h], c = colourOf(p, d.c);
-    return `<button type="button" class="pup" style="--h:${d.size};--i:${i}" data-open="${p.h}" data-colour-pick="${c.v}" aria-label="${esc(p.name)} in ${esc(c.name)}, ${money(p.price)}">
-      <img src="${cut(p, c, 'dog')}" alt="" ${i > 4 ? 'loading="lazy"' : ''}>
-      <span class="chip">${esc(p.name)} <b>${money(p.price)}</b></span>
-    </button>`;
-  }).join('');
-  $('#patch-hero').innerHTML = patch(P_SIZE);
-}
-
-/* Hero film: plays muted, pauses off screen, and has a pause button */
-const film = $('#hero-video'), playBtn = $('#hero-play');
-const PAUSE_ICON = '<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="2" width="3.4" height="12" rx="1"/><rect x="9.6" y="2" width="3.4" height="12" rx="1"/></svg>';
-const PLAY_ICON = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.2v11.6c0 .6.7 1 1.2.6l8.6-5.8c.4-.3.4-.9 0-1.2L5.2 1.6C4.7 1.2 4 1.6 4 2.2Z"/></svg>';
-let filmWanted = !reduce;
-function showFilmState() {
-  const on = !film.paused;
-  playBtn.innerHTML = on ? PAUSE_ICON : PLAY_ICON;
-  playBtn.setAttribute('aria-label', on ? 'Pause the video' : 'Play the video');
-  playBtn.hidden = false;
-}
-function playFilm() { const p = film.play(); if (p) p.then(showFilmState).catch(showFilmState); }
-film.addEventListener('pause', showFilmState);
-film.addEventListener('play', showFilmState);
-playBtn.addEventListener('click', () => { filmWanted = film.paused; filmWanted ? playFilm() : film.pause(); });
-new IntersectionObserver(es => es.forEach(en => {
-  if (en.isIntersecting && filmWanted) playFilm();
-  else if (!en.isIntersecting && !film.paused) film.pause();
-})).observe(film);
-if (reduce) showFilmState();
-
-/* Promises */
-function renderPromises() {
-  const items = [
-    [P_SIZE, 'Sized properly', 'Every piece has a size chart in inches, and our poncho goes all the way up to 9XL.'],
-    [P_RAIN, 'Ready for weather', 'Waterproof shells, reflective trim and a covered opening for the leash.'],
-    [P_TAG, 'Look for the tag', 'Our logo is stitched on the front of every bandana, with a little white tag on the side.']
-  ];
-  $('#promises').innerHTML = items.map(([pt, h, t], i) => `<div class="promise" data-reveal style="--d:${i}">${patch(pt)}<div><h3>${h}</h3><p>${t}</p></div></div>`).join('');
-}
 
 /* Shop by kind */
 function renderKinds() {
   const count = k => PRODUCTS.filter(p => groupOf(p) === k).length;
-  $('#kinds').innerHTML = KINDS.map((k, i) => `<a class="kind ${k.cls}" href="#shop" data-filter="${k.key}" data-reveal style="--d:${i}">
-    <img src="assets/studio/${k.img}.webp" alt="${esc(k.alt)}" loading="lazy">
-    <span class="txt"><h3>${k.title}</h3><span class="n">${GROUPS[k.key].label} · ${count(k.key)}</span></span>
-  </a>`).join('');
+  const extra = k => k === 'accessories' ? ', $13 each' : '';
+  $('#kind-rows').innerHTML = KINDS.map((k, i) => {
+    const n = count(k.key);
+    return `<li><a class="kind-row" href="#shop" data-filter="${k.key}" data-kind="${i}" data-reveal style="--d:${i}">
+      <span class="kname">${k.name}</span>
+      <span class="kdesc">${k.desc}<br>${n} piece${n === 1 ? '' : 's'}${extra(k.key)}</span>
+      <span class="thumb"><img src="assets/cutouts/${k.img}-dog.webp" alt="" loading="lazy"></span>
+    </a></li>`;
+  }).join('');
+  $('#kind-panel').innerHTML = KINDS.map((k, i) => `<img src="assets/cutouts/${k.img}-dog.webp" alt="" class="${BUST.has(k.img) ? 'bust' : ''} ${i === 0 ? 'on' : ''}" loading="lazy">`).join('');
+  $('#kind-rows').addEventListener('pointerover', e => { const r = e.target.closest('[data-kind]'); if (r) showKind(+r.dataset.kind); });
+  $('#kind-rows').addEventListener('focusin', e => { const r = e.target.closest('[data-kind]'); if (r) showKind(+r.dataset.kind); });
 }
+const showKind = i => $$('#kind-panel img').forEach((im, k) => im.classList.toggle('on', k === i));
 
 /* Puddle Parade story */
-const spot = { p: byH['puddle-parade-waterproof-dog-jacket'], c: 'Yellow', s: null, step: 0 };
+const spot = { p: byH['puddle-parade-waterproof-dog-jacket'], c: 'Yellow', s: null };
 function renderStory() {
   const p = spot.p;
   $('#look').innerHTML = p.colours.map(c => `<img src="${cut(p, c, 'flat')}" alt="Puddle Parade jacket in ${esc(c.name)}, laid flat" data-c="${c.v}" ${c.v === spot.c ? 'class="on"' : 'loading="lazy"'}>`).join('') +
     STEPS.map((s, i) => `<span class="pin" style="left:${s.x}%;top:${s.y}%" aria-hidden="true">${i + 1}</span>`).join('');
   $('#ticks').innerHTML = STEPS.map(() => '<i></i>').join('');
-  $('#steps').innerHTML = STEPS.map((s, i) => `<article class="step" data-step="${i}"><span class="num">${String(i + 1).padStart(2, '0')} / ${String(STEPS.length).padStart(2, '0')}</span><h3>${esc(s.t)}</h3><p>${esc(s.d)}</p></article>`).join('');
+  $('#steps').innerHTML = STEPS.map((s, i) => `<article class="step" data-step="${i}"><span class="no">${String(i + 1).padStart(2, '0')}</span><h3>${esc(s.t)}</h3><p>${esc(s.d)}</p></article>`).join('');
   setStep(0, true);
 }
 function showColour(c) {
@@ -1049,25 +1005,24 @@ function showColour(c) {
   $('#cname').textContent = colourOf(spot.p, c).name;
 }
 function setStep(i, quiet) {
-  spot.step = i;
   const s = STEPS[i];
   $$('.step').forEach((el, k) => el.classList.toggle('on', k === i));
   $$('#look .pin').forEach((el, k) => el.classList.toggle('on', k === i));
   $$('#ticks i').forEach((el, k) => el.classList.toggle('on', k === i));
   $('#look').style.transformOrigin = `${s.x}% ${s.y}%`;
-  $('#look').style.transform = reduce || quiet ? 'none' : 'scale(1.16)';
+  $('#look').style.transform = reduce || quiet ? 'none' : 'scale(1.14)';
   if (!quiet) showColour(s.c);
   renderBuy();
 }
 function renderBuy() {
   const { p, c, s } = spot, col = colourOf(p, c);
   const html = `
-    <p class="line">Puddle Parade</p>
-    <p class="sub">Four colours, sizes L to 5XL. Fits dogs from about 16 to 88 lb.</p>
+    <p class="name">Puddle Parade</p>
+    <p class="sub">Four colours, sizes L to 5XL. Fits dogs from about 16 to 88 lb (7 to 40 kg).</p>
     ${priceRow(p)}
-    <div class="opt"><div class="opt-head"><span class="small-caps">Colour</span><span>${esc(col.name)}</span></div><div class="swatches" role="radiogroup" aria-label="Colour">${swatches(p, c)}</div></div>
-    <div class="opt"><div class="opt-head"><span class="small-caps">Size</span><span>${s || 'Choose one'}</span></div><div class="sizes" role="radiogroup" aria-label="Size">${sizes(p, c, s)}</div></div>
-    <div class="row"><button class="btn btn-navy" type="button" data-spot-add ${s ? '' : 'disabled'}>${s ? 'Add to bag' : 'Choose a size'}</button><button class="btn btn-line" type="button" data-open="${p.h}" data-colour-pick="${c}">Details</button></div>
+    <div class="opt"><div class="opt-head"><span class="label">Colour</span><span>${esc(col.name)}</span></div><div class="swatches" role="radiogroup" aria-label="Colour">${swatches(p, c)}</div></div>
+    <div class="opt"><div class="opt-head"><span class="label">Size</span><span>${s || 'Choose one'}</span></div><div class="sizes" role="radiogroup" aria-label="Size">${sizes(p, c, s)}</div></div>
+    <div class="row"><button class="btn btn-ink" type="button" data-spot-add ${s ? '' : 'disabled'}>${s ? `Add to bag · ${money(p.price)}` : 'Choose a size'}</button><button class="tlink" type="button" data-open="${p.h}" data-colour-pick="${c}">View details</button></div>
     ${stock(p, c, s)}`;
   $('#spot-buy').innerHTML = html;
   $('#spot-buy-m').innerHTML = html;
@@ -1079,16 +1034,51 @@ $$('.buy').forEach(box => box.addEventListener('click', e => {
   else if (e.target.closest('[data-spot-add]') && spot.s) addToBag(spot.p, spot.c, spot.s);
 }));
 
+/* The line-up */
+function renderLineup() {
+  $('#lineup').innerHTML = LINEUP.map((d, i) => {
+    const p = byH[d.h], c = colourOf(p, d.c);
+    const lbl = `${p.name} · ${c.name} · ${money(p.price)}`;
+    return `<button type="button" class="pup" style="--h:${d.size};--i:${i}" data-reveal-pup data-open="${p.h}" data-colour-pick="${c.v}" data-label="${esc(lbl)}" aria-label="${esc(p.name)} in ${esc(c.name)}, ${money(p.price)}">
+      <img src="${cut(p, c, 'dog')}" alt="" loading="lazy">
+    </button>`;
+  }).join('');
+  const lab = $('#pup-label');
+  const show = b => { lab.textContent = b ? b.dataset.label : ''; lab.classList.toggle('on', !!b); };
+  $('#lineup').addEventListener('pointerover', e => show(e.target.closest('.pup')));
+  $('#lineup').addEventListener('pointerleave', () => show(null));
+  $('#lineup').addEventListener('focusin', e => show(e.target.closest('.pup')));
+  $('#lineup').addEventListener('focusout', () => show(null));
+}
+
+/* Bandana wall */
+const WALL = [
+  { name: 'Tie-strap', note: 'Ties behind the neck, so there’s no folding.', test: p => /tie-strap/i.test(p.kind) },
+  { name: 'Classic', note: 'The folded triangle you knot at the back.', test: p => /classic/i.test(p.kind) }
+];
+function renderWall() {
+  $('#wall').innerHTML = WALL.map(g => {
+    const items = PRODUCTS.filter(p => p.cat === 'accessories' && g.test(p)).flatMap(p => p.colours.map(c => ({ p, c })));
+    return `<div class="wall-group"><div class="wg-head"><div><h3>${g.name}</h3><p>${g.note}</p></div><span class="n">${items.length} colours</span></div><div class="swatchbook">${swatch(items)}</div></div>`;
+  }).join('');
+}
+function swatch(items) {
+  return items.map(({ p, c }) => `<button type="button" class="bd" data-open="${p.h}" data-colour-pick="${c.v}" aria-label="${esc(p.name)} in ${esc(c.name)}, ${money(p.price)}">
+    <span class="sq"><img class="flat" src="${cut(p, c, 'flat')}" alt="" loading="lazy"><img class="dog ${isBust(p, c) ? '' : 'stand'}" src="${cut(p, c, 'dog')}" alt="" loading="lazy"></span>
+    <span class="lbl"><b>${esc(p.name)}</b><span>${esc(c.name)}</span></span>
+  </button>`).join('');
+}
+
 /* Shop */
 let filter = 'all', query = '';
 const hay = p => [p.name, p.kind, GROUPS[groupOf(p)].label, ...p.colours.map(c => c.name + ' ' + c.v)].join(' ').toLowerCase();
 const matches = (p, q) => q.split(/\s+/).filter(Boolean).every(t => hay(p).includes(t));
-const inFilter = p => filter === 'all' || (filter === 'loved' ? loved.has(p.h) : groupOf(p) === filter);
-function renderChips() {
+const inFilter = p => filter === 'all' || (filter === 'saved' ? saved.has(p.h) : groupOf(p) === filter);
+function renderTabs() {
   const n = k => k === 'all' ? PRODUCTS.length : PRODUCTS.filter(p => groupOf(p) === k).length;
-  $('#chips').innerHTML = `<button type="button" class="chip" aria-pressed="${filter === 'all'}" data-chip="all">All <small>${n('all')}</small></button>` +
-    Object.entries(GROUPS).map(([k, g]) => `<button type="button" class="chip" aria-pressed="${filter === k}" data-chip="${k}">${g.label} <small>${n(k)}</small></button>`).join('') +
-    `<button type="button" class="chip" aria-pressed="${filter === 'loved'}" data-chip="loved">${heart}Loved <small>${loved.size}</small></button>`;
+  $('#tabs').innerHTML = `<button type="button" class="tab" aria-pressed="${filter === 'all'}" data-tab="all">All<small>${n('all')}</small></button>` +
+    Object.entries(GROUPS).map(([k, g]) => `<button type="button" class="tab" aria-pressed="${filter === k}" data-tab="${k}">${g.label}<small>${n(k)}</small></button>`).join('') +
+    `<button type="button" class="tab" aria-pressed="${filter === 'saved'}" data-tab="saved">Saved<small>${saved.size}</small></button>`;
 }
 function quick(p) {
   const c = p.colours[0];
@@ -1099,22 +1089,21 @@ function card(p, i) {
   const c = p.colours[0];
   return `<article class="card" data-reveal style="--d:${i % 4}">
     <div class="tile">
-      <button type="button" class="open" data-open="${p.h}" aria-label="${esc(p.name)}, ${esc(p.kind)}, ${money(p.price)}">
+      <button type="button" class="open ${isBust(p, c) ? '' : 'stand'}" data-open="${p.h}" aria-label="${esc(p.name)}, ${esc(p.kind)}, ${money(p.price)}">
+        <img class="dog ${isBust(p, c) ? 'bust' : ''}" src="${cut(p, c, 'dog')}" alt="" loading="lazy">
         <img class="flat" src="${cut(p, c, 'flat')}" alt="" loading="lazy">
-        <img class="photo" src="${photo(p, c)}" alt="" loading="lazy">
       </button>
       ${quick(p)}
-      ${loveBtn(p)}
-      <span class="tag" aria-hidden="true"></span>
+      ${saveBtn(p)}
     </div>
     <button type="button" class="info" data-open="${p.h}" tabindex="-1" aria-hidden="true">
-      <span class="top"><h3>${esc(p.name)}</h3><span class="p">${money(p.price)}</span></span>
+      <span class="top"><b>${esc(p.name)}</b><span class="num">${money(p.price)}${p.was > p.price ? `<s>${money(p.was)}</s>` : ''}</span></span>
       <p class="kind-t">${esc(p.kind)}</p>
       <span class="dots">${p.colours.map(x => `<i style="background:${x.hex}"></i>`).join('')}</span>
     </button>
   </article>`;
 }
-const insertHTML = ins => `<a class="insert" href="#shop" data-filter="${ins.filter}" data-reveal><img src="assets/studio/${ins.img}.webp" alt="${esc(ins.alt)}" loading="lazy"><div><h3>${ins.title}</h3><span class="more">${ins.link} <i aria-hidden="true">→</i></span></div></a>`;
+const insertHTML = ins => `<a class="insert" href="#shop" data-filter="${ins.filter}" data-reveal><div class="pic"><img src="assets/studio/${ins.img}.webp" alt="${esc(ins.alt)}" loading="lazy"></div><div class="cap"><h3>${ins.title}</h3><span class="tlink">${ins.link}</span></div></a>`;
 function renderGrid() {
   const list = PRODUCTS.filter(p => inFilter(p) && matches(p, query));
   const editorial = filter === 'all' && !query;
@@ -1124,13 +1113,14 @@ function renderGrid() {
     const ins = editorial && INSERTS.find(x => x.after === i + 1);
     if (ins) html += insertHTML(ins);
   });
-  $('#grid').innerHTML = list.length ? html : filter === 'loved' && !query
-    ? `<p class="empty">Nothing loved yet. Tap the heart on anything you like and it will wait for you here.</p>`
-    : `<p class="empty">Nothing matches “${esc(query)}”. Try a colour, like yellow, or <button type="button" data-reset>see everything</button>.</p>`;
-  $('#shop-count').textContent = list.length === PRODUCTS.length ? `${PRODUCTS.length} pieces` : `${list.length} of ${PRODUCTS.length}`;
+  $('#grid').innerHTML = list.length ? html : filter === 'saved' && !query
+    ? `<p class="empty">Nothing saved yet. Tap the heart on anything you like.</p>`
+    : `<p class="empty">Nothing matches “${esc(query)}”. <button type="button" data-reset>Clear the search</button></p>`;
+  const n = list.length;
+  $('#shop-count').textContent = n === PRODUCTS.length ? `${n} pieces` : `${n} of ${PRODUCTS.length}`;
 }
-function setFilter(k) { filter = k; renderChips(); renderGrid(); }
-$('#chips').addEventListener('click', e => { const b = e.target.closest('[data-chip]'); if (b) setFilter(b.dataset.chip); });
+function setFilter(k) { filter = k; renderTabs(); renderGrid(); }
+$('#tabs').addEventListener('click', e => { const b = e.target.closest('[data-tab]'); if (b) setFilter(b.dataset.tab); });
 $('#shop-q').addEventListener('input', e => { query = e.target.value.trim().toLowerCase(); renderGrid(); });
 $('#grid').addEventListener('click', e => {
   if (e.target.closest('[data-reset]')) { query = ''; $('#shop-q').value = ''; setFilter('all'); }
@@ -1138,66 +1128,58 @@ $('#grid').addEventListener('click', e => {
   if (q) { const [h, s] = q.dataset.qadd.split('|'); addToBag(byH[h], byH[h].colours[0].v, s); }
 });
 document.addEventListener('click', e => {
-  const f = e.target.closest('a[data-filter]'), l = e.target.closest('[data-show-loved]');
+  const f = e.target.closest('a[data-filter]'), sv = e.target.closest('[data-show-saved]');
   if (f) setFilter(f.dataset.filter);
-  if (l) setFilter('loved');
+  if (sv) setFilter('saved');
   if (e.target.closest('#mobile-nav a')) { $('#mobile-nav').classList.remove('open'); $('#menu-btn').setAttribute('aria-expanded', 'false'); }
 });
 
-/* Bandana wall */
-function renderWall() {
-  const items = PRODUCTS.filter(p => p.cat === 'accessories').flatMap(p => p.colours.map(c => ({ p, c })));
-  $('#wall').innerHTML = items.map(({ p, c }, i) => `<button type="button" class="bd" data-open="${p.h}" data-colour-pick="${c.v}" aria-label="${esc(p.name)} in ${esc(c.name)}" data-reveal style="--d:${i % 8}">
-    <img src="${cut(p, c, 'flat')}" alt="" loading="lazy"><span class="lbl">${esc(p.name)}<br>${esc(c.name)}</span>
-  </button>`).join('');
-  $('#patch-wall').innerHTML = patch(P_BAND);
-}
-
 /* Product view */
-const view = { p: null, c: null, s: null, i: 0 };
+const view = { p: null, c: null, s: null, shot: 'dog' };
 function chart(p, mark) {
   const c = p.chart;
   if (!c) return '';
-  return `<div class="chart-wrap"><table class="chart"><thead><tr><th>Size</th>${c.cols.map(x => `<th>${esc(x)}</th>`).join('')}</tr></thead><tbody>${c.rows.map(r => `<tr class="${r[0] === mark ? 'hit' : ''}">${r.map(x => `<td>${esc(x)}</td>`).join('')}</tr>`).join('')}</tbody></table></div><p>All measurements in inches.</p>`;
+  return `<div class="chart-wrap"><table class="chart"><thead><tr><th>Size</th>${c.cols.map(x => `<th>${esc(x)}</th>`).join('')}</tr></thead><tbody>${c.rows.map(r => `<tr class="${r[0] === mark ? 'hit' : ''}">${r.map(x => `<td>${esc(x)}</td>`).join('')}</tr>`).join('')}</tbody></table></div><p>Measurements are in inches. 1 in = 2.54 cm.</p>`;
 }
 function renderView() {
-  const { p, c, s, i } = view, col = colourOf(p, c);
-  const shots = [
-    { src: cut(p, col, 'flat'), cls: 'flat', alt: `${p.name} in ${col.name}` },
-    { src: photo(p, col), cls: 'cover', alt: `A dog wearing ${p.name} in ${col.name}` }
-  ];
-  const sh = shots[i];
+  const { p, c, s, shot } = view, col = colourOf(p, c);
+  const stage = shot === 'flat'
+    ? `<img class="flat" src="${cut(p, col, 'flat')}" alt="${esc(p.name)} in ${esc(col.name)}, laid flat">`
+    : `<img class="dog ${isBust(p, col) ? 'bust' : ''}" src="${cut(p, col, 'dog')}" alt="A dog wearing ${esc(p.name)} in ${esc(col.name)}">`;
+  const thumbs = [{ k: 'dog', src: cut(p, col, 'dog'), label: 'On a dog', cur: shot === 'dog' }, { k: 'flat', src: cut(p, col, 'flat'), label: 'Laid flat', cur: shot === 'flat' }]
+    .map(t => `<button type="button" data-shot="${t.k}" aria-current="${t.cur}" aria-label="${t.label}"><img src="${t.src}" alt="" loading="lazy"></button>`).join('') +
+    p.colours.filter(x => x.v !== c).map(x => `<button type="button" data-thumb-colour="${esc(x.v)}" aria-label="Show ${esc(x.name)}"><img src="${cut(p, x, 'flat')}" alt="" loading="lazy"></button>`).join('');
   $('#pd').innerHTML = `
     <button class="x" type="button" data-close aria-label="Close"><svg aria-hidden="true"><use href="#i-x"/></svg></button>
     <div class="pd-grid">
       <div class="pd-media">
-        <div class="pd-stage"><img class="${sh.cls}" src="${sh.src}" alt="${esc(sh.alt)}"></div>
-        <div class="pd-thumbs">${shots.map((x, k) => `<button type="button" data-shot="${k}" aria-current="${k === i}" aria-label="Photo ${k + 1} of ${shots.length}"><img class="${x.cls === 'flat' ? 'c' : ''}" src="${x.src}" alt="" loading="lazy"></button>`).join('')}</div>
+        <div class="pd-stage ${shot === 'dog' && !isBust(p, col) ? 'stand' : ''}">${stage}</div>
+        <div class="pd-thumbs">${thumbs}</div>
       </div>
       <div class="pd-info">
         <div>
-          <span class="small-caps">${esc(GROUPS[groupOf(p)].label)}</span>
+          <span class="label-s">${esc(p.kind)}</span>
           <h2 id="pd-name">${esc(p.name)}</h2>
-          <p class="line">${esc(p.kind)}</p>
         </div>
         ${priceRow(p)}
-        <div class="opt"><div class="opt-head"><span class="small-caps">Colour</span><span>${esc(col.name)}</span></div><div class="swatches" role="radiogroup" aria-label="Colour">${swatches(p, c)}</div></div>
-        <div class="opt"><div class="opt-head"><span class="small-caps">Size</span><span>${s || 'Choose one'}</span></div><div class="sizes" role="radiogroup" aria-label="Size">${sizes(p, c, s)}</div></div>
-        <div class="row"><button class="btn btn-navy" type="button" data-view-add ${s ? '' : 'disabled'}>${s ? `Add to bag · ${money(p.price)}` : 'Choose a size'}</button>${loveBtn(p)}</div>
-        ${stock(p, c, s)}
         <p class="blurb">${esc(BLURB[p.h] || p.blurb)}</p>
+        <div class="opt"><div class="opt-head"><span class="label">Colour</span><span>${esc(col.name)}</span></div><div class="swatches" role="radiogroup" aria-label="Colour">${swatches(p, c)}</div></div>
+        <div class="opt"><div class="opt-head"><span class="label">Size</span><span>${s || 'Choose one'}</span><a class="tlink" href="#fit" data-close>Size guide</a></div><div class="sizes" role="radiogroup" aria-label="Size">${sizes(p, c, s)}</div></div>
+        <div class="row actions"><button class="btn btn-ink" type="button" data-view-add ${s ? '' : 'disabled'}>${s ? `Add to bag · ${money(p.price)}` : 'Choose a size'}</button>${saveBtn(p)}</div>
+        ${stock(p, c, s)}
         <div class="acc">
-          <details><summary>Details</summary><div class="body"><ul>${p.details.map(d => `<li>${esc(d)}</li>`).join('')}</ul></div></details>
-          <details ${s && p.chart ? 'open' : ''}><summary>${p.chart ? 'Fit &amp; size guide' : 'Fit'}</summary><div class="body">${p.fit.map(f => `<p>${esc(f)}</p>`).join('')}${chart(p, s)}</div></details>
+          <details><summary>Details<i></i></summary><div class="body"><ul>${p.details.map(d => `<li>${esc(d)}</li>`).join('')}</ul></div></details>
+          <details><summary>Fit<i></i></summary><div class="body">${p.fit.map(f => `<p>${esc(f)}</p>`).join('')}</div></details>
+          ${p.chart ? `<details ${s ? 'open' : ''}><summary>Size chart (inches)<i></i></summary><div class="body">${chart(p, s)}</div></details>` : ''}
         </div>
-        <a class="store-link" href="${STORE}/products/${p.h}" target="_blank" rel="noopener">See it on the Waggl store ↗</a>
+        <a class="tlink" href="${STORE}/products/${p.h}" target="_blank" rel="noopener">View on the Waggl store ↗</a>
       </div>
     </div>`;
 }
 function openProduct(h, size, colour) {
   const p = byH[h];
   if (!p) return;
-  Object.assign(view, { p, c: colour && colourOf(p, colour) ? colour : p.colours[0].v, i: 0, s: null });
+  Object.assign(view, { p, c: colour && colourOf(p, colour) ? colour : p.colours[0].v, s: null, shot: 'dog' });
   if (size) { const c = available(p, view.c, size) ? colourOf(p, view.c) : p.colours.find(x => available(p, x.v, size)); if (c) { view.c = c.v; view.s = size; } }
   $$('dialog[open]').forEach(closeDlg);
   renderView();
@@ -1205,22 +1187,24 @@ function openProduct(h, size, colour) {
   $('#pd').scrollTop = 0;
 }
 $('#pd').addEventListener('click', e => {
-  const sw = e.target.closest('[data-colour]'), sz = e.target.closest('[data-size]'), sh = e.target.closest('[data-shot]');
-  if (sw) { view.c = sw.dataset.colour; if (view.s && !available(view.p, view.c, view.s)) view.s = null; renderView(); $(`#pd [data-colour="${view.c}"]`).focus(); }
+  const sw = e.target.closest('[data-colour]'), sz = e.target.closest('[data-size]'), sh = e.target.closest('[data-shot]'), tc = e.target.closest('[data-thumb-colour]');
+  if (sw || tc) { view.c = sw ? sw.dataset.colour : tc.dataset.thumbColour; if (view.s && !available(view.p, view.c, view.s)) view.s = null; renderView(); const f = $(`#pd [data-colour="${view.c}"]`); if (f) f.focus(); }
   else if (sz) { view.s = sz.dataset.size; renderView(); $(`#pd [data-size="${view.s}"]`).focus(); }
-  else if (sh) { view.i = +sh.dataset.shot; renderView(); $(`#pd [data-shot="${view.i}"]`).focus(); }
+  else if (sh) { view.shot = sh.dataset.shot; renderView(); $(`#pd [data-shot="${view.shot}"]`).focus(); }
   else if (e.target.closest('[data-view-add]') && view.s) { addToBag(view.p, view.c, view.s); closeDlg($('#pd')); }
 });
 document.addEventListener('click', e => { const o = e.target.closest('[data-open]'); if (o) openProduct(o.dataset.open, o.dataset.size, o.dataset.colourPick); });
 
 /* Fit guide */
 const FIT = [
-  { h: 'puddle-parade-waterproof-dog-jacket', by: 'chest', why: 'By chest' },
-  { h: 'drizzle-scout-outdoor-dog-jacket', by: 'chest', why: 'By chest' },
-  { h: 'daydream-dog-base-layer-onesie', by: 'chest', why: 'By chest' },
-  { h: 'cloud-cruise-waterproof-dog-rain-poncho', by: 'girth', why: 'By belly' },
-  { h: 'trail-tails-buffalo-plaid-dog-bandana', by: 'neck', why: 'By neck', name: 'Tie-strap bandanas' }
+  { h: 'puddle-parade-waterproof-dog-jacket', by: 'chest', why: 'Fits by chest' },
+  { h: 'drizzle-scout-outdoor-dog-jacket', by: 'chest', why: 'Fits by chest' },
+  { h: 'daydream-dog-base-layer-onesie', by: 'chest', why: 'Fits by chest' },
+  { h: 'cloud-cruise-waterproof-dog-rain-poncho', by: 'girth', why: 'Fits by belly' },
+  { h: 'trail-tails-buffalo-plaid-dog-bandana', by: 'neck', why: 'Fits by neck', name: 'Tie-strap bandanas' }
 ];
+let unit = 'in';
+const fmt = v => unit === 'in' ? `${v}` : `${Math.round(v * 2.54)}`;
 function bands(c) {
   const col = c.by === 'neck' ? 1 : c.by === 'girth' ? c.cols.indexOf('Girth max') + 1 : c.cols.indexOf('Chest') + 1;
   if (c.kind === 'range') return c.rows.map(r => { const [a, b] = r[col].split('–').map(Number); return { s: r[0], a, b }; });
@@ -1231,50 +1215,48 @@ function bands(c) {
 function fitFor(p, val) {
   const b = bands(p.chart), lo = b[0].a, hi = b.at(-1).b;
   let hit = null, msg = '';
-  if (val < lo) msg = `Smaller than size ${b[0].s}`;
-  else if (val > hi) msg = `Bigger than size ${b.at(-1).s}`;
+  if (val < lo) msg = `Smaller than size ${b[0].s}, our smallest for this one.`;
+  else if (val > hi) msg = `Bigger than size ${b.at(-1).s}, our largest for this one.${p.h === 'cloud-cruise-waterproof-dog-rain-poncho' ? '' : ' The Cloud Cruise poncho goes up to 9XL.'}`;
   else hit = (b.find(x => val <= x.b) || b.at(-1)).s;
   return { b, lo, hi, pos: clamp((val - lo) / (hi - lo)), hit, msg };
 }
-const lastFit = {};
 function renderFit(e) {
   const v = { neck: +$('#fit-neck').value, chest: +$('#fit-chest').value, girth: +$('#fit-girth').value };
   [['neck', 'fit-neck'], ['chest', 'fit-chest'], ['girth', 'fit-girth']].forEach(([k, id]) => {
     const el = $('#' + id);
-    $('#o-' + k).innerHTML = `${v[k]}<small>in</small>`;
+    $('#o-' + k).innerHTML = `${fmt(v[k])}<small>${unit}</small>`;
     el.style.setProperty('--p', ((v[k] - el.min) / (el.max - el.min) * 100) + '%');
-    el.setAttribute('aria-valuetext', `${v[k]} inches`);
+    el.setAttribute('aria-valuetext', unit === 'in' ? `${v[k]} inches` : `${fmt(v[k])} centimetres`);
   });
-  $$('.measure .lbl').forEach(l => l.classList.toggle('on', !!(e && e.target.dataset.lbl === l.id)));
+  $$('.measure .tag').forEach(t => t.classList.toggle('on', !!(e && e.target && e.target.dataset && e.target.dataset.tag === t.id)));
   $('#fit-results').innerHTML = FIT.map(r => {
     const p = byH[r.h], f = fitFor(p, v[r.by]), span = f.hi - f.lo;
-    const changed = lastFit[r.h] !== undefined && lastFit[r.h] !== f.hit;
-    lastFit[r.h] = f.hit;
-    const segs = f.b.map(x => `<span class="s ${x.s === f.hit ? 'on' : ''}" style="width:${(x.b - Math.max(x.a, f.lo)) / span * 100}%"></span>`).join('');
+    const hitBand = f.b.find(x => x.s === f.hit);
+    const seg = hitBand ? `<span class="seg" style="left:${(Math.max(hitBand.a, f.lo) - f.lo) / span * 100}%;width:${(hitBand.b - Math.max(hitBand.a, f.lo)) / span * 100}%"></span>` : '';
+    const ticks = f.b.slice(0, -1).map(x => `<span class="tick" style="left:${(x.b - f.lo) / span * 100}%"></span>`).join('');
+    const narrow = innerWidth < 560;
+    const codes = f.b.map((x, k) => (narrow && k % 2 && x.s !== f.hit) ? '' : `<span class="code ${x.s === f.hit ? 'on' : ''}" style="left:${((Math.max(x.a, f.lo) + x.b) / 2 - f.lo) / span * 100}%">${x.s}</span>`).join('');
     return `<div class="res">
       <div class="thumb"><img src="${cut(p, p.colours[0], 'flat')}" alt="" loading="lazy"></div>
       <div>
         <div class="who"><strong>${esc(r.name || p.name)}</strong><small>${r.why} · ${f.b[0].s} to ${f.b.at(-1).s}</small></div>
-        <div class="scale" aria-hidden="true"><div class="track">${segs}</div><span class="mk" style="left:${f.pos * 100}%"></span></div>
+        <div class="scale" aria-hidden="true"><span class="track"></span>${ticks}${seg}${codes}<span class="mk" style="left:${f.pos * 100}%"></span></div>
       </div>
-      ${f.hit ? `<button class="sz ${changed ? 'flip' : ''}" type="button" data-open="${p.h}" data-size="${f.hit}" aria-label="Size ${f.hit}. Shop ${esc(p.name)} in ${f.hit}">${f.hit}</button>` : `<span></span><span class="msg">${esc(f.msg)}</span>`}
+      ${f.hit ? `<button class="sz" type="button" data-open="${p.h}" data-size="${f.hit}" aria-label="Size ${f.hit}. Shop ${esc(p.name)} in ${f.hit}">${f.hit}</button>` : `<span></span><span class="msg">${esc(f.msg)}</span>`}
     </div>`;
   }).join('');
 }
 $('#fit-form').addEventListener('input', renderFit);
 $('#fit-form').addEventListener('submit', e => e.preventDefault());
+$$('.unit').forEach(b => b.addEventListener('click', () => { unit = b.dataset.unit; $$('.unit').forEach(x => x.setAttribute('aria-pressed', x === b)); renderFit(); }));
 
-/* Join */
-function renderPeek() {
-  const dogs = [['plaid-dog-bandana', 'Green'], ['little-dots-polka-dot-dog-bandana', 'Red'], ['trail-tails-buffalo-plaid-dog-bandana', 'Green']];
-  $('#peek').innerHTML = dogs.map(([h, c]) => `<img src="${cut(byH[h], colourOf(byH[h], c), 'dog')}" alt="" loading="lazy">`).join('');
-}
+/* Newsletter */
 $('#join-form').addEventListener('submit', e => {
   e.preventDefault();
   const v = $('#join-email').value.trim();
   $('#join-msg').textContent = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)
-    ? 'Thank you. This preview is not connected to email yet, so nothing was sent.'
-    : 'That email address looks incomplete. Check it and try again.';
+    ? 'Thanks. This preview isn’t connected to email yet, so nothing was sent.'
+    : 'That email doesn’t look right. Could you check it?';
 });
 
 /* Search */
@@ -1282,10 +1264,9 @@ function renderSearch() {
   const q = $('#search-q').value.trim().toLowerCase();
   const list = q ? PRODUCTS.filter(p => matches(p, q)) : PRODUCTS.slice(0, 6);
   $('#search-results').innerHTML = list.length
-    ? list.map((p, i) => `<li style="animation-delay:${i * 35}ms"><button type="button" data-open="${p.h}"><span class="thumb"><img src="${cut(p, p.colours[0], 'flat')}" alt="" loading="lazy"></span><span><strong>${esc(p.name)}</strong><span>${esc(p.kind)}</span></span><span>${money(p.price)}</span></button></li>`).join('')
-    : `<li class="none">Nothing called “${esc(q)}” yet. Try a colour, like yellow, or a type, like poncho.</li>`;
+    ? list.map(p => `<li><button type="button" data-open="${p.h}"><span class="thumb"><img src="${cut(p, p.colours[0], 'flat')}" alt="" loading="lazy"></span><span><strong>${esc(p.name)}</strong><span>${esc(p.kind)}</span></span><span class="p">${money(p.price)}</span></button></li>`).join('')
+    : `<li class="none">Nothing found for “${esc(q)}”. Try a colour, like blue.</li>`;
 }
-$('#open-search').addEventListener('click', () => { $('#search-q').value = ''; renderSearch(); openDlg($('#search')); $('#search-q').focus(); });
 $('#search-q').addEventListener('input', renderSearch);
 $('#search-q').addEventListener('keydown', e => { if (e.key === 'Enter') { const b = $('#search-results [data-open]'); if (b) b.click(); } });
 
@@ -1295,51 +1276,56 @@ $('#menu-btn').addEventListener('click', () => {
   $('#menu-btn').setAttribute('aria-expanded', String(open));
 });
 
-/* One scroll loop drives the scroll-linked effects */
+/* Hero film: muted, pauses off screen, with a Pause / Play control */
+const film = $('#hero-video'), playBtn = $('#hero-play');
+let filmWanted = !reduce;
+function showFilmState() { playBtn.textContent = film.paused ? 'Play' : 'Pause'; playBtn.hidden = false; }
+function playFilm() { const p = film.play(); if (p) p.then(showFilmState).catch(showFilmState); }
+film.addEventListener('canplay', () => film.classList.add('ready'), { once: true });
+film.addEventListener('playing', () => film.classList.add('ready'));
+film.addEventListener('pause', showFilmState);
+film.addEventListener('play', showFilmState);
+playBtn.addEventListener('click', () => { filmWanted = film.paused; filmWanted ? playFilm() : film.pause(); });
+new IntersectionObserver(es => es.forEach(en => {
+  if (en.isIntersecting && filmWanted) playFilm();
+  else if (!en.isIntersecting && !film.paused) film.pause();
+})).observe(film);
+if (reduce) showFilmState();
+
+/* Header on scroll */
 let lastY = scrollY, ticking = false;
 function onFrame() {
   ticking = false;
-  const y = scrollY, vh = innerHeight, header = $('.site-header');
-  header.classList.toggle('scrolled', y > 30);
+  const y = scrollY, header = $('.site-header');
+  header.classList.toggle('scrolled', y > 8);
   const anyOpen = $('#mobile-nav').classList.contains('open') || $$('dialog').some(d => d.open);
   if (!anyOpen && y > 600 && y > lastY + 2) header.classList.add('away');
   else if (y < lastY - 2 || y <= 600) header.classList.remove('away');
   lastY = y;
-  if (reduce) return;
-  const ft = $('#foot').getBoundingClientRect();
-  $('#wordmark').style.setProperty('--fp', clamp((vh - ft.top) / (ft.height * 0.9)));
 }
 addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onFrame); } }, { passive: true });
-addEventListener('resize', onFrame);
-
-const vis = { hero: true, foot: false };
-const dockIO = new IntersectionObserver(es => {
-  es.forEach(en => { vis[en.target.id === 'hero' ? 'hero' : 'foot'] = en.isIntersecting; });
-  $('#dock').classList.toggle('show', !vis.hero && !vis.foot);
-});
-dockIO.observe($('#hero'));
-dockIO.observe($('#foot'));
 
 const stepIO = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) setStep(+en.target.dataset.step); }), { rootMargin: wide() ? '-48% 0px -48% 0px' : '-62% 0px -34% 0px' });
 
 const revealIO = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.remove('pre'); revealIO.unobserve(en.target); } }), { rootMargin: '0px 0px -8% 0px' });
 function armReveals(root = document) {
   if (reduce) return;
-  $$('[data-reveal]', root).forEach(el => { if (el.getBoundingClientRect().top > innerHeight) { el.classList.add('pre'); revealIO.observe(el); } });
+  $$('[data-reveal], .reveal-img, [data-reveal-pup]', root).forEach(el => { if (el.getBoundingClientRect().top > innerHeight) { el.classList.add('pre'); revealIO.observe(el); } });
 }
 new MutationObserver(() => armReveals($('#grid'))).observe($('#grid'), { childList: true });
 
-renderLineup();
-renderPromises();
 renderKinds();
 renderStory();
-renderChips();
-renderGrid();
+renderLineup();
 renderWall();
+renderTabs();
+renderGrid();
 renderFit();
-renderPeek();
-saveBag();
-$('#loved-count').textContent = loved.size || '';
+showCounts();
+renderBag();
+const dockIO = new IntersectionObserver(es => { es.forEach(en => { vis[en.target.id === 'hero' ? 'hero' : 'foot'] = en.isIntersecting; }); renderDock(); });
+dockIO.observe($('#hero'));
+dockIO.observe($('#foot'));
 $$('.step').forEach(s => stepIO.observe(s));
 armReveals();
 onFrame();
