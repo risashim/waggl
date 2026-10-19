@@ -24,10 +24,12 @@ Then open http://localhost:8000.
 | Role | Value |
 | --- | --- |
 | Page | `#FFFFFF` white |
-| Text | `#1F2747` navy |
-| Accent | `#D9272E` Waggl red, used sparingly |
-| Soft tiles | blush `#F6E1E1`, powder `#DDE8F4`, butter `#F6EDCB`, sage `#E1EBDA` |
-| Headlines | Fraunces, soft cut, with red italic accents |
-| Body | Zen Maru Gothic |
+| Text | `#1E2645` navy |
+| Signature pink | `#F5DADA` blush, with tiny white polka dots |
+| Product tiles | `#F8F2F0` shell, the same for every product |
+| Rain section | `#DCE6F1` powder blue |
+| Accent | `#D7262D` Waggl red, for italic words and hearts only |
+| Headlines | Fraunces, light weight, soft cut, red italic accents |
+| Body | Zen Maru Gothic; buttons and labels in spaced capitals |
 
-Products are shown as background-free cutouts (`assets/cutouts/`) on soft colour tiles. Lifestyle photos live in `assets/img/`. The signature detail is the small white woven side tag from the bandanas: the `.tag` element on every product tile, and the large tag in "Look for the little tag".
+Products sit as background-free cutouts (`assets/cutouts/`) on matching tiles, and the photo of a dog wearing it fades in on hover. "Best dressed" uses pop-out portraits where each dog's head rises above its circle. The signature detail is the white woven side tag from the bandanas, which peeks out of every tile and wags on hover.

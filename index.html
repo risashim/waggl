@@ -11,310 +11,271 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Zen+Maru+Gothic:wght@500;700&display=swap">
 <style>
-/* Layout: a quiet boutique. White space, soft colour tiles, cut-out dogs, one red accent. The woven side tag is the signature. */
+/* Layout: a small Parisian-style boutique for dogs. Lots of white, one signature pink with tiny polka dots, navy type, Waggl red only as a whisper. */
 :root {
   --white: #FFFFFF;
-  --mist: #F4F6F9;
-  --blush: #F6E1E1;
-  --powder: #DDE8F4;
-  --butter: #F6EDCB;
-  --sage: #E1EBDA;
-  --navy: #1F2747;
-  --navy-soft: #5E6685;
-  --line: #E2E5EC;
-  --red: #D9272E;
+  --shell: #F8F2F0;
+  --blush: #F5DADA;
+  --blush-dot: rgba(255, 255, 255, 0.6);
+  --powder: #DCE6F1;
+  --navy: #1E2645;
+  --navy-soft: #646B86;
+  --line: rgba(30, 38, 69, 0.12);
+  --red: #D7262D;
   --serif: "Fraunces", "Iowan Old Style", Georgia, serif;
   --sans: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "Nunito", system-ui, sans-serif;
-  --r-xl: 40px;
-  --r-lg: 28px;
-  --r-md: 18px;
-  --wrap: 1280px;
+  --r-xl: 44px;
+  --r-lg: 26px;
+  --r-md: 16px;
+  --wrap: 1300px;
   --gl: max(20px, env(safe-area-inset-left, 0px));
   --gr: max(20px, env(safe-area-inset-right, 0px));
   color-scheme: light;
 }
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 88px; }
-body {
-  margin: 0;
-  background: var(--white);
-  color: var(--navy);
-  font-family: var(--sans);
-  font-weight: 500;
-  font-size: 17px;
-  line-height: 1.65;
-  -webkit-font-smoothing: antialiased;
-}
+html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+body { margin: 0; background: var(--white); color: var(--navy); font-family: var(--sans); font-weight: 500; font-size: 16.5px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 60; background: var(--white); }
 img { max-width: 100%; display: block; }
 button, input { font: inherit; color: inherit; }
 button { cursor: pointer; }
 a { color: inherit; }
 p { margin: 0; }
-h1, h2, h3 {
-  margin: 0;
-  font-family: var(--serif);
-  font-weight: 450;
-  font-variation-settings: "SOFT" 100, "WONK" 0;
-  letter-spacing: -0.02em;
-  line-height: 1.04;
-  text-wrap: balance;
-}
-em { font-style: italic; color: var(--red); font-variation-settings: "SOFT" 100, "WONK" 1; }
+h1, h2, h3 { margin: 0; font-family: var(--serif); font-weight: 360; font-variation-settings: "SOFT" 100, "WONK" 0; letter-spacing: -0.025em; line-height: 1.02; text-wrap: balance; }
+em { font-style: italic; font-weight: 340; color: var(--red); font-variation-settings: "SOFT" 100, "WONK" 1; letter-spacing: -0.02em; }
 :focus-visible { outline: 2px solid var(--red); outline-offset: 3px; border-radius: 8px; }
 .wrap { max-width: var(--wrap); margin-inline: auto; padding-left: var(--gl); padding-right: var(--gr); }
-.eyebrow { display: block; font-size: 12.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--navy-soft); }
+.eyebrow { display: block; font-size: 11.5px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--navy-soft); }
 .vh { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-.band { position: relative; padding-block: clamp(80px, 10vw, 136px); }
+.band { position: relative; padding-block: clamp(88px, 11vw, 150px); }
+.title { font-size: clamp(42px, 5.4vw, 74px); margin-top: 16px; }
+.dots-bg { background-color: var(--blush); background-image: radial-gradient(var(--blush-dot) 1.7px, transparent 2.1px); background-size: 22px 22px; }
 
-/* Scalloped edges, like the trim on a bandana */
-.scallop-bottom::after, .scallop-top::before {
-  content: ""; position: absolute; left: 0; right: 0; height: 14px; z-index: 1;
-  background: radial-gradient(circle at 50% 0, var(--edge) 13px, transparent 13.5px) 0 0 / 28px 14px repeat-x;
-}
-.scallop-bottom::after { bottom: -14px; }
-.scallop-top::before { top: -14px; transform: scaleY(-1); }
+/* Scalloped edges, like bandana trim */
+.sc-b::after, .sc-t::before { content: ""; position: absolute; left: 0; right: 0; height: 12px; z-index: 1; background: radial-gradient(circle at 50% 0, var(--edge) 11px, transparent 11.5px) 0 0 / 24px 12px repeat-x; }
+.sc-b::after { bottom: -12px; }
+.sc-t::before { top: -12px; transform: scaleY(-1); }
 
 /* Woven side tag */
-.tag {
-  position: absolute; width: 17px; height: 52px; background: var(--white);
-  border-radius: 2px 3px 3px 2px; pointer-events: none;
-  box-shadow: 0 1px 2px rgba(31, 39, 71, 0.2);
-  transition: transform 0.3s ease;
-}
-.tag::before { content: ""; position: absolute; left: 3px; right: 3px; top: 4px; border-top: 1px dashed rgba(31, 39, 71, 0.22); }
-.tag::after {
-  content: ""; position: absolute; left: 50%; top: 53%; width: 38px; height: 12px;
-  transform: translate(-50%, -50%) rotate(90deg);
-  background: url("assets/waggl-logo.png") center / contain no-repeat;
-}
-
-/* Dog-tag price */
-.dogtag {
-  position: absolute; display: inline-flex; align-items: center; gap: 7px;
-  padding: 5px 12px 5px 9px; border-radius: 999px;
-  background: var(--red); color: var(--white);
-  font-size: 13px; font-weight: 700; letter-spacing: 0.02em;
-}
-.dogtag::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--white); opacity: 0.9; }
+.tag { position: absolute; width: 16px; height: 50px; background: var(--white); border-radius: 2px 3px 3px 2px; pointer-events: none; box-shadow: 0 1px 2px rgba(30, 38, 69, 0.18); transform-origin: 0 50%; transition: transform 0.4s ease; }
+.tag::before { content: ""; position: absolute; left: 3px; right: 3px; top: 4px; border-top: 1px dashed rgba(30, 38, 69, 0.22); }
+.tag::after { content: ""; position: absolute; left: 50%; top: 53%; width: 36px; height: 11px; transform: translate(-50%, -50%) rotate(90deg); background: url("assets/waggl-logo.png") center / contain no-repeat; }
+@keyframes wag { 0%, 100% { transform: rotate(0); } 30% { transform: rotate(-9deg); } 65% { transform: rotate(6deg); } }
 
 /* Buttons */
-.btn {
-  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-  min-height: 52px; padding: 0 28px; border-radius: 999px; border: 1.5px solid transparent;
-  font-weight: 700; font-size: 16px; letter-spacing: 0.01em; text-decoration: none;
-  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
-}
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: 50px; padding: 0 28px; border-radius: 999px; border: 1px solid transparent; font-size: 12.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
 .btn-navy { background: var(--navy); color: var(--white); }
 .btn-navy:hover { background: var(--red); }
 .btn-line { border-color: var(--navy); }
 .btn-line:hover { background: var(--navy); color: var(--white); }
-.btn[disabled] { opacity: 0.4; cursor: not-allowed; }
+.btn[disabled] { opacity: 0.35; cursor: not-allowed; }
 .btn[disabled]:hover { background: var(--navy); }
-.link-arrow { font-weight: 700; text-decoration: none; display: inline-flex; gap: 8px; align-items: center; }
-.link-arrow span { transition: transform 0.25s ease; }
-.day:hover .link-arrow span { transform: translateX(4px); }
+.more { display: inline-flex; gap: 10px; align-items: center; font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; }
+.more i { font-style: normal; transition: transform 0.3s ease; }
+a:hover .more i, .more:hover i { transform: translateX(4px); }
 
-/* Announcement + header */
-.notice { background: var(--navy); color: var(--white); font-size: 13.5px; text-align: center; }
-.notice .wrap { padding-block: 9px; }
-.notice em { color: inherit; font-family: var(--serif); font-size: 15px; }
-.site-header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50; background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid transparent; transition: border-color 0.3s ease; }
+/* Notice + header */
+.notice { background: var(--navy); color: var(--white); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; text-align: center; }
+.notice .wrap { padding-block: 10px; }
+.site-header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50; background: rgba(255, 255, 255, 0.94); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid transparent; transition: border-color 0.3s ease; }
 .site-header.scrolled { border-bottom-color: var(--line); }
-.site-header .wrap { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; min-height: 76px; gap: 16px; }
-.nav { display: flex; gap: 26px; }
-.nav a { text-decoration: none; font-size: 15.5px; position: relative; }
-.nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 1.5px; background: var(--red); transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; }
+.site-header .wrap { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; min-height: 80px; gap: 16px; }
+.nav { display: flex; gap: 30px; }
+.nav a { text-decoration: none; font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; position: relative; }
+.nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 1px; background: var(--red); transform: scaleX(0); transform-origin: left; transition: transform 0.35s ease; }
 .nav a:hover::after { transform: scaleX(1); }
-.brand img { height: 38px; width: auto; }
-.tools { display: flex; justify-content: flex-end; align-items: center; gap: 4px; }
-.icon-btn { display: inline-flex; align-items: center; gap: 8px; height: 44px; min-width: 44px; justify-content: center; padding: 0 12px; border: 0; border-radius: 999px; background: none; font-size: 15.5px; }
-.icon-btn:hover { background: var(--mist); }
+.brand img { height: 40px; width: auto; }
+.tools { display: flex; justify-content: flex-end; align-items: center; gap: 2px; }
+.icon-btn { position: relative; display: inline-grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 50%; background: none; text-decoration: none; }
+.icon-btn:hover { background: var(--shell); }
 .icon-btn svg { width: 21px; height: 21px; }
-.count { min-width: 21px; height: 21px; padding: 0 6px; border-radius: 999px; background: var(--mist); font-size: 12px; font-weight: 700; line-height: 21px; text-align: center; }
-.count.has { background: var(--red); color: var(--white); }
+.icon-btn .n { position: absolute; top: 3px; right: 1px; min-width: 17px; height: 17px; padding: 0 4px; border-radius: 999px; background: var(--red); color: var(--white); font-size: 10.5px; font-weight: 700; line-height: 17px; text-align: center; }
+.icon-btn .n:empty { display: none; }
 .menu-btn, .mobile-nav { display: none; }
 
 /* Hero */
-.hero { --edge: var(--blush); position: relative; background: var(--blush); }
-.hero .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(32px, 5vw, 80px); align-items: center; padding-block: clamp(48px, 6vw, 88px) clamp(56px, 7vw, 104px); }
-.hero h1 { font-size: clamp(54px, 7.4vw, 112px); line-height: 0.98; margin: 22px 0 26px; }
-.hero .lede { font-size: 19px; max-width: 34ch; color: var(--navy-soft); }
-.hero .ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
-.hero .facts { list-style: none; padding: 0; margin: 44px 0 0; display: flex; flex-wrap: wrap; gap: 10px 28px; font-size: 14.5px; }
-.hero .facts li { display: flex; align-items: center; gap: 9px; }
-.hero .facts svg { width: 15px; height: 15px; color: var(--red); flex: none; }
-.stage { position: relative; aspect-ratio: 1 / 1.02; max-width: 640px; width: 100%; justify-self: end; margin: 0; }
-.stage .arch { position: absolute; left: 16%; right: 2%; top: 4%; bottom: 0; background: var(--powder); border-radius: 999px 999px var(--r-xl) var(--r-xl); }
-.stage .main { position: absolute; left: 12%; bottom: 0; height: 90%; width: 88%; max-width: none; object-fit: contain; object-position: 50% 100%; filter: drop-shadow(0 18px 24px rgba(31, 39, 71, 0.16)); }
-.stage .medal { position: absolute; left: 0; bottom: 7%; width: 34%; aspect-ratio: 1; border-radius: 50%; background: var(--butter); border: 6px solid var(--white); overflow: hidden; box-shadow: 0 14px 30px rgba(31, 39, 71, 0.14); }
-.stage .medal img { position: absolute; left: 6%; bottom: -4%; width: 88%; height: 104%; object-fit: contain; object-position: 50% 100%; }
-.stage .seal { position: absolute; left: 3%; top: 3%; width: 23%; aspect-ratio: 1; }
-.seal > svg { width: 100%; height: 100%; animation: spin 28s linear infinite; }
-.seal .heart { position: absolute; inset: 0; display: grid; place-items: center; color: var(--red); }
-.seal .heart svg { width: 24%; height: 24%; }
-@keyframes spin { to { transform: rotate(360deg); } }
-.stage .dogtag { right: 6%; top: 18%; font-size: 14px; padding: 8px 16px 8px 12px; box-shadow: 0 10px 22px rgba(217, 39, 46, 0.28); transform: rotate(-6deg); }
-.stage .cap { position: absolute; right: 2%; bottom: -34px; font-family: var(--serif); font-style: italic; font-size: 15px; color: var(--navy-soft); }
+.hero { --edge: var(--blush); position: relative; }
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr); gap: clamp(32px, 6vw, 96px); align-items: center; padding-block: clamp(56px, 7vw, 104px) clamp(72px, 8vw, 120px); }
+.hero h1 { font-size: clamp(58px, 8.4vw, 128px); line-height: 0.94; margin: 24px 0 30px; }
+.hero h1 em { display: block; }
+.hero .lede { font-size: 18px; line-height: 1.7; max-width: 32ch; color: var(--navy-soft); }
+.hero .ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 38px; }
+.window { position: relative; width: 100%; max-width: 520px; justify-self: center; }
+.window .arch { aspect-ratio: 5 / 6.2; border-radius: 999px 999px 0 0; overflow: hidden; border: 8px solid var(--white); box-shadow: 0 40px 70px -40px rgba(30, 38, 69, 0.45); background: var(--shell); }
+.window .arch img { width: 100%; height: 100%; object-fit: cover; object-position: 100% 50%; }
+.window .tag { right: -22px; top: 46%; width: 22px; height: 70px; }
+.window .tag::after { width: 52px; height: 16px; }
+.window:hover .tag { animation: wag 0.9s ease; }
+.window .medal { position: absolute; left: -9%; bottom: -6%; width: 38%; aspect-ratio: 1; }
+.window .note { position: absolute; right: -4%; bottom: 8%; background: var(--white); border-radius: 999px; padding: 10px 18px 11px; font-family: var(--serif); font-style: italic; font-size: 16px; box-shadow: 0 18px 30px -18px rgba(30, 38, 69, 0.4); display: flex; align-items: center; gap: 8px; }
+.window .note svg { width: 14px; height: 14px; color: var(--red); }
+
+/* Pop-out portrait: the dog's head rises above its circle */
+.face { position: relative; aspect-ratio: 1; }
+.face::before { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--c, var(--powder)); }
+.face .clip { position: absolute; left: 0; right: 0; bottom: 0; top: -34%; border-radius: 0 0 999px 999px; overflow: hidden; }
+.face img { position: absolute; left: 50%; bottom: -14%; height: 112%; width: auto; max-width: none; transform: translateX(-50%); transition: transform 0.5s cubic-bezier(.2, .7, .2, 1); }
+.face.ring::after { content: ""; position: absolute; inset: -7px; border-radius: 50%; border: 7px solid var(--white); clip-path: inset(50% 0 0 0); }
+
+/* Best dressed */
+.models-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; margin-bottom: 56px; }
+.models-head p { max-width: 34ch; color: var(--navy-soft); }
+.models { list-style: none; margin: 0; padding: 40px 0 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 28px; }
+.models button { width: 100%; border: 0; background: none; padding: 0; text-align: center; display: grid; gap: 16px; }
+.models button:hover .face img { transform: translateX(-50%) translateY(-6px); }
+.models strong { display: block; font-family: var(--serif); font-weight: 400; font-size: 19px; line-height: 1.2; letter-spacing: -0.01em; }
+.models small { font-size: 13.5px; color: var(--navy-soft); }
 
 /* Collections */
-.days-head, .shop-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; margin-bottom: 48px; }
-.section-title { font-size: clamp(40px, 5vw, 68px); margin-top: 14px; }
-.days-head p { max-width: 36ch; color: var(--navy-soft); }
-.days { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
-.day { display: flex; flex-direction: column; gap: 18px; padding: 14px 14px 26px; border-radius: var(--r-lg); text-decoration: none; transition: transform 0.4s ease; }
-.day:hover { transform: translateY(-6px); }
-.day .frame { aspect-ratio: 4 / 5; border-radius: 999px 999px var(--r-md) var(--r-md); overflow: hidden; background: var(--white); }
-.day .frame img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease; }
-.day:hover .frame img { transform: scale(1.05); }
-.day .txt { padding-inline: 8px; display: grid; gap: 8px; }
-.day h3 { font-size: 27px; }
-.day p { font-size: 15px; color: var(--navy-soft); }
-.day .more { margin-top: 6px; font-size: 14.5px; }
-.t-powder { background: var(--powder); }
-.t-blush { background: var(--blush); }
-.t-butter { background: var(--butter); }
-.t-sage { background: var(--sage); }
+.cols { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; align-items: start; }
+.col { text-decoration: none; display: grid; gap: 20px; }
+.col:nth-child(even) { margin-top: 64px; }
+.col .frame { aspect-ratio: 3 / 4.1; border-radius: 999px 999px var(--r-md) var(--r-md); overflow: hidden; background: var(--shell); }
+.col .frame img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s ease; }
+.col:hover .frame img { transform: scale(1.05); }
+.col h3 { font-size: 27px; margin: 8px 0 8px; }
+.col p { font-size: 15px; color: var(--navy-soft); }
+.col .more { margin-top: 14px; }
 
 /* Spotlight */
 .spot { --edge: var(--powder); background: var(--powder); }
-.spot-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: clamp(32px, 5vw, 80px); align-items: center; }
-.spot h2 { font-size: clamp(50px, 7vw, 104px); line-height: 0.95; margin: 16px 0 0; }
-.look { position: relative; margin-top: 40px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr); gap: 32px; align-items: center; }
-.look-img { position: relative; aspect-ratio: 601 / 860; justify-self: center; width: 100%; max-width: 400px; }
-.look-img img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 22px 26px rgba(31, 39, 71, 0.18)); }
-.pin {
-  position: absolute; width: 28px; height: 28px; margin: -14px 0 0 -14px; border-radius: 50%;
-  background: var(--white); color: var(--navy); font-size: 13px; font-weight: 700;
-  display: grid; place-items: center; box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.45), 0 4px 10px rgba(31, 39, 71, 0.2);
-}
-.legend { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; }
-.legend li { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 12px; align-items: start; }
-.legend li > span { width: 28px; height: 28px; border-radius: 50%; background: var(--white); display: grid; place-items: center; font-size: 13px; font-weight: 700; }
-.legend strong { display: block; font-family: var(--serif); font-weight: 500; font-size: 19px; letter-spacing: -0.01em; line-height: 1.25; }
-.legend small { display: block; font-size: 14px; line-height: 1.5; color: var(--navy-soft); margin-top: 2px; }
-.buy { background: var(--white); border-radius: var(--r-lg); padding: clamp(24px, 3vw, 40px); display: grid; gap: 22px; box-shadow: 0 30px 60px -30px rgba(31, 39, 71, 0.35); }
-.buy .line { font-family: var(--serif); font-size: 27px; line-height: 1.2; }
-.buy .sub { color: var(--navy-soft); font-size: 15.5px; margin-top: -10px; }
-.price { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
-.price .now { font-family: var(--serif); font-size: 30px; font-weight: 500; }
-.price s { color: var(--navy-soft); }
-.price .cur { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; color: var(--navy-soft); }
-.opt { display: grid; gap: 10px; }
-.opt-head { display: flex; gap: 10px; align-items: baseline; font-size: 15px; }
-.opt-head .eyebrow { font-size: 11.5px; }
+.spot-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: clamp(32px, 6vw, 96px); align-items: center; }
+.spot h2 { font-size: clamp(52px, 7.4vw, 112px); line-height: 0.94; margin-top: 18px; }
+.look { margin-top: 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr); gap: 36px; align-items: center; }
+.look-img { position: relative; aspect-ratio: 601 / 860; width: 100%; max-width: 380px; justify-self: center; }
+.look-img img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 26px 26px rgba(30, 38, 69, 0.16)); }
+.pin { position: absolute; width: 26px; height: 26px; margin: -13px 0 0 -13px; border-radius: 50%; background: var(--white); font-size: 12px; font-weight: 700; display: grid; place-items: center; box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.4); }
+.legend { list-style: none; margin: 0; padding: 0; display: grid; gap: 20px; }
+.legend li { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 14px; }
+.legend li > span { width: 26px; height: 26px; border-radius: 50%; background: var(--white); display: grid; place-items: center; font-size: 12px; font-weight: 700; }
+.legend strong { display: block; font-family: var(--serif); font-weight: 400; font-size: 19px; line-height: 1.25; }
+.legend small { display: block; font-size: 14px; line-height: 1.55; color: var(--navy-soft); margin-top: 2px; }
+.buy { background: var(--white); border-radius: var(--r-lg); padding: clamp(26px, 3vw, 42px); display: grid; gap: 24px; }
+.buy .line { font-family: var(--serif); font-weight: 360; font-size: 30px; line-height: 1.15; letter-spacing: -0.02em; }
+.buy .sub { color: var(--navy-soft); font-size: 15px; margin-top: -12px; }
+.price { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.price .now { font-family: var(--serif); font-weight: 400; font-size: 30px; }
+.price .was { font-size: 13px; color: var(--navy-soft); }
+.price .was s { margin-left: 4px; }
+.opt { display: grid; gap: 12px; }
+.opt-head { display: flex; gap: 12px; align-items: baseline; font-size: 15px; }
+.opt-head .eyebrow { font-size: 10.5px; }
 .swatches, .sizes { display: flex; flex-wrap: wrap; gap: 9px; }
-.swatch { width: 36px; height: 36px; padding: 0; border-radius: 50%; border: 0; box-shadow: inset 0 0 0 1px rgba(31, 39, 71, 0.14); }
-.swatch[aria-checked="true"] { box-shadow: inset 0 0 0 1px rgba(31, 39, 71, 0.14), 0 0 0 3px var(--white), 0 0 0 4.5px var(--navy); }
-.size { min-width: 54px; height: 42px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--white); font-size: 14.5px; font-weight: 700; }
+.swatch { width: 34px; height: 34px; padding: 0; border-radius: 50%; border: 0; box-shadow: inset 0 0 0 1px rgba(30, 38, 69, 0.14); }
+.swatch[aria-checked="true"] { box-shadow: inset 0 0 0 1px rgba(30, 38, 69, 0.14), 0 0 0 3px var(--white), 0 0 0 4px var(--navy); }
+.size { min-width: 52px; height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--white); font-size: 13.5px; font-weight: 700; letter-spacing: 0.04em; }
 .size:hover { border-color: var(--navy); }
 .size[aria-checked="true"] { background: var(--navy); color: var(--white); border-color: var(--navy); }
-.size:disabled { opacity: 0.38; text-decoration: line-through; cursor: not-allowed; border-color: var(--line); }
-.row { display: flex; flex-wrap: wrap; gap: 10px; }
+.size:disabled { opacity: 0.35; text-decoration: line-through; cursor: not-allowed; border-color: var(--line); }
+.row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
 
 /* Shop */
-.tools-row { display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; margin: -12px 0 36px; }
-.chips { display: flex; flex-wrap: wrap; gap: 8px; }
-.chip { height: 42px; padding: 0 18px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--white); font-size: 15px; display: inline-flex; align-items: center; gap: 8px; }
-.chip:hover { border-color: var(--navy); }
-.chip i { width: 9px; height: 9px; border-radius: 50%; }
-.chip small { font-size: 12.5px; color: var(--navy-soft); }
-.chip[aria-pressed="true"] { background: var(--navy); color: var(--white); border-color: var(--navy); }
-.chip[aria-pressed="true"] small { color: rgba(255, 255, 255, 0.7); }
-.find { position: relative; flex: 0 1 300px; min-width: 0; }
-.find input { width: 100%; height: 44px; padding: 0 18px 0 44px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--white); }
+.shop-head { display: flex; justify-content: space-between; align-items: end; gap: 24px 40px; flex-wrap: wrap; margin-bottom: 44px; }
+.filters { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; padding-block: 14px; margin-bottom: 40px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { height: 38px; padding: 0 16px; border-radius: 999px; border: 0; background: none; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; display: inline-flex; align-items: center; gap: 7px; color: var(--navy-soft); }
+.chip:hover { color: var(--navy); background: var(--shell); }
+.chip[aria-pressed="true"] { background: var(--navy); color: var(--white); }
+.chip svg { width: 13px; height: 13px; color: var(--red); }
+.chip[aria-pressed="true"] svg { color: #FF9EA2; }
+.chip small { font-size: 11px; opacity: 0.7; letter-spacing: 0.04em; }
+.find { position: relative; flex: 0 1 280px; min-width: 0; }
+.find input { width: 100%; height: 40px; padding: 0 16px 0 40px; border-radius: 999px; border: 1px solid var(--line); background: var(--white); font-size: 14.5px; }
 .find input:focus { outline: none; border-color: var(--navy); }
-.find svg { position: absolute; left: 16px; top: 50%; width: 18px; height: 18px; transform: translateY(-50%); color: var(--navy-soft); }
-.grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 44px 22px; }
-.card { min-width: 0; }
-.card-hit { display: block; width: 100%; padding: 0; border: 0; background: none; text-align: left; border-radius: var(--r-lg); }
-.tile { position: relative; aspect-ratio: 4 / 5; border-radius: var(--r-lg); margin-bottom: 18px; }
+.find svg { position: absolute; left: 15px; top: 50%; width: 16px; height: 16px; transform: translateY(-50%); color: var(--navy-soft); }
+.grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 52px 24px; }
+.card { position: relative; min-width: 0; }
+.card .open { display: block; width: 100%; padding: 0; border: 0; background: none; text-align: left; border-radius: var(--r-lg); }
+.tile { position: relative; aspect-ratio: 4 / 5; border-radius: var(--r-lg); background: var(--shell); margin-bottom: 18px; }
 .tile .clip { position: absolute; inset: 0; border-radius: inherit; overflow: hidden; }
-.tile .dog, .tile .flat { position: absolute; max-width: none; transition: opacity 0.45s ease, transform 0.6s cubic-bezier(.2, .7, .2, 1); }
-.tile .dog { left: 6%; bottom: 0; width: 88%; height: 90%; object-fit: contain; object-position: 50% 100%; }
-.tile .flat { left: 14%; top: 12%; width: 72%; height: 74%; object-fit: contain; opacity: 0; transform: scale(0.94); filter: drop-shadow(0 16px 18px rgba(31, 39, 71, 0.16)); }
-.card-hit:hover .tile .dog { opacity: 0; transform: translateY(8px); }
-.card-hit:hover .tile .flat { opacity: 1; transform: scale(1); }
-.tile .tag { right: -7px; top: 50%; }
-.card-hit:hover .tag { transform: translateX(3px); }
-.tile .dogtag { left: 14px; top: 14px; }
-.card h3 { font-size: 23px; letter-spacing: -0.015em; }
-.card .kind { font-size: 14.5px; color: var(--navy-soft); margin-top: 3px; }
-.card .meta { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 12px; }
-.card .p { font-weight: 700; }
-.card .p s { font-weight: 500; color: var(--navy-soft); margin-left: 6px; font-size: 14.5px; }
-.dots { display: flex; gap: 5px; }
-.dots i { width: 11px; height: 11px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(31, 39, 71, 0.14); }
+.tile .flat { position: absolute; left: 15%; top: 13%; width: 70%; height: 70%; object-fit: contain; filter: drop-shadow(0 18px 16px rgba(30, 38, 69, 0.13)); transition: transform 0.7s cubic-bezier(.2, .7, .2, 1); }
+.tile .photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.5s ease; }
+.card .open:hover .photo { opacity: 1; }
+.card .open:hover .flat { transform: scale(1.04); }
+.tile .tag { right: -16px; top: 46%; }
+.card .open:hover .tag { animation: wag 0.9s ease; }
+.love { position: absolute; top: 12px; right: 12px; z-index: 2; width: 38px; height: 38px; border-radius: 50%; border: 0; background: rgba(255, 255, 255, 0.85); display: grid; place-items: center; transition: transform 0.25s ease; }
+.love svg { width: 17px; height: 17px; fill: none; stroke: var(--navy); stroke-width: 1.6; transition: fill 0.2s ease, stroke 0.2s ease; }
+.love[aria-pressed="true"] svg { fill: var(--red); stroke: var(--red); }
+.love.pop { animation: pop 0.45s ease; }
+@keyframes pop { 40% { transform: scale(1.25); } }
+.card .top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.card h3 { font-size: 21px; font-weight: 400; letter-spacing: -0.01em; }
+.card .p { font-size: 15px; font-weight: 700; }
+.card .kind { font-size: 14px; color: var(--navy-soft); margin-top: 2px; }
+.dots { display: flex; gap: 5px; margin-top: 12px; }
+.dots i { width: 10px; height: 10px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(30, 38, 69, 0.14); }
+.insert { grid-column: span 2; position: relative; border-radius: var(--r-lg); overflow: hidden; text-decoration: none; color: var(--white); background: var(--shell); align-self: start; }
+.insert img { width: 100%; aspect-ratio: 1.64; object-fit: cover; transition: transform 1s ease; }
+.insert:hover img { transform: scale(1.04); }
+.insert div { position: absolute; left: 0; right: 0; bottom: 0; padding: 60px 28px 26px; background: linear-gradient(to top, rgba(20, 24, 44, 0.55), transparent); display: flex; justify-content: space-between; align-items: end; gap: 16px; }
+.insert h3 { font-size: clamp(26px, 2.6vw, 36px); }
+.insert em { color: var(--white); }
 .empty { grid-column: 1 / -1; padding: 40px 0; color: var(--navy-soft); }
 .empty button { border: 0; background: none; padding: 0; text-decoration: underline; color: var(--navy); }
 
 /* The tag */
-.tagstory { --edge: var(--butter); background: var(--butter); }
+.tagstory { --edge: var(--blush); }
 .tagstory .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 96px); align-items: center; }
 .tag-art { position: relative; aspect-ratio: 1 / 0.9; width: 100%; }
-.tag-art .circle { position: absolute; right: 0; top: 0; width: 72%; aspect-ratio: 1; border-radius: 50%; overflow: hidden; box-shadow: 0 30px 60px -30px rgba(31, 39, 71, 0.4); }
+.tag-art .circle { position: absolute; right: 2%; top: 0; width: 70%; aspect-ratio: 1; border-radius: 50%; overflow: hidden; border: 8px solid var(--white); }
 .tag-art .circle img { width: 100%; height: 100%; object-fit: cover; }
-.bigtag {
-  position: absolute; left: 8%; bottom: 0; width: 22%; aspect-ratio: 1 / 2.9;
-  background: var(--white); border-radius: 6px 10px 10px 6px; transform: rotate(-9deg); overflow: hidden;
-  box-shadow: 0 24px 40px -18px rgba(31, 39, 71, 0.45), inset 0 0 0 1px rgba(31, 39, 71, 0.05);
-}
-.bigtag::before, .bigtag::after { content: ""; position: absolute; left: 12%; right: 12%; border-top: 2px dashed rgba(31, 39, 71, 0.2); }
+.bigtag { position: absolute; left: 8%; bottom: 2%; width: 21%; aspect-ratio: 1 / 2.9; background: var(--white); border-radius: 6px 10px 10px 6px; transform: rotate(-8deg); overflow: hidden; box-shadow: 0 30px 40px -24px rgba(30, 38, 69, 0.45); }
+.bigtag::before, .bigtag::after { content: ""; position: absolute; left: 12%; right: 12%; border-top: 2px dashed rgba(30, 38, 69, 0.18); }
 .bigtag::before { top: 6%; }
 .bigtag::after { bottom: 6%; }
-.bigtag img { position: absolute; left: 50%; top: 50%; width: 220%; height: auto; max-width: none; transform: translate(-50%, -50%) rotate(90deg); }
-.tagstory h2 { font-size: clamp(40px, 5vw, 68px); margin: 14px 0 22px; }
-.tagstory p { color: var(--navy-soft); max-width: 44ch; }
+.bigtag img { position: absolute; left: 50%; top: 50%; width: 210%; height: auto; max-width: none; transform: translate(-50%, -50%) rotate(90deg); }
+.tagstory h2 { font-size: clamp(42px, 5.4vw, 74px); margin: 16px 0 24px; }
+.tagstory p { color: var(--navy-soft); max-width: 42ch; }
 .tagstory p + p { margin-top: 14px; }
-.nums { list-style: none; padding: 0; margin: 36px 0 0; display: flex; flex-wrap: wrap; gap: 14px; }
-.nums li { width: 124px; aspect-ratio: 1; border-radius: 50%; background: var(--white); display: grid; place-content: center; text-align: center; gap: 4px; }
-.nums strong { font-family: var(--serif); font-weight: 500; font-size: 28px; line-height: 1; }
-.nums span { font-size: 12.5px; color: var(--navy-soft); line-height: 1.3; padding-inline: 14px; }
+.nums { list-style: none; padding: 0; margin: 40px 0 0; display: flex; flex-wrap: wrap; gap: 14px; }
+.nums li { width: 118px; aspect-ratio: 1; border-radius: 50%; background: var(--white); display: grid; place-content: center; text-align: center; gap: 4px; }
+.nums strong { font-family: var(--serif); font-weight: 400; font-size: 26px; line-height: 1; }
+.nums span { font-size: 12px; color: var(--navy-soft); line-height: 1.3; padding-inline: 14px; }
 
 /* Fit */
-.fit { --edge: var(--sage); background: var(--sage); }
 .fit .wrap { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(32px, 6vw, 96px); align-items: center; }
-.measure { position: relative; max-width: 460px; width: 100%; justify-self: center; padding-top: 16%; background: var(--butter); border-radius: 999px 999px var(--r-xl) var(--r-xl); overflow: hidden; }
+.measure { position: relative; max-width: 440px; width: 100%; justify-self: center; padding-top: 16%; border-radius: 999px 999px var(--r-lg) var(--r-lg); overflow: hidden; }
 .measure .m { position: relative; aspect-ratio: 609 / 860; width: 92%; margin-inline: auto; }
 .measure img { width: 100%; height: 100%; object-fit: contain; }
 .measure svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .measure .tape { fill: none; stroke: var(--white); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 1 10; }
-.measure .tape-back { fill: none; stroke: var(--white); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 1 10; opacity: 0.5; }
-.measure .lbl { position: absolute; font-family: var(--serif); font-style: italic; font-size: 19px; background: var(--white); padding: 2px 14px 4px; border-radius: 999px; box-shadow: 0 8px 18px rgba(31, 39, 71, 0.14); }
-.fit h2 { font-size: clamp(40px, 5vw, 68px); margin: 14px 0 18px; }
+.measure .tape-back { fill: none; stroke: var(--white); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 1 10; opacity: 0.55; }
+.measure .lbl { position: absolute; font-family: var(--serif); font-style: italic; font-size: 18px; background: var(--white); padding: 2px 14px 4px; border-radius: 999px; box-shadow: 0 10px 20px -10px rgba(30, 38, 69, 0.3); }
+.fit h2 { font-size: clamp(42px, 5.4vw, 74px); margin: 16px 0 20px; }
 .fit .intro { color: var(--navy-soft); max-width: 46ch; }
-.fit-card { margin-top: 32px; background: var(--white); border-radius: var(--r-lg); padding: clamp(20px, 2.6vw, 32px); box-shadow: 0 30px 60px -34px rgba(31, 39, 71, 0.35); }
+.fit-card { margin-top: 34px; border: 1px solid var(--line); border-radius: var(--r-lg); padding: clamp(20px, 2.6vw, 32px); }
 .fields { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
 .field { display: grid; gap: 6px; }
-.field label { font-size: 13.5px; font-weight: 700; }
-.field label span { font-weight: 500; color: var(--navy-soft); }
+.field label { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+.field label span { letter-spacing: 0.06em; text-transform: none; font-weight: 500; color: var(--navy-soft); }
 .field .in { position: relative; }
-.field input { width: 100%; height: 50px; padding: 0 40px 0 16px; border-radius: 14px; border: 1.5px solid var(--line); background: var(--white); font-size: 17px; font-variant-numeric: tabular-nums; }
+.field input { width: 100%; height: 50px; padding: 0 40px 0 16px; border-radius: 14px; border: 1px solid var(--line); background: var(--shell); font-size: 17px; font-variant-numeric: tabular-nums; }
 .field input::placeholder { font-size: 14px; }
-.field input:focus { outline: none; border-color: var(--navy); }
+.field input:focus { outline: none; border-color: var(--navy); background: var(--white); }
 .field .unit { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font-size: 13px; color: var(--navy-soft); pointer-events: none; }
-.results { margin-top: 18px; border-top: 1px solid var(--line); }
-.res { display: grid; grid-template-columns: 52px minmax(0, 1fr) auto; gap: 16px; align-items: center; padding: 13px 0; border-bottom: 1px solid var(--line); }
-.res:last-child { border-bottom: 0; padding-bottom: 0; }
-.res .thumb { width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; overflow: hidden; }
-.res .thumb img { width: 76%; height: 76%; object-fit: contain; }
-.res strong { display: block; font-size: 16px; line-height: 1.3; }
+.results { margin-top: 18px; }
+.res { display: grid; grid-template-columns: 50px minmax(0, 1fr) auto; gap: 16px; align-items: center; padding: 13px 0; border-top: 1px solid var(--line); }
+.res .thumb { width: 50px; height: 50px; border-radius: 50%; background: var(--shell); display: grid; place-items: center; overflow: hidden; }
+.res .thumb img { width: 74%; height: 74%; object-fit: contain; }
+.res strong { display: block; font-family: var(--serif); font-weight: 400; font-size: 18px; line-height: 1.25; }
 .res small { font-size: 13.5px; color: var(--navy-soft); }
 .res .out { display: flex; align-items: center; gap: 14px; }
-.res .sz { width: 50px; height: 50px; border-radius: 50%; background: var(--navy); color: var(--white); display: grid; place-items: center; font-family: var(--serif); font-size: 18px; font-weight: 500; }
+.res .sz { width: 48px; height: 48px; border-radius: 50%; background: var(--blush); display: grid; place-items: center; font-family: var(--serif); font-size: 18px; }
 .res .msg { font-size: 13.5px; color: var(--navy-soft); max-width: 18ch; text-align: right; }
-.res button { border: 0; background: none; padding: 0; font-size: 14px; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.res button { border: 0; background: none; padding: 0; font-size: 11.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; }
+.res button:hover { color: var(--red); }
 .fit .note { margin-top: 16px; font-size: 14px; color: var(--navy-soft); }
 
 /* Footer */
 .foot { --edge: var(--navy); position: relative; background: var(--navy); color: var(--white); }
-.join { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px 64px; align-items: end; padding-block: clamp(72px, 8vw, 112px) 64px; border-bottom: 1px solid rgba(255, 255, 255, 0.14); }
+.join { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px 64px; align-items: end; padding-block: clamp(80px, 9vw, 120px) 64px; border-bottom: 1px solid rgba(255, 255, 255, 0.14); }
 .join .eyebrow { color: rgba(255, 255, 255, 0.6); }
-.join h2 { font-size: clamp(46px, 6vw, 88px); margin-top: 14px; }
-.join em { color: #FF9A9D; }
+.join h2 { font-size: clamp(48px, 6.4vw, 96px); margin-top: 16px; }
+.join em { color: #FF9EA2; }
 .join p { color: rgba(255, 255, 255, 0.75); }
-.join form { display: flex; gap: 8px; margin-top: 20px; flex-wrap: wrap; }
-.join input { flex: 1 1 220px; min-width: 0; height: 52px; padding: 0 22px; border-radius: 999px; border: 1.5px solid rgba(255, 255, 255, 0.3); background: transparent; color: var(--white); }
+.join form { display: flex; gap: 8px; margin-top: 22px; flex-wrap: wrap; }
+.join input { flex: 1 1 220px; min-width: 0; height: 50px; padding: 0 22px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.3); background: transparent; color: var(--white); }
 .join input::placeholder { color: rgba(255, 255, 255, 0.55); }
 .join input:focus { outline: none; border-color: var(--white); }
 .join .btn { background: var(--white); color: var(--navy); }
@@ -322,107 +283,111 @@ em { font-style: italic; color: var(--red); font-variation-settings: "SOFT" 100,
 .join .small { margin-top: 12px; font-size: 13.5px; color: rgba(255, 255, 255, 0.6); min-height: 1.5em; }
 .foot-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr)); gap: 32px; padding-block: 56px; }
 .foot-grid img { height: 42px; width: auto; }
-.foot-grid .say { margin-top: 16px; font-family: var(--serif); font-style: italic; font-size: 20px; color: rgba(255, 255, 255, 0.85); }
-.foot-col h3 { font-family: var(--sans); font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255, 255, 255, 0.55); margin-bottom: 14px; }
-.foot-col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; font-size: 15.5px; }
+.foot-grid .say { margin-top: 16px; font-family: var(--serif); font-style: italic; font-weight: 340; font-size: 20px; color: rgba(255, 255, 255, 0.85); }
+.foot-col h3 { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255, 255, 255, 0.55); margin-bottom: 16px; }
+.foot-col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; font-size: 15px; }
 .foot-col a, .foot-col button { color: var(--white); text-decoration: none; background: none; border: 0; padding: 0; text-align: left; }
 .foot-col a:hover, .foot-col button:hover { text-decoration: underline; text-underline-offset: 3px; }
-.foot-base { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-block: 22px 32px; border-top: 1px solid rgba(255, 255, 255, 0.14); font-size: 13.5px; color: rgba(255, 255, 255, 0.6); }
+.foot-base { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-block: 22px 32px; border-top: 1px solid rgba(255, 255, 255, 0.14); font-size: 13px; color: rgba(255, 255, 255, 0.6); }
 
 /* Dialogs */
 dialog { border: 0; padding: 0; background: var(--white); color: var(--navy); max-width: none; max-height: none; }
-dialog::backdrop { background: rgba(31, 39, 71, 0.42); backdrop-filter: blur(4px); }
-.x { position: absolute; top: 16px; right: 16px; z-index: 3; width: 44px; height: 44px; border-radius: 50%; border: 0; background: var(--white); display: grid; place-items: center; box-shadow: 0 2px 10px rgba(31, 39, 71, 0.12); }
+dialog::backdrop { background: rgba(30, 38, 69, 0.4); backdrop-filter: blur(4px); }
+.x { position: absolute; top: 16px; right: 16px; z-index: 3; width: 44px; height: 44px; border-radius: 50%; border: 0; background: var(--white); display: grid; place-items: center; box-shadow: 0 2px 10px rgba(30, 38, 69, 0.1); }
 .x svg { width: 18px; height: 18px; }
 .pd { width: min(1120px, calc(100% - 32px)); max-height: calc(100% - 32px); border-radius: var(--r-xl); overflow: auto; overscroll-behavior: contain; }
 .pd-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); }
-.pd-media { position: relative; padding: 20px; display: grid; gap: 14px; align-content: start; }
-.pd-stage { position: relative; aspect-ratio: 1 / 1.08; border-radius: var(--r-lg); overflow: hidden; }
+.pd-media { padding: 18px; display: grid; gap: 14px; align-content: start; }
+.pd-stage { position: relative; aspect-ratio: 1 / 1.1; border-radius: var(--r-lg); overflow: hidden; background: var(--shell); }
 .pd-stage img { position: absolute; inset: 0; width: 100%; height: 100%; }
-.pd-stage img.cut { object-fit: contain; object-position: 50% 100%; padding: 8% 8% 0; }
-.pd-stage img.cut.flat { object-position: 50% 50%; padding: 12%; filter: drop-shadow(0 18px 20px rgba(31, 39, 71, 0.16)); }
-.pd-stage img.photo { object-fit: cover; }
+.pd-stage img.flat { object-fit: contain; padding: 14%; filter: drop-shadow(0 20px 18px rgba(30, 38, 69, 0.14)); }
+.pd-stage img.cover { object-fit: cover; }
 .pd-thumbs { display: flex; gap: 10px; }
-.pd-thumbs button { width: 66px; height: 66px; border-radius: 50%; padding: 0; overflow: hidden; border: 2px solid transparent; }
+.pd-thumbs button { width: 64px; height: 64px; border-radius: 50%; padding: 0; overflow: hidden; border: 1.5px solid transparent; background: var(--shell); }
 .pd-thumbs button[aria-current="true"] { border-color: var(--navy); }
 .pd-thumbs img { width: 100%; height: 100%; object-fit: cover; }
-.pd-thumbs img.c { object-fit: contain; padding: 8px; }
+.pd-thumbs img.c { object-fit: contain; padding: 9px; }
 .pd-info { padding: clamp(28px, 3.6vw, 52px); display: grid; gap: 24px; align-content: start; }
-.pd-info h2 { font-size: clamp(36px, 3.8vw, 52px); margin-top: 10px; }
-.pd-info .line { font-family: var(--serif); font-style: italic; font-size: 20px; margin-top: 10px; color: var(--navy-soft); }
-.pd-info .blurb { color: var(--navy-soft); font-size: 15.5px; }
+.pd-info h2 { font-size: clamp(38px, 4vw, 56px); margin-top: 12px; }
+.pd-info .line { font-family: var(--serif); font-style: italic; font-weight: 340; font-size: 20px; margin-top: 12px; color: var(--navy-soft); }
+.pd-info .blurb { color: var(--navy-soft); font-size: 15px; }
+.pd-info .love { position: static; width: 50px; height: 50px; border: 1px solid var(--line); background: var(--white); }
+.pd-info .btn-navy { flex: 1 1 auto; }
 .acc { border-top: 1px solid var(--line); }
 .acc details { border-bottom: 1px solid var(--line); }
-.acc summary { list-style: none; cursor: pointer; padding: 16px 0; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
+.acc summary { list-style: none; cursor: pointer; padding: 16px 0; font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; display: flex; justify-content: space-between; align-items: center; }
 .acc summary::-webkit-details-marker { display: none; }
-.acc summary::after { content: "+"; font-family: var(--serif); font-weight: 400; font-size: 24px; line-height: 1; transition: transform 0.25s ease; }
+.acc summary::after { content: "+"; font-family: var(--serif); font-weight: 300; font-size: 24px; letter-spacing: 0; line-height: 1; transition: transform 0.25s ease; }
 .acc details[open] summary::after { transform: rotate(45deg); }
 .acc .body { padding-bottom: 18px; color: var(--navy-soft); display: grid; gap: 10px; font-size: 15px; }
 .acc ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
 .chart-wrap { overflow-x: auto; }
 .chart { width: 100%; border-collapse: collapse; font-size: 13.5px; font-variant-numeric: tabular-nums; color: var(--navy); }
 .chart th, .chart td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; }
-.chart th { font-size: 11.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--navy-soft); }
+.chart th { font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--navy-soft); }
 .chart tr.hit td { background: var(--blush); }
-.store-link { font-size: 14.5px; font-weight: 700; text-underline-offset: 3px; }
+.store-link { font-size: 11.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; text-underline-offset: 4px; }
 
 .drawer { margin: 0 0 0 auto; width: min(440px, 100%); height: 100%; max-height: 100%; display: none; flex-direction: column; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
 .drawer[open] { display: flex; }
 .d-head { display: flex; justify-content: space-between; align-items: center; padding: 22px 24px; padding-right: max(24px, env(safe-area-inset-right, 0px)); border-bottom: 1px solid var(--line); }
-.d-head h2 { font-size: 30px; }
-.d-head .x { position: static; box-shadow: none; background: var(--mist); }
+.d-head h2 { font-size: 32px; }
+.d-head .x { position: static; box-shadow: none; background: var(--shell); }
 .d-body { flex: 1; overflow: auto; padding: 6px 24px; padding-right: max(24px, env(safe-area-inset-right, 0px)); }
 .d-foot { padding: 20px 24px 26px; padding-right: max(24px, env(safe-area-inset-right, 0px)); border-top: 1px solid var(--line); display: grid; gap: 12px; }
 .li { display: grid; grid-template-columns: 76px minmax(0, 1fr) auto; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--line); align-items: start; }
-.li .thumb { width: 76px; height: 92px; border-radius: 16px; display: grid; place-items: center; }
-.li .thumb img { width: 78%; height: 78%; object-fit: contain; }
-.li strong { display: block; font-family: var(--serif); font-weight: 500; font-size: 18px; }
+.li .thumb { width: 76px; height: 92px; border-radius: 14px; background: var(--shell); display: grid; place-items: center; }
+.li .thumb img { width: 76%; height: 76%; object-fit: contain; }
+.li strong { display: block; font-family: var(--serif); font-weight: 400; font-size: 19px; }
 .li .sub { font-size: 14px; color: var(--navy-soft); }
-.qty { display: inline-flex; align-items: center; border: 1.5px solid var(--line); border-radius: 999px; margin-top: 10px; }
+.qty { display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: 999px; margin-top: 10px; }
 .qty button { width: 32px; height: 32px; border: 0; background: none; border-radius: 50%; font-size: 17px; }
 .qty span { min-width: 20px; text-align: center; font-size: 14px; font-weight: 700; }
-.remove { border: 0; background: none; padding: 0; margin-left: 12px; font-size: 13.5px; color: var(--navy-soft); text-decoration: underline; }
+.remove { border: 0; background: none; padding: 0; margin-left: 12px; font-size: 13px; color: var(--navy-soft); text-decoration: underline; }
 .li .lp { font-weight: 700; }
 .total { display: flex; justify-content: space-between; align-items: baseline; }
-.total strong { font-family: var(--serif); font-weight: 500; font-size: 28px; }
-.total small { font-family: var(--sans); font-size: 12px; font-weight: 700; letter-spacing: 0.14em; color: var(--navy-soft); }
-.d-foot .note { font-size: 13.5px; color: var(--navy-soft); }
-.bag-empty { padding: 48px 0; display: grid; gap: 18px; justify-items: start; }
-.bag-empty p { font-family: var(--serif); font-size: 22px; }
+.total > span { font-size: 11.5px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+.total strong { font-family: var(--serif); font-weight: 400; font-size: 28px; }
+.total small { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.14em; color: var(--navy-soft); }
+.d-foot .note { font-size: 13px; color: var(--navy-soft); }
+.bag-empty { padding: 48px 0; display: grid; gap: 20px; justify-items: start; }
+.bag-empty p { font-family: var(--serif); font-weight: 360; font-size: 24px; }
 
-.search-dlg { width: min(720px, calc(100% - 32px)); margin-top: max(76px, calc(env(safe-area-inset-top, 0px) + 60px)); border-radius: var(--r-lg); }
+.search-dlg { width: min(720px, calc(100% - 32px)); margin-top: max(80px, calc(env(safe-area-inset-top, 0px) + 64px)); border-radius: var(--r-lg); }
 .search-dlg .in { position: relative; border-bottom: 1px solid var(--line); }
-.search-dlg input { width: 100%; height: 70px; border: 0; background: none; padding: 0 70px 0 58px; font-size: 19px; }
+.search-dlg input { width: 100%; height: 70px; border: 0; background: none; padding: 0 70px 0 58px; font-family: var(--serif); font-size: 21px; }
 .search-dlg input:focus { outline: none; }
-.search-dlg .in > svg { position: absolute; left: 22px; top: 50%; width: 22px; height: 22px; transform: translateY(-50%); color: var(--navy-soft); }
-.search-dlg .x { top: 13px; box-shadow: none; background: var(--mist); }
+.search-dlg .in > svg { position: absolute; left: 22px; top: 50%; width: 21px; height: 21px; transform: translateY(-50%); color: var(--navy-soft); }
+.search-dlg .x { top: 13px; box-shadow: none; background: var(--shell); }
 .found { list-style: none; margin: 0; padding: 10px; max-height: min(60vh, 520px); overflow: auto; }
 .found button { width: 100%; display: grid; grid-template-columns: 56px minmax(0, 1fr) auto; gap: 14px; align-items: center; padding: 8px; border: 0; border-radius: 18px; background: none; text-align: left; }
-.found button:hover, .found button:focus-visible { background: var(--mist); }
-.found .thumb { width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; }
-.found .thumb img { width: 76%; height: 76%; object-fit: contain; }
-.found strong { display: block; font-family: var(--serif); font-weight: 500; font-size: 18px; }
+.found button:hover, .found button:focus-visible { background: var(--shell); }
+.found .thumb { width: 56px; height: 56px; border-radius: 50%; background: var(--shell); display: grid; place-items: center; }
+.found .thumb img { width: 74%; height: 74%; object-fit: contain; }
+.found strong { display: block; font-family: var(--serif); font-weight: 400; font-size: 19px; }
 .found span { font-size: 14px; color: var(--navy-soft); }
 .found .none { padding: 24px 12px; color: var(--navy-soft); }
 
-.toast { position: fixed; left: 50%; bottom: max(24px, calc(env(safe-area-inset-bottom, 0px) + 16px)); z-index: 90; transform: translate(-50%, 20px); opacity: 0; pointer-events: none; display: flex; align-items: center; gap: 16px; max-width: calc(100% - 32px); background: var(--navy); color: var(--white); border-radius: 999px; padding: 10px 10px 10px 22px; transition: opacity 0.3s ease, transform 0.3s ease; font-size: 15px; }
+.toast { position: fixed; left: 50%; bottom: max(24px, calc(env(safe-area-inset-bottom, 0px) + 16px)); z-index: 90; transform: translate(-50%, 20px); opacity: 0; pointer-events: none; display: flex; align-items: center; gap: 16px; max-width: calc(100% - 32px); background: var(--navy); color: var(--white); border-radius: 999px; padding: 10px 10px 10px 22px; transition: opacity 0.3s ease, transform 0.3s ease; font-size: 14.5px; }
 .toast.show { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
-.toast button { border: 0; border-radius: 999px; height: 36px; padding: 0 16px; background: var(--white); color: var(--navy); font-weight: 700; white-space: nowrap; }
+.toast button { border: 0; border-radius: 999px; height: 36px; padding: 0 16px; background: var(--white); color: var(--navy); font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; white-space: nowrap; }
 
 @media (max-width: 1080px) {
   .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .days { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .nav { gap: 18px; }
+  .models { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 64px; }
+  .cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .col:nth-child(even) { margin-top: 0; }
+  .nav { gap: 20px; }
 }
 @media (max-width: 900px) {
   .nav { display: none; }
-  .menu-btn { display: inline-flex; justify-self: start; }
+  .menu-btn { display: inline-grid; justify-self: start; }
   .mobile-nav.open { display: block; border-top: 1px solid var(--line); }
   .mobile-nav ul { list-style: none; margin: 0; padding: 10px 0 18px; }
-  .mobile-nav a { display: block; padding: 10px 0; font-family: var(--serif); font-size: 28px; text-decoration: none; }
+  .mobile-nav a { display: block; padding: 10px 0; font-family: var(--serif); font-weight: 360; font-size: 30px; text-decoration: none; }
   .hero .wrap, .spot-grid, .tagstory .wrap, .fit .wrap, .join { grid-template-columns: minmax(0, 1fr); }
-  .stage { justify-self: center; }
-  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 14px; }
+  .window { max-width: 420px; margin-bottom: 24px; }
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 14px; }
   .foot-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .foot-grid > :first-child { grid-column: 1 / -1; }
   .pd { width: 100%; max-height: calc(100% - 20px); margin: auto 0 0; border-radius: var(--r-xl) var(--r-xl) 0 0; padding-bottom: env(safe-area-inset-bottom, 0px); }
@@ -431,30 +396,35 @@ dialog::backdrop { background: rgba(31, 39, 71, 0.42); backdrop-filter: blur(4px
 }
 @media (max-width: 560px) {
   body { font-size: 16px; }
-  .brand img { height: 32px; }
-  .icon-btn .txt { display: none; }
-  .hero h1 { font-size: 52px; }
-  .stage .cap { display: none; }
-  .days { grid-template-columns: minmax(0, 1fr); }
-  .day { flex-direction: row; align-items: center; padding: 12px; }
-  .day .frame { width: 40%; flex: none; }
-  .day h3 { font-size: 22px; }
+  .brand img { height: 34px; }
+  .hero h1 { font-size: 60px; }
+  .window .medal { left: -4%; width: 36%; }
+  .window .note { right: 0; font-size: 14px; padding: 8px 14px 9px; }
+  .window .tag { right: -16px; width: 18px; height: 56px; }
+  .models { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 56px 20px; }
+  .cols { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
+  .col h3 { font-size: 21px; }
+  .col p { display: none; }
   .look { grid-template-columns: minmax(0, 1fr); }
-  .look-img { max-width: 290px; }
-  .tools-row { display: grid; grid-template-columns: minmax(0, 1fr); }
+  .look-img { max-width: 280px; }
+  .filters { display: grid; grid-template-columns: minmax(0, 1fr); }
   .chips { flex-wrap: nowrap; overflow-x: auto; margin-inline: calc(-1 * var(--gl)) calc(-1 * var(--gr)); padding-inline: var(--gl) var(--gr); scrollbar-width: none; }
   .chips::-webkit-scrollbar { display: none; }
   .chip { flex: 0 0 auto; }
-  .card h3 { font-size: 19px; }
-  .card .meta { flex-direction: column; align-items: flex-start; gap: 6px; }
-  .tile .dogtag { left: 10px; top: 10px; font-size: 12px; }
+  .card h3 { font-size: 18px; }
+  .card .top { flex-direction: column; gap: 0; }
+  .card .kind { display: none; }
+  .tile .tag { right: -12px; width: 14px; height: 42px; }
+  .love { width: 34px; height: 34px; top: 8px; right: 8px; }
+  .insert div { padding: 40px 16px 16px; }
+  .insert .more { display: none; }
   .fields { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
   .fields .field:last-child { grid-column: 1 / -1; }
   .res { grid-template-columns: 44px minmax(0, 1fr) auto; gap: 12px; }
   .res .thumb { width: 44px; height: 44px; }
   .res .sz { width: 42px; height: 42px; font-size: 16px; }
   .nums li { width: 100px; }
-  .nums strong { font-size: 23px; }
+  .nums strong { font-size: 22px; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -465,28 +435,29 @@ dialog::backdrop { background: rgba(31, 39, 71, 0.42); backdrop-filter: blur(4px
 <body>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="i-heart" viewBox="0 0 24 24"><path fill="currentColor" d="M12 21s-7.6-4.7-9.6-9.3C.9 8.2 3.2 4.8 6.7 4.8c2.1 0 3.6 1.1 5.3 3 1.7-1.9 3.2-3 5.3-3 3.5 0 5.8 3.4 4.3 6.9C19.6 16.3 12 21 12 21z"/></symbol>
-  <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></g></symbol>
-  <symbol id="i-bag" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M5 8h14l-1.2 12H6.2L5 8Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8" stroke-linecap="round"/></g></symbol>
-  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20.5s-7.3-4.5-9.2-9C1.4 8.2 3.5 5 6.8 5c2 0 3.5 1.1 5.2 2.9C13.7 6.1 15.2 5 17.2 5c3.3 0 5.4 3.2 4 6.5-1.9 4.5-9.2 9-9.2 9z"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></g></symbol>
+  <symbol id="i-bag" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M5 8h14l-1.2 12H6.2L5 8Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8" stroke-linecap="round"/></g></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
 </svg>
 
-<div class="notice"><div class="wrap">Every bandana is <em>$13</em> right now, down from $20</div></div>
+<div class="notice"><div class="wrap">Every bandana, now $13</div></div>
 
 <header class="site-header" id="top">
   <div class="wrap">
     <nav class="nav" aria-label="Main">
       <a href="#shop">Shop</a>
-      <a href="#days">Collections</a>
+      <a href="#collections">Collections</a>
       <a href="#fit">Fit guide</a>
     </nav>
     <button class="icon-btn menu-btn" type="button" id="menu-btn" aria-expanded="false" aria-controls="mobile-nav" aria-label="Menu">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M4 9h16M4 15h16"/></svg>
     </button>
     <a class="brand" href="#top" aria-label="Waggl Pets, back to top"><img src="assets/waggl-logo.png" alt="Waggl Pets" width="900" height="274"></a>
     <div class="tools">
       <button class="icon-btn" type="button" id="open-search" aria-label="Search"><svg aria-hidden="true"><use href="#i-search"/></svg></button>
-      <button class="icon-btn" type="button" id="open-bag" aria-label="Bag, 0 items"><svg aria-hidden="true"><use href="#i-bag"/></svg><span class="txt">Bag</span><span class="count" id="bag-count">0</span></button>
+      <a class="icon-btn" href="#shop" data-show-loved aria-label="Loved items" id="loved-link"><svg aria-hidden="true" style="fill:none;stroke:currentColor;stroke-width:1.6"><use href="#i-heart"/></svg><span class="n" id="loved-count"></span></a>
+      <button class="icon-btn" type="button" id="open-bag" aria-label="Bag, 0 items"><svg aria-hidden="true"><use href="#i-bag"/></svg><span class="n" id="bag-count"></span></button>
     </div>
   </div>
   <div class="mobile-nav" id="mobile-nav">
@@ -503,50 +474,53 @@ dialog::backdrop { background: rgba(31, 39, 71, 0.42); backdrop-filter: blur(4px
 </header>
 
 <main>
-  <section class="hero scallop-bottom" aria-labelledby="hero-title">
+  <section class="hero dots-bg sc-b" aria-labelledby="hero-title">
     <div class="wrap">
       <div>
-        <span class="eyebrow">For every kind of day</span>
+        <span class="eyebrow">Waggl Pets · For every kind of day</span>
         <h1 id="hero-title">Life is better <em>together.</em></h1>
-        <p class="lede">Rain jackets, cosy base layers and tie-on bandanas, for the big adventures, the little detours, and all the good days in between.</p>
+        <p class="lede">Rain jackets, cosy base layers and tie-on bandanas for the big adventures, the little detours, and all the good days in between.</p>
         <div class="ctas">
           <a class="btn btn-navy" href="#shop">Shop the collection</a>
           <a class="btn btn-line" href="#fit">Find their size</a>
         </div>
-        <ul class="facts">
-          <li><svg aria-hidden="true"><use href="#i-heart"/></svg>Sizes XS to 9XL</li>
-          <li><svg aria-hidden="true"><use href="#i-heart"/></svg>Reflective rain gear</li>
-          <li><svg aria-hidden="true"><use href="#i-heart"/></svg>Embroidered bandanas</li>
-        </ul>
       </div>
-      <figure class="stage">
-        <div class="arch"></div>
-        <img class="main" src="assets/cutouts/cloud-cruise-waterproof-dog-rain-poncho-yellow-dog.webp" alt="A golden retriever in the Cloud Cruise rain poncho in Sunbeam Yellow" fetchpriority="high">
-        <div class="medal"><img src="assets/cutouts/dot-and-dash-tie-strap-dog-bandana-red-dog.webp" alt="A corgi in the Dot &amp; Dash tie-strap bandana in Burgundy"></div>
-        <div class="seal" aria-hidden="true">
-          <svg viewBox="0 0 120 120"><defs><path id="ring" d="M60 60 m-45 0 a45 45 0 1 1 90 0 a45 45 0 1 1 -90 0"/></defs><circle cx="60" cy="60" r="58" fill="#FFFFFF"/><text font-family="Zen Maru Gothic, sans-serif" font-size="11.2" font-weight="700" letter-spacing="2.6" fill="#1F2747"><textPath href="#ring">MADE FOR A LIFE TOGETHER · WAGGL PETS ·</textPath></text></svg>
-          <span class="heart"><svg><use href="#i-heart"/></svg></span>
-        </div>
-        <span class="dogtag">Bandanas $13</span>
-        <figcaption class="cap">Cloud Cruise poncho, and Dot &amp; Dash</figcaption>
+      <figure class="window" style="margin:0">
+        <div class="arch"><img src="assets/img/life-hero.webp" alt="A golden retriever in a Waggl jacket sitting on a rock above a mountain valley at sunrise" fetchpriority="high"></div>
+        <span class="tag" aria-hidden="true"></span>
+        <div class="medal face ring" style="--c: var(--powder)"><div class="clip"><img src="assets/cutouts/dot-and-dash-tie-strap-dog-bandana-red-dog.webp" alt="A corgi in the Dot &amp; Dash bandana"></div></div>
+        <figcaption class="note"><svg aria-hidden="true" style="fill:currentColor"><use href="#i-heart"/></svg>made for a life together</figcaption>
       </figure>
     </div>
   </section>
 
-  <section class="band" id="days" aria-labelledby="days-title">
+  <section class="band" aria-labelledby="models-title">
     <div class="wrap">
-      <div class="days-head">
+      <div class="models-head">
         <div>
-          <span class="eyebrow">Collections</span>
-          <h2 class="section-title" id="days-title">Pick your <em>kind</em> of day.</h2>
+          <span class="eyebrow">Best dressed</span>
+          <h2 class="title" id="models-title">A few friends, <em>in their favourites.</em></h2>
         </div>
-        <p>Four little worlds, made for the same best friend. Choose one to see what's in it.</p>
+        <p>Tap a face to see exactly what they're wearing.</p>
       </div>
-      <div class="days" id="days-list"></div>
+      <ul class="models" id="models"></ul>
     </div>
   </section>
 
-  <section class="spot band scallop-top scallop-bottom" id="spotlight" aria-labelledby="spot-title">
+  <section class="band" id="collections" aria-labelledby="cols-title" style="padding-top:0">
+    <div class="wrap">
+      <div class="models-head">
+        <div>
+          <span class="eyebrow">Collections</span>
+          <h2 class="title" id="cols-title">Pick your <em>kind</em> of day.</h2>
+        </div>
+        <p>Four little worlds, made for the same best friend.</p>
+      </div>
+      <div class="cols" id="cols"></div>
+    </div>
+  </section>
+
+  <section class="spot band sc-t sc-b" id="spotlight" aria-labelledby="spot-title">
     <div class="wrap spot-grid">
       <div>
         <span class="eyebrow">The rainy-day favourite</span>
@@ -578,11 +552,11 @@ dialog::backdrop { background: rgba(31, 39, 71, 0.42); backdrop-filter: blur(4px
       <div class="shop-head">
         <div>
           <span class="eyebrow" id="shop-count">12 pieces</span>
-          <h2 class="section-title" id="shop-title">Shop the whole <em>pack.</em></h2>
+          <h2 class="title" id="shop-title">Shop the whole <em>pack.</em></h2>
         </div>
       </div>
-      <div class="tools-row">
-        <div class="chips" id="chips" role="group" aria-label="Filter by collection"></div>
+      <div class="filters">
+        <div class="chips" id="chips" role="group" aria-label="Filter"></div>
         <div class="find">
           <svg aria-hidden="true"><use href="#i-search"/></svg>
           <label class="vh" for="shop-q">Search the collection</label>
@@ -593,7 +567,7 @@ dialog::backdrop { background: rgba(31, 39, 71, 0.42); backdrop-filter: blur(4px
     </div>
   </section>
 
-  <section class="tagstory band scallop-top" id="the-tag" aria-labelledby="tag-title">
+  <section class="tagstory dots-bg band sc-t sc-b" id="the-tag" aria-labelledby="tag-title">
     <div class="wrap">
       <div class="tag-art">
         <div class="circle"><img src="assets/img/label-detail.webp" alt="Close-up of a houndstooth bandana with the red embroidered Waggl logo and white woven side tag" width="522" height="500" loading="lazy"></div>
@@ -603,7 +577,7 @@ dialog::backdrop { background: rgba(31, 39, 71, 0.42); backdrop-filter: blur(4px
         <span class="eyebrow">The little details</span>
         <h2 id="tag-title">Look for the <em>little tag.</em></h2>
         <p>Every bandana is finished with an embroidered Waggl logo and a small woven tag, stitched into the side seam.</p>
-        <p>You'll find the same tag on every product on this page. It's a quiet way of saying this one's ours.</p>
+        <p>You'll find the same tag on every piece in the shop. It's our quiet way of saying this one's ours.</p>
         <ul class="nums">
           <li><strong>12</strong><span>pieces to choose from</span></li>
           <li><strong>XS–9XL</strong><span>across the range</span></li>
@@ -613,11 +587,11 @@ dialog::backdrop { background: rgba(31, 39, 71, 0.42); backdrop-filter: blur(4px
     </div>
   </section>
 
-  <section class="fit band scallop-top" id="fit" aria-labelledby="fit-title">
+  <section class="fit band" id="fit" aria-labelledby="fit-title">
     <div class="wrap">
-      <div class="measure">
+      <div class="measure dots-bg">
         <div class="m">
-          <img src="assets/cutouts/dot-and-dash-polka-dot-dog-bandana-red-dog.webp" alt="A golden retriever in the Dot &amp; Dash Classic bandana, with lines showing where to measure the neck and chest" loading="lazy">
+          <img src="assets/cutouts/dot-and-dash-polka-dot-dog-bandana-red-dog.webp" alt="A golden retriever in the Dot &amp; Dash Classic bandana, with dotted lines showing where to measure the neck and chest" loading="lazy">
           <svg viewBox="0 0 609 860" preserveAspectRatio="none" aria-hidden="true">
             <path class="tape-back" d="M86 392 Q 264 350 443 392"/>
             <path class="tape" d="M86 392 Q 264 438 443 392"/>
@@ -646,7 +620,7 @@ dialog::backdrop { background: rgba(31, 39, 71, 0.42); backdrop-filter: blur(4px
   </section>
 </main>
 
-<footer class="foot scallop-top">
+<footer class="foot sc-t">
   <div class="wrap">
     <div class="join">
       <div>
@@ -724,14 +698,24 @@ dialog::backdrop { background: rgba(31, 39, 71, 0.42); backdrop-filter: blur(4px
 const STORE = 'https://fkrc04-us.myshopify.com';
 const PRODUCTS = [{"h":"puddle-parade-waterproof-dog-jacket","name":"Puddle Parade","kind":"Hooded waterproof jacket","cat":"outdoors","price":65.0,"was":78.0,"tagline":"Gray skies. Colorful walks.","blurb":"Meet Puddle Parade, the hooded waterproof dog jacket that brings a little color to rainy-day routines. Its waterproof Taslan outer fabric helps shed rain and splashes, while a breathable mesh lining adds an airy layer underneath. Bold color-block panels make every neighborhood stroll feel a little brighter.","details":["Waterproof Taslan outer fabric","Breathable mesh lining","Adjustable hood with cord toggles","Hook-and-loop belly fastenings","Reflective detailing for visibility when illuminated","Covered leash-access opening near the back of the neck","Elastic tail loop to help hold the coat in place","Four colorways; sizes L, XL, 2XL, 3XL, 4XL and 5XL"],"fit":["Measure your dog’s back length, chest girth, and neck girth before ordering. Check all three against the size guide, prioritizing a comfortable chest fit. Weight and breed are references only. If your dog falls between sizes, compare the larger size and leave room for any layer worn underneath.","Size numbers are product size codes, not measurements in inches. Manual measurements may vary slightly.","Keep the hood clear of your dog’s eyes and ears. Attach the leash to a suitable collar or harness, with its attachment point aligned to the coat opening."],"colours":[{"v":"Yellow","name":"City Yellow","hex":"#F2C230","s":"yellow"},{"v":"Green","name":"Neon Lime","hex":"#C6E03A","s":"green"},{"v":"Blue","name":"Harbor Aqua","hex":"#5DC1E6","s":"blue"},{"v":"Orange","name":"Orange","hex":"#F06A1F","s":"orange"}],"sizes":["L","XL","2XL","3XL","4XL","5XL"],"var":{"Yellow/L":[62890365222993,1],"Yellow/XL":[62890365255761,1],"Yellow/2XL":[62890365288529,1],"Yellow/3XL":[62890365321297,1],"Yellow/4XL":[62890365354065,1],"Yellow/5XL":[62890365386833,1],"Green/L":[62890365419601,1],"Green/XL":[62890365452369,1],"Green/2XL":[62890365485137,1],"Green/3XL":[62890365517905,1],"Green/4XL":[62890365550673,1],"Green/5XL":[62890365583441,1],"Blue/L":[62890365616209,1],"Blue/XL":[62890365648977,1],"Blue/2XL":[62890365681745,1],"Blue/3XL":[62890365714513,1],"Blue/4XL":[62890365747281,1],"Blue/5XL":[62890365780049,1],"Orange/L":[62891695374417,1],"Orange/XL":[62891695407185,1],"Orange/2XL":[62891695439953,1],"Orange/3XL":[62891695472721,1],"Orange/4XL":[62891695505489,1],"Orange/5XL":[62891695538257,1]},"chart":{"by":"chest","kind":"range","cols":["Back","Neck","Chest","Weight (lb)"],"rows":[["L","14.6–16.9","13.0–14.6","19.7–23.6","16.5–27.6"],["XL","16.5–18.9","13.8–16.5","22.8–26.8","27.6–38.6"],["2XL","18.5–20.9","15.0–17.3","23.6–28.3","38.6–49.6"],["3XL","20.5–22.8","16.1–18.9","25.6–30.3","49.6–60.6"],["4XL","22.4–24.8","17.7–20.5","28.7–33.1","60.6–71.7"],["5XL","26.4–28.7","20.9–25.2","33.1–38.2","71.7–88.2"]]}},{"h":"drizzle-scout-outdoor-dog-jacket","name":"Drizzle Scout","kind":"Outdoor dog jacket","cat":"outdoors","price":65.0,"was":79.0,"tagline":"Built for the next sniff, stroll, and trail.","blurb":"Meet Drizzle Scout, an outdoor dog jacket for curious noses and everyday adventures. Its shell-style design pairs a water-resistant outer fabric with a high collar for added coverage, making it a practical layer for neighborhood walks and leafy trails. The sleeveless cut leaves your dog’s legs free to move.","details":["Water-resistant outer fabric for light rain and everyday splashes","High collar with a reflective band","Adjustable drawcords at the collar and back hem","Hook-and-loop closure for an adjustable fit","Zippered back opening for access to a harness worn underneath","Sleeveless design with open leg openings","Four colors and six sizes: S, M, L, XL, 2XL, and 3XL"],"fit":["Measure your dog’s chest, neck, and back before ordering. Prioritize chest fit and check all three measurements against the size guide. Weight is a reference only, since dogs of the same weight can have different proportions. If your dog falls between sizes, compare the larger size and allow room for any layer worn underneath.","Measurements are approximate; allow 0.4–0.8 in variation.","Attach the leash to your dog’s harness or collar. The jacket itself is not a restraint device."],"colours":[{"v":"Olive Green","name":"Olive Green","hex":"#6E7449","s":"olive-green"},{"v":"Amber Brown","name":"Amber Brown","hex":"#B5652A","s":"amber-brown"}],"sizes":["S","M","L","XL","2XL","3XL"],"var":{"Olive Green/S":[62935424368721,1],"Olive Green/M":[62935424401489,1],"Olive Green/L":[62935424434257,1],"Olive Green/XL":[62935424467025,1],"Olive Green/2XL":[62935424499793,1],"Olive Green/3XL":[62935424532561,1],"Amber Brown/S":[62935424565329,0],"Amber Brown/M":[62935424598097,1],"Amber Brown/L":[62935424630865,1],"Amber Brown/XL":[62935424663633,1],"Amber Brown/2XL":[62935424696401,1],"Amber Brown/3XL":[62935424729169,1]},"chart":{"by":"chest","kind":"point","cols":["Back","Chest","Neck","Weight (lb)"],"rows":[["S","8.3","16.1","13.0","5.5–7.7"],["M","9.8","17.7","14.2","7.7–11.0"],["L","11.4","19.3","15.0","11.0–15.4"],["XL","13.0","20.9","16.1","15.4–19.8"],["2XL","14.6","22.4","16.9","19.8–26.5"],["3XL","16.1","24.0","18.1","26.5–33.1"]]}},{"h":"cloud-cruise-waterproof-dog-rain-poncho","name":"Cloud Cruise","kind":"Waterproof rain poncho","cat":"urban","price":35.0,"was":49.0,"tagline":"For walks beneath the clouds.","blurb":"Meet Cloud Cruise, a waterproof dog rain poncho made for rainy-day wandering. Its soft, flexible PU outer fabric drapes over the back and sides, while the open-leg cape design gives your dog room to step, sniff, and explore.","details":["Waterproof PU outer fabric with a soft, flexible feel","Sleeveless poncho shape with coverage over the back and sides","Hood with a clear TPU brim","Extended neck coverage with an adjustable drawcord","Adjustable body strap with a buckle","Elastic rear straps to help hold the cape in place","Protective belly panel for added coverage from ground splashes","Hidden leash-access opening","Three colors; eleven sizes from M to 9XL"],"fit":["Measure your dog’s back length, neck girth, and body girth where the strap sits. Check the maximum measurements in the size guide and allow room for a comfortable fit. Poncho length and maximum dog back length are different measurements. Weight and breed are guides only.","If your dog falls between sizes, compare the larger size. Adjust the hood so it stays clear of the eyes and ears, and attach the leash to a suitable collar or harness. The poncho is not a restraint device."],"colours":[{"v":"Yellow","name":"Sunbeam Yellow","hex":"#F4C430","s":"yellow"},{"v":"Blue","name":"Sky Blue","hex":"#7CC8EC","s":"blue"},{"v":"Green","name":"Neon Lime","hex":"#C9E84A","s":"green"}],"sizes":["M","L","XL","2XL","3XL","4XL","5XL","6XL","7XL","8XL","9XL"],"var":{"Yellow/M":[62907667644497,1],"Yellow/L":[62907681865809,1],"Yellow/XL":[62907681898577,1],"Yellow/2XL":[62907681931345,1],"Yellow/3XL":[62907681964113,1],"Yellow/4XL":[62907681996881,1],"Yellow/5XL":[62907682029649,1],"Yellow/6XL":[62907682062417,1],"Yellow/7XL":[62907682095185,1],"Yellow/8XL":[62907682127953,1],"Yellow/9XL":[62907682160721,1],"Blue/M":[62907667677265,1],"Blue/L":[62907682193489,1],"Blue/XL":[62907682226257,1],"Blue/2XL":[62907682259025,1],"Blue/3XL":[62907682291793,1],"Blue/4XL":[62907682324561,1],"Blue/5XL":[62907682357329,1],"Blue/6XL":[62907682390097,1],"Blue/7XL":[62907682422865,1],"Blue/8XL":[62907682455633,1],"Blue/9XL":[62907682488401,1],"Green/M":[62907667710033,1],"Green/L":[62907682521169,1],"Green/XL":[62907682553937,1],"Green/2XL":[62907682586705,1],"Green/3XL":[62907682619473,1],"Green/4XL":[62907682652241,1],"Green/5XL":[62907682685009,1],"Green/6XL":[62907682717777,1],"Green/7XL":[62907682750545,1],"Green/8XL":[62907682783313,1],"Green/9XL":[62907682816081,1]},"chart":{"by":"girth","kind":"max","cols":["Poncho length","Back max","Neck max","Girth max","Weight (lb)"],"rows":[["M","9.1","9.1","12.6","15.7","4.4–6.6"],["L","11.0","11.0","13.4","16.5","7.7–11.0"],["XL","13.0","13.8","15.0","17.7","11.0–16.5"],["2XL","14.6","15.4","16.5","19.7","16.5–22.0"],["3XL","17.3","18.1","18.9","22.8","22.0–30.9"],["4XL","18.1","18.9","20.5","23.6","30.9–38.6"],["5XL","20.5","21.3","22.8","25.6","38.6–49.6"],["6XL","22.0","22.8","24.4","29.5","49.6–55.1"],["7XL","24.0","24.8","26.0","31.5","55.1–66.1"],["8XL","26.0","26.8","28.3","33.5","66.1–99.2"],["9XL","31.9","32.7","31.5","39.4","99.2–132.3"]]}},{"h":"daydream-dog-base-layer-onesie","name":"Daydream","kind":"Base layer onesie","cat":"home","price":41.0,"was":57.0,"tagline":"For slow mornings and everyday adventures.","blurb":"Meet Daydream, a simple dog base layer that brings a relaxed look to your best friend’s wardrobe. A soft brushed finish and gentle stretch make it an inviting choice for lounging at home, everyday outings, or layering beneath a suitably sized coat on cooler days.","details":["Soft brushed fabric with stretch","Four-leg design with a raised neckline","Pullover construction","Open underside and tail opening","Wear on its own or as a base layer","Available in XS, S, M, L, XL, and 2XL"],"fit":["Measure your dog’s chest, neck, and back length before ordering, then compare with the size chart. Allow room for comfortable movement and choose by measurements rather than breed or weight alone.","Measurements are taken manually and may vary by 0.5–1.0 in. Colors may appear slightly different across screens."],"colours":[{"v":"Yellow","name":"Butter Yellow","hex":"#EBCB6B","s":"yellow"},{"v":"Silver","name":"Light Grey","hex":"#C4C4C2","s":"silver"},{"v":"Gray","name":"Charcoal Grey","hex":"#4A4B4D","s":"gray"},{"v":"Brown","name":"Brown","hex":"#A89283","s":"brown"}],"sizes":["XS","S","M","L","XL","2XL"],"var":{"Yellow/XS":[62872146018385,1],"Yellow/S":[62872146051153,1],"Yellow/M":[62872146083921,1],"Yellow/L":[62872146116689,1],"Yellow/XL":[62872146149457,1],"Yellow/2XL":[62872146182225,1],"Silver/XS":[62872146214993,1],"Silver/S":[62872146247761,1],"Silver/M":[62872146280529,1],"Silver/L":[62872146313297,1],"Silver/XL":[62872146346065,1],"Silver/2XL":[62872146378833,1],"Gray/XS":[62872146411601,1],"Gray/S":[62872146444369,1],"Gray/M":[62872146477137,1],"Gray/L":[62872146509905,1],"Gray/XL":[62872146542673,1],"Gray/2XL":[62872146575441,1],"Brown/XS":[62872146608209,1],"Brown/S":[62872146640977,1],"Brown/M":[62872146673745,1],"Brown/L":[62872146706513,1],"Brown/XL":[62872146739281,1],"Brown/2XL":[62872146772049,1]},"chart":{"by":"chest","kind":"point","cols":["Back","Chest","Neck"],"rows":[["XS","10.2","15.0","9.8"],["S","11.8","16.5","10.6"],["M","13.4","18.1","11.4"],["L","15.0","19.7","12.4"],["XL","16.5","21.3","13.4"],["2XL","18.1","23.6","14.2"]]}},{"h":"trail-tails-buffalo-plaid-dog-bandana","name":"Trail Tails","kind":"Tie-strap bandana, buffalo plaid","cat":"accessories","price":13.0,"was":20.0,"tagline":"Big checks. Happy trails.","blurb":"Bring a little outdoor spirit to everyday walks with Trail Tails by WAGGL Pets. Bold buffalo plaid gives this dog bandana a classic, adventurous look, while four colorful combinations make it easy to find your pup’s perfect match.","details":["Bold buffalo plaid pattern","Dedicated tie straps for easy fastening","Adjustable fit through knot placement","Pointed front panel with WAGGL Pets logo detailing","Four color options: Orange & Black, Hot Pink & Black, Blue & Black, and Teal & Navy","Three sizes: M, L, and XL","Sold individually: one bandana in your chosen color and size"],"fit":["Measure your dog’s neck before ordering and allow enough strap length for tying. Leave room for two fingers between the bandana and your dog’s neck.","Supervise your dog while wearing this accessory. Remove it during sleep or unattended time. This bandana is not a collar and must not be used to attach a leash."],"colours":[{"v":"Orange","name":"Orange & Black","hex":"#E8642C","s":"orange"},{"v":"Red","name":"Hot Pink & Black","hex":"#D8325A","s":"red"},{"v":"Blue","name":"Blue & Black","hex":"#2F6BD8","s":"blue"},{"v":"Green","name":"Teal & Navy","hex":"#1F7F73","s":"green"}],"sizes":["M","L","XL"],"var":{"Orange/M":[62916711940177,1],"Orange/L":[62916711972945,1],"Orange/XL":[62916712005713,1],"Red/M":[62916712038481,1],"Red/L":[62916712071249,1],"Red/XL":[62916712104017,1],"Blue/M":[62916712136785,1],"Blue/L":[62916712169553,1],"Blue/XL":[62916712202321,1],"Green/M":[62916712235089,1],"Green/L":[62916712267857,1],"Green/XL":[62916712300625,1]},"chart":{"by":"neck","kind":"max","cols":["Fits necks up to","Panel depth"],"rows":[["M","13","7"],["L","18","9.5"],["XL","26","11.5"]]}},{"h":"dapper-hound-houndstooth-dog-bandana","name":"Dapper Hound","kind":"Tie-strap bandana, houndstooth","cat":"accessories","price":13.0,"was":20.0,"tagline":"Classic checks. A little canine charm.","blurb":"Give everyday outings a stylish finishing touch with Dapper Hound by WAGGL Pets. The timeless houndstooth pattern brings a hint of vintage charm, while four distinctive color combinations let your dog’s personality shine—from classic Black & White to cheerful Mustard & Black.","details":["Classic houndstooth pattern","Dedicated tie straps for easy fastening","Adjustable fit through knot placement","Pointed front panel with WAGGL Pets logo detailing","Four color options: Mustard & Black, Teal & Black, Black & White, and Dusty Rose & White","Three sizes: M, L, and XL","Sold individually: one bandana in your selected color and size"],"fit":["Measure your dog’s neck before ordering and allow enough strap length for tying. Once fastened, leave room for two fingers between the bandana and your dog’s neck.","Supervise your dog while wearing this accessory. Remove it during sleep or unattended time. This bandana is not a collar and must not be used to attach a leash."],"colours":[{"v":"Red","name":"Dusty Rose & White","hex":"#D58AA6","s":"red"},{"v":"Green","name":"Teal & Black","hex":"#2C8A8E","s":"green"},{"v":"Yellow","name":"Mustard & Black","hex":"#B98A2E","s":"yellow"},{"v":"Black","name":"Black & White","hex":"#58595B","s":"black"}],"sizes":["M","L","XL"],"var":{"Red/M":[62912662110289,1],"Red/L":[62912662143057,1],"Red/XL":[62912662175825,1],"Green/M":[62912662208593,1],"Green/L":[62912662241361,1],"Green/XL":[62912662274129,1],"Yellow/M":[62912662306897,1],"Yellow/L":[62912662339665,1],"Yellow/XL":[62912662372433,1],"Black/M":[62912662405201,1],"Black/L":[62912662437969,1],"Black/XL":[62912662470737,1]},"chart":{"by":"neck","kind":"max","cols":["Fits necks up to","Panel depth"],"rows":[["M","13","7"],["L","18","9.5"],["XL","26","11.5"]]}},{"h":"dottie-days-polka-dot-dog-bandana","name":"Dottie Days","kind":"Tie-strap bandana, small dots","cat":"accessories","price":13.0,"was":20.0,"tagline":"Little dots. Happy days.","blurb":"Bring a little charm to your dog’s daily adventures with Dottie Days by WAGGL Pets. Delicate white polka dots pair with rich Navy Blue or Burgundy for a timeless look, finished with WAGGL Pets logo detailing.","details":["Dedicated tie straps for easy fastening","Adjustable fit through knot placement","Small white polka dots for a classic, playful look","Pointed front panel with WAGGL Pets logo detailing","Available in Navy Blue and Burgundy","Sizes: M, L, and XL","Sold individually: one bandana in your chosen color and size"],"fit":["Measure your dog’s neck before ordering and allow enough strap length for tying. Leave room for two fingers between the bandana and your dog’s neck.","Supervise your dog while wearing this accessory and remove it during sleep or unattended time. This bandana is not a collar and must not be used to attach a leash."],"colours":[{"v":"Red","name":"Burgundy","hex":"#8E1F2C","s":"red"},{"v":"Blue","name":"Navy Blue","hex":"#1E2C4F","s":"blue"}],"sizes":["M","L","XL"],"var":{"Red/M":[62912644448337,1],"Red/L":[62912644481105,0],"Red/XL":[62912644513873,0],"Blue/M":[62912644546641,0],"Blue/L":[62912644579409,0],"Blue/XL":[62912644612177,0]},"chart":{"by":"neck","kind":"max","cols":["Fits necks up to","Panel depth"],"rows":[["M","13","7"],["L","18","9.5"],["XL","26","11.5"]]}},{"h":"dot-and-dash-tie-strap-dog-bandana","name":"Dot & Dash","kind":"Tie-strap bandana, polka dot","cat":"accessories","price":13.0,"was":20.0,"tagline":"A little knot. A lot of personality.","blurb":"Meet Dot & Dash, the WAGGL Pets dog bandana that brings a playful touch to everyday outings. Crisp white polka dots stand out against Navy Blue or Burgundy, while WAGGL Pets logo detailing adds a signature finishing touch.","details":["Dedicated tie straps for easy fastening","Adjustable fit through knot placement","Classic white polka dot pattern","Pointed front panel with WAGGL Pets logo detailing","Two color options: Navy Blue and Burgundy","Three size options: M, L, and XL"],"fit":["Measure your dog’s neck before choosing a size and allow enough strap length for tying. Once fastened, leave room for two fingers between the bandana and your dog’s neck.","Supervise your dog while wearing the bandana. Remove it during sleep or unattended time. This accessory is not a collar and must not be used to attach a leash.","Includes one bandana in your selected color and size."],"colours":[{"v":"Red","name":"Burgundy","hex":"#9A1E2B","s":"red"},{"v":"Blue","name":"Navy Blue","hex":"#1C2850","s":"blue"}],"sizes":["M","L","XL"],"var":{"Red/M":[62912641728593,1],"Red/L":[62912641761361,1],"Red/XL":[62912641794129,1],"Blue/M":[62912641826897,0],"Blue/L":[62912641859665,1],"Blue/XL":[62912641892433,1]},"chart":{"by":"neck","kind":"max","cols":["Fits necks up to","Panel depth"],"rows":[["M","13","7"],["L","18","9.5"],["XL","26","11.5"]]}},{"h":"little-dots-polka-dot-dog-bandana","name":"Little Dots","kind":"Classic bandana, mini dots","cat":"accessories","price":13.0,"was":20.0,"tagline":"Little dots. Big charm.","blurb":"Give everyday outings a touch of vintage charm with Little Dots. Neat white mini polka dots bring a playful rhythm to rich red or classic navy, creating a look that feels equally at home on a neighborhood stroll or at a weekend gathering.","details":["Fine white polka dot pattern in two classic colorways","Triangular shape with a tie-on fastening","White embroidered WAGGL Pets logo","Branded side label","A charming accessory for everyday walks, photos, and special occasions"],"fit":["Measure your dog’s neck and check the size guide before ordering. Allow room for tying and a comfortable fit. Select the size by measurements rather than breed alone."],"colours":[{"v":"Red","name":"Classic Red","hex":"#B3202E","s":"red"},{"v":"Blue","name":"Navy Blue","hex":"#1D2A4E","s":"blue"}],"sizes":["M","L","XL"],"var":{"Red/XL":[62866663407697,1],"Red/L":[62866663440465,1],"Red/M":[62866663473233,1],"Blue/XL":[62866663506001,1],"Blue/L":[62866663538769,1],"Blue/M":[62866663571537,1]},"chart":null},{"h":"dot-and-dash-polka-dot-dog-bandana","name":"Dot & Dash Classic","kind":"Classic bandana, polka dot","cat":"accessories","price":13.0,"was":20.0,"tagline":"Classic dots. A dash of personality.","blurb":"Meet Dot & Dash, a playful finishing touch for your dog’s everyday adventures. Crisp white polka dots stand out against Cherry Red or Navy Blue, bringing a little retro charm to neighborhood walks, weekend outings, and moments worth capturing.","details":["Classic white polka dots in two distinctive colorways","Cherry Red for a cheerful pop of color, or Navy Blue for timeless style","Triangular shape with a tie-on fastening","White embroidered WAGGL Pets logo and branded side label","An easy way to dress up everyday outings and special occasions"],"fit":["Measure your dog’s neck and refer to the size guide before ordering. Leave enough room for the knot and a comfortable fit. Choose by measurements rather than breed alone."],"colours":[{"v":"Red","name":"Cherry Red","hex":"#C21F2F","s":"red"},{"v":"Blue","name":"Navy Blue","hex":"#1C2850","s":"blue"}],"sizes":["M","L","XL"],"var":{"Red/XL":[62866507399249,1],"Red/L":[62866507432017,1],"Red/M":[62866507464785,1],"Blue/XL":[62866507497553,1],"Blue/L":[62866507530321,1],"Blue/M":[62866507563089,1]},"chart":null},{"h":"dapper-days-houndstooth-dog-bandana","name":"Dapper Days","kind":"Classic bandana, houndstooth","cat":"accessories","price":13.0,"was":20.0,"tagline":"A little charm for every outing.","blurb":"Meet Dapper Days: a classic houndstooth dog bandana with a playful WAGGL Pets touch. Its intricate two-tone pattern and embroidered logo bring a polished look to everyday walks, café stops, and photo-worthy moments with your best friend.","details":["Classic houndstooth pattern in four distinctive colorways","Triangular shape with a tie-on fastening","Embroidered WAGGL Pets logo and branded side label","A finishing touch for everyday outings and special occasions"],"fit":["Measure your dog’s neck and check the size guide before ordering. Allow enough room for a comfortable knot and a relaxed fit."],"colours":[{"v":"Gold","name":"Mustard Yellow","hex":"#B58B2C","s":"gold"},{"v":"Green","name":"Teal","hex":"#2B8E95","s":"green"},{"v":"Black","name":"Black & White","hex":"#505052","s":"black"},{"v":"Red","name":"Rose Pink","hex":"#D98AA8","s":"red"}],"sizes":["M","L","XL"],"var":{"Gold/M":[62861073842257,1],"Gold/L":[62861073875025,1],"Gold/XL":[62861073907793,1],"Green/M":[62861073940561,1],"Green/L":[62861073973329,1],"Green/XL":[62861074006097,1],"Black/M":[62861074038865,1],"Black/L":[62861074071633,1],"Black/XL":[62861074104401,1],"Red/M":[62861074137169,1],"Red/L":[62861074169937,1],"Red/XL":[62861074202705,1]},"chart":null},{"h":"plaid-dog-bandana","name":"Buffalo Plaid","kind":"Classic bandana, buffalo plaid","cat":"accessories","price":13.0,"was":20.0,"tagline":"Add a classic plaid look to your dog’s everyday style.","blurb":"This triangular dog bandana features a bold buffalo check pattern, a tie-on design, and embroidered WAGGL Pets branding. Available in four colors: orange, blue, red, and green.","details":["Triangular plaid dog bandana","Tie-on design","Embroidered WAGGL Pets logo","Four color options: orange, blue, red, and green"],"fit":["Tie the bandana comfortably around your dog’s neck and adjust the knot for a secure fit. Please measure your dog’s neck before ordering and supervise your pet while wearing the bandana."],"colours":[{"v":"Orange","name":"Orange & Black","hex":"#E8642C","s":"orange"},{"v":"Blue","name":"Blue & Black","hex":"#2F6BD8","s":"blue"},{"v":"Green","name":"Green & Black","hex":"#1F7F73","s":"green"},{"v":"Red","name":"Red & Black","hex":"#C62A2F","s":"red"}],"sizes":["M","L","XL"],"var":{"Orange/M":[62850956492881,1],"Orange/L":[62850956525649,1],"Orange/XL":[62850956558417,1],"Blue/M":[62850956591185,1],"Blue/L":[62850956623953,1],"Blue/XL":[62850956656721,1],"Green/M":[62850956689489,1],"Green/L":[62850956722257,1],"Green/XL":[62850956755025,1],"Red/M":[62850956787793,1],"Red/L":[62850956820561,1],"Red/XL":[62850956853329,1]},"chart":null}];
 
-const TONES = ['powder', 'butter', 'blush', 'sage'];
-PRODUCTS.forEach((p, i) => { p.tone = TONES[i % TONES.length]; });
 const CATS = {
-  outdoors: { label: 'Outdoors', tone: 'sage', dot: '#9DB98C', title: 'Take the scenic route.', copy: 'Follow the interesting smells. Chase the last light.', img: 'life-outdoors', alt: 'A golden retriever in a Waggl jacket on a sunlit forest trail' },
-  urban: { label: 'Urban', tone: 'powder', dot: '#8FB2D9', title: 'New streets. Same best friend.', copy: 'Coffee stops, familiar corners, unexpected friends.', img: 'life-urban', alt: 'A golden retriever in a yellow rain poncho on a wet city street' },
-  home: { label: 'At Home', tone: 'butter', dot: '#E3C766', title: 'Nowhere to be. Just here.', copy: 'A favourite corner and a patch of afternoon sun.', img: 'life-home', alt: 'A golden retriever in a soft base layer resting in a sunny living room' },
-  accessories: { label: 'Accessories', tone: 'blush', dot: '#E7A3A6', title: 'Small details. Big personality.', copy: 'A pop of colour and a playful finishing touch.', img: 'life-accessories', alt: 'A golden retriever sitting in a red polka dot Waggl bandana' }
+  outdoors: { label: 'Outdoors', title: 'Take the scenic route.', copy: 'Follow the interesting smells. Chase the last light.', img: 'life-outdoors', alt: 'A golden retriever in a Waggl jacket on a sunlit forest trail' },
+  urban: { label: 'Urban', title: 'New streets. Same best friend.', copy: 'Coffee stops, familiar corners, unexpected friends.', img: 'life-urban', alt: 'A golden retriever in a yellow rain poncho on a wet city street' },
+  home: { label: 'At Home', title: 'Nowhere to be. Just here.', copy: 'A favourite corner and a patch of afternoon sun.', img: 'life-home', alt: 'A golden retriever in a soft base layer resting in a sunny living room' },
+  accessories: { label: 'Accessories', title: 'Small details. Big personality.', copy: 'A pop of colour and a playful finishing touch.', img: 'life-accessories', alt: 'A golden retriever sitting in a red polka dot Waggl bandana' }
 };
+const MODELS = [
+  { h: 'little-dots-polka-dot-dog-bandana', c: 'Red', bg: 'var(--blush)' },
+  { h: 'trail-tails-buffalo-plaid-dog-bandana', c: 'Green', bg: 'var(--powder)' },
+  { h: 'dottie-days-polka-dot-dog-bandana', c: 'Blue', bg: 'var(--shell)' },
+  { h: 'plaid-dog-bandana', c: 'Green', bg: 'var(--blush)' },
+  { h: 'dapper-days-houndstooth-dog-bandana', c: 'Green', bg: 'var(--powder)' },
+  { h: 'dot-and-dash-tie-strap-dog-bandana', c: 'Red', bg: 'var(--shell)' }
+];
+const INSERTS = [
+  { after: 4, cat: 'urban', title: 'New streets. <em>Same best friend.</em>' },
+  { after: 8, cat: 'home', title: 'Nowhere to be. <em>Just here.</em>' }
+];
 
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -744,19 +728,34 @@ const photo = (p, c) => `assets/img/${p.h}-${c.s}-dog.webp`;
 const cover = p => `assets/img/${p.h}-cover.webp`;
 const variant = (p, c, s) => p.var[c + '/' + s];
 const available = (p, c, s) => { const v = variant(p, c, s); return !!(v && v[1]); };
+const heart = '<svg aria-hidden="true"><use href="#i-heart"/></svg>';
 
 const store = {
   get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
   set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* storage unavailable */ } }
 };
 
+/* Loved */
+let loved = new Set(store.get('waggl-loved', []).filter(h => byH[h]));
+function setLoved(h, btn) {
+  loved.has(h) ? loved.delete(h) : loved.add(h);
+  store.set('waggl-loved', [...loved]);
+  $$(`.love[data-love="${h}"]`).forEach(b => { b.setAttribute('aria-pressed', loved.has(h)); b.setAttribute('aria-label', `${loved.has(h) ? 'Remove' : 'Save'} ${byH[h].name} ${loved.has(h) ? 'from' : 'to'} loved`); });
+  if (btn) { btn.classList.remove('pop'); void btn.offsetWidth; btn.classList.add('pop'); }
+  $('#loved-count').textContent = loved.size || '';
+  $('#loved-link').setAttribute('aria-label', `Loved items, ${loved.size}`);
+  renderChips();
+  if (filter === 'loved') renderGrid();
+}
+const loveBtn = p => `<button type="button" class="love" data-love="${p.h}" aria-pressed="${loved.has(p.h)}" aria-label="${loved.has(p.h) ? 'Remove' : 'Save'} ${esc(p.name)} ${loved.has(p.h) ? 'from' : 'to'} loved">${heart}</button>`;
+document.addEventListener('click', e => { const b = e.target.closest('[data-love]'); if (b) { e.stopPropagation(); setLoved(b.dataset.love, b); } }, true);
+
 /* Bag */
 let bag = store.get('waggl-bag', []).filter(l => byH[l.h] && variant(byH[l.h], l.c, l.s));
 function saveBag() {
   store.set('waggl-bag', bag);
   const n = bag.reduce((a, l) => a + l.q, 0);
-  $('#bag-count').textContent = n;
-  $('#bag-count').classList.toggle('has', n > 0);
+  $('#bag-count').textContent = n || '';
   $('#open-bag').setAttribute('aria-label', `Bag, ${n} item${n === 1 ? '' : 's'}`);
   renderBag();
 }
@@ -776,7 +775,7 @@ function renderBag() {
   body.innerHTML = bag.map((l, i) => {
     const p = byH[l.h], c = colourOf(p, l.c);
     return `<div class="li">
-      <div class="thumb t-${p.tone}"><img src="${cut(p, c, 'flat')}" alt="" loading="lazy"></div>
+      <div class="thumb"><img src="${cut(p, c, 'flat')}" alt="" loading="lazy"></div>
       <div>
         <strong>${esc(p.name)}</strong>
         <span class="sub">${esc(c.name)} · ${esc(l.s)}</span>
@@ -821,15 +820,26 @@ const swatches = (p, cur) => p.colours.map(c => `<button type="button" class="sw
 const sizes = (p, c, cur) => p.sizes.map(s => available(p, c, s)
   ? `<button type="button" class="size" role="radio" aria-checked="${s === cur}" data-size="${s}">${s}</button>`
   : `<button type="button" class="size" disabled aria-label="${s}, sold out">${s}</button>`).join('');
-const priceRow = p => `<div class="price"><span class="now">${money(p.price)}</span>${p.was > p.price ? `<s>${money(p.was)}</s>` : ''}<span class="cur">CAD</span></div>`;
+const priceRow = p => `<div class="price"><span class="now">${money(p.price)} <span class="eyebrow" style="display:inline">CAD</span></span>${p.was > p.price ? `<span class="was">Usually <s>${money(p.was)}</s></span>` : ''}</div>`;
+
+/* Best dressed */
+function renderModels() {
+  $('#models').innerHTML = MODELS.map(m => {
+    const p = byH[m.h], c = colourOf(p, m.c);
+    return `<li><button type="button" data-open="${p.h}" data-colour-pick="${c.v}">
+      <div class="face" style="--c:${m.bg}"><div class="clip"><img src="${cut(p, c, 'dog')}" alt="" loading="lazy"></div></div>
+      <span><strong>${esc(p.name)}</strong><small>in ${esc(c.name)}</small></span>
+    </button></li>`;
+  }).join('');
+}
 
 /* Collections */
-function renderDays() {
-  $('#days-list').innerHTML = Object.entries(CATS).map(([k, c]) => {
+function renderCols() {
+  $('#cols').innerHTML = Object.entries(CATS).map(([k, c]) => {
     const n = PRODUCTS.filter(p => p.cat === k).length;
-    return `<a class="day t-${c.tone}" href="#shop" data-filter="${k}">
+    return `<a class="col" href="#shop" data-filter="${k}">
       <div class="frame"><img src="assets/img/${c.img}.webp" alt="${esc(c.alt)}" loading="lazy"></div>
-      <div class="txt"><span class="eyebrow">${c.label}</span><h3>${esc(c.title)}</h3><p>${esc(c.copy)}</p><span class="more link-arrow">${n} ${n === 1 ? 'piece' : 'pieces'} <span aria-hidden="true">→</span></span></div>
+      <div><span class="eyebrow">${c.label}</span><h3>${esc(c.title)}</h3><p>${esc(c.copy)}</p><span class="more">${n} ${n === 1 ? 'piece' : 'pieces'} <i aria-hidden="true">→</i></span></div>
     </a>`;
   }).join('');
 }
@@ -841,12 +851,12 @@ function renderSpot() {
   $('#spot-img').src = cut(p, col, 'flat');
   $('#spot-img').alt = `Puddle Parade jacket in ${col.name}, laid flat`;
   $('#spot-buy').innerHTML = `
-    <p class="line">Gray skies. Colorful walks.</p>
+    <p class="line">Gray skies. <em>Colorful walks.</em></p>
     <p class="sub">A hooded waterproof jacket for medium to large dogs, in four bright colourways.</p>
     ${priceRow(p)}
     <div class="opt"><div class="opt-head"><span class="eyebrow">Colour</span><span>${esc(col.name)}</span></div><div class="swatches" role="radiogroup" aria-label="Colour">${swatches(p, c)}</div></div>
     <div class="opt"><div class="opt-head"><span class="eyebrow">Size</span><span>${s || 'Choose one'}</span></div><div class="sizes" role="radiogroup" aria-label="Size">${sizes(p, c, s)}</div></div>
-    <div class="row"><button class="btn btn-navy" type="button" data-spot-add ${s ? '' : 'disabled'}>${s ? 'Add to bag' : 'Choose a size'}</button><button class="btn btn-line" type="button" data-open="${p.h}">Details &amp; sizing</button></div>`;
+    <div class="row"><button class="btn btn-navy" type="button" data-spot-add ${s ? '' : 'disabled'}>${s ? 'Add to bag' : 'Choose a size'}</button><button class="btn btn-line" type="button" data-open="${p.h}">Details</button></div>`;
 }
 $('#spot-buy').addEventListener('click', e => {
   const sw = e.target.closest('[data-colour]'), sz = e.target.closest('[data-size]');
@@ -861,31 +871,44 @@ const hay = p => [p.name, p.kind, CATS[p.cat].label, ...p.colours.map(c => c.nam
 const matches = (p, q) => q.split(/\s+/).filter(Boolean).every(t => hay(p).includes(t));
 function renderChips() {
   const n = k => k === 'all' ? PRODUCTS.length : PRODUCTS.filter(p => p.cat === k).length;
-  $('#chips').innerHTML = `<button type="button" class="chip" aria-pressed="${filter === 'all'}" data-chip="all">Everything <small>${n('all')}</small></button>` +
-    Object.entries(CATS).map(([k, c]) => `<button type="button" class="chip" aria-pressed="${filter === k}" data-chip="${k}"><i style="background:${c.dot}"></i>${c.label} <small>${n(k)}</small></button>`).join('');
+  $('#chips').innerHTML = `<button type="button" class="chip" aria-pressed="${filter === 'all'}" data-chip="all">All <small>${n('all')}</small></button>` +
+    Object.entries(CATS).map(([k, c]) => `<button type="button" class="chip" aria-pressed="${filter === k}" data-chip="${k}">${c.label} <small>${n(k)}</small></button>`).join('') +
+    `<button type="button" class="chip" aria-pressed="${filter === 'loved'}" data-chip="loved">${heart.replace('<svg', '<svg style="fill:currentColor"')}Loved <small>${loved.size}</small></button>`;
 }
 function card(p) {
   const c = p.colours[0];
   return `<article class="card">
-    <button type="button" class="card-hit" data-open="${p.h}" aria-label="${esc(p.name)}, ${esc(p.kind)}, ${money(p.price)}">
-      <div class="tile t-${p.tone}">
+    <button type="button" class="open" data-open="${p.h}" aria-label="${esc(p.name)}, ${esc(p.kind)}, ${money(p.price)}">
+      <div class="tile">
         <div class="clip">
-          <img class="dog" src="${cut(p, c, 'dog')}" alt="" loading="lazy">
           <img class="flat" src="${cut(p, c, 'flat')}" alt="" loading="lazy">
+          <img class="photo" src="${photo(p, c)}" alt="" loading="lazy">
         </div>
-        ${p.was > p.price ? `<span class="dogtag">Was ${money(p.was)}</span>` : ''}
         <span class="tag" aria-hidden="true"></span>
       </div>
-      <h3>${esc(p.name)}</h3>
+      <div class="top"><h3>${esc(p.name)}</h3><span class="p">${money(p.price)}</span></div>
       <p class="kind">${esc(p.kind)}</p>
-      <div class="meta"><span class="p">${money(p.price)}${p.was > p.price ? `<s>${money(p.was)}</s>` : ''}</span><span class="dots" aria-hidden="true">${p.colours.map(x => `<i style="background:${x.hex}"></i>`).join('')}</span></div>
+      <span class="dots" aria-hidden="true">${p.colours.map(x => `<i style="background:${x.hex}"></i>`).join('')}</span>
     </button>
+    ${loveBtn(p)}
   </article>`;
 }
+function insertHTML(ins) {
+  const c = CATS[ins.cat];
+  return `<a class="insert" href="#shop" data-filter="${ins.cat}"><img src="assets/img/${c.img}.webp" alt="${esc(c.alt)}" loading="lazy"><div><h3>${ins.title}</h3><span class="more">${c.label} <i aria-hidden="true">→</i></span></div></a>`;
+}
 function renderGrid() {
-  const list = PRODUCTS.filter(p => (filter === 'all' || p.cat === filter) && matches(p, query));
-  $('#grid').innerHTML = list.length ? list.map(card).join('') :
-    `<p class="empty">Nothing matches “${esc(query)}”${filter !== 'all' ? ' in ' + CATS[filter].label : ''}. Try a colour, like yellow, or <button type="button" data-reset>see everything</button>.</p>`;
+  const list = PRODUCTS.filter(p => (filter === 'all' || (filter === 'loved' ? loved.has(p.h) : p.cat === filter)) && matches(p, query));
+  const editorial = filter === 'all' && !query;
+  let html = '';
+  list.forEach((p, i) => {
+    html += card(p);
+    const ins = editorial && INSERTS.find(x => x.after === i + 1);
+    if (ins) html += insertHTML(ins);
+  });
+  $('#grid').innerHTML = list.length ? html : filter === 'loved' && !query
+    ? `<p class="empty">Nothing loved yet. Tap the heart on anything you like and it will wait for you here.</p>`
+    : `<p class="empty">Nothing matches “${esc(query)}”. Try a colour, like yellow, or <button type="button" data-reset>see everything</button>.</p>`;
   $('#shop-count').textContent = list.length === PRODUCTS.length ? `${PRODUCTS.length} pieces` : `Showing ${list.length} of ${PRODUCTS.length}`;
 }
 function setFilter(k) { filter = k; renderChips(); renderGrid(); }
@@ -893,8 +916,10 @@ $('#chips').addEventListener('click', e => { const b = e.target.closest('[data-c
 $('#shop-q').addEventListener('input', e => { query = e.target.value.trim().toLowerCase(); renderGrid(); });
 $('#grid').addEventListener('click', e => { if (e.target.closest('[data-reset]')) { query = ''; $('#shop-q').value = ''; setFilter('all'); } });
 document.addEventListener('click', e => {
-  const f = e.target.closest('a[data-filter]');
-  if (f) { setFilter(f.dataset.filter); $('#mobile-nav').classList.remove('open'); $('#menu-btn').setAttribute('aria-expanded', 'false'); }
+  const f = e.target.closest('a[data-filter]'), l = e.target.closest('[data-show-loved]');
+  if (f) setFilter(f.dataset.filter);
+  if (l) setFilter('loved');
+  if (f || l) { $('#mobile-nav').classList.remove('open'); $('#menu-btn').setAttribute('aria-expanded', 'false'); }
 });
 
 /* Product view */
@@ -907,18 +932,17 @@ function chart(p, mark) {
 function renderView() {
   const { p, c, s, i } = view, col = colourOf(p, c);
   const shots = [
-    { src: cut(p, col, 'dog'), cls: 'cut', alt: `${p.name} in ${col.name}, worn` },
-    { src: cut(p, col, 'flat'), cls: 'cut flat', alt: `${p.name} in ${col.name}` },
-    { src: photo(p, col), cls: 'photo', alt: `${p.name} in ${col.name}, out on a walk` },
-    { src: cover(p), cls: 'photo', alt: `${p.name}, every colour` }
+    { src: cut(p, col, 'flat'), cls: 'flat', alt: `${p.name} in ${col.name}` },
+    { src: photo(p, col), cls: 'cover', alt: `${p.name} in ${col.name}, worn` },
+    { src: cover(p), cls: 'cover', alt: `${p.name}, every colour` }
   ];
   const sh = shots[i];
   $('#pd').innerHTML = `
     <button class="x" type="button" data-close aria-label="Close"><svg aria-hidden="true"><use href="#i-x"/></svg></button>
     <div class="pd-grid">
       <div class="pd-media">
-        <div class="pd-stage t-${p.tone}"><img class="${sh.cls}" src="${sh.src}" alt="${esc(sh.alt)}"></div>
-        <div class="pd-thumbs">${shots.map((x, k) => `<button type="button" class="t-${p.tone}" data-shot="${k}" aria-current="${k === i}" aria-label="Photo ${k + 1} of ${shots.length}"><img class="${x.cls.startsWith('cut') ? 'c' : ''}" src="${x.src}" alt="" loading="lazy"></button>`).join('')}</div>
+        <div class="pd-stage"><img class="${sh.cls}" src="${sh.src}" alt="${esc(sh.alt)}"></div>
+        <div class="pd-thumbs">${shots.map((x, k) => `<button type="button" data-shot="${k}" aria-current="${k === i}" aria-label="Photo ${k + 1} of ${shots.length}"><img class="${x.cls === 'flat' ? 'c' : ''}" src="${x.src}" alt="" loading="lazy"></button>`).join('')}</div>
       </div>
       <div class="pd-info">
         <div>
@@ -929,21 +953,21 @@ function renderView() {
         ${priceRow(p)}
         <div class="opt"><div class="opt-head"><span class="eyebrow">Colour</span><span>${esc(col.name)}</span></div><div class="swatches" role="radiogroup" aria-label="Colour">${swatches(p, c)}</div></div>
         <div class="opt"><div class="opt-head"><span class="eyebrow">Size</span><span>${s || 'Choose one'}</span></div><div class="sizes" role="radiogroup" aria-label="Size">${sizes(p, c, s)}</div></div>
-        <button class="btn btn-navy" type="button" data-view-add ${s ? '' : 'disabled'}>${s ? `Add to bag · ${money(p.price)}` : 'Choose a size'}</button>
+        <div class="row"><button class="btn btn-navy" type="button" data-view-add ${s ? '' : 'disabled'}>${s ? `Add to bag · ${money(p.price)}` : 'Choose a size'}</button>${loveBtn(p)}</div>
         <p class="blurb">${esc(p.blurb)}</p>
         <div class="acc">
           <details><summary>Details</summary><div class="body"><ul>${p.details.map(d => `<li>${esc(d)}</li>`).join('')}</ul></div></details>
-          <details ${s && p.chart ? 'open' : ''}><summary>${p.chart ? 'Fit and size guide' : 'Fit'}</summary><div class="body">${p.fit.map(f => `<p>${esc(f)}</p>`).join('')}${chart(p, s)}</div></details>
+          <details ${s && p.chart ? 'open' : ''}><summary>${p.chart ? 'Fit &amp; size guide' : 'Fit'}</summary><div class="body">${p.fit.map(f => `<p>${esc(f)}</p>`).join('')}${chart(p, s)}</div></details>
         </div>
         <a class="store-link" href="${STORE}/products/${p.h}" target="_blank" rel="noopener">See it on the Waggl store ↗</a>
       </div>
     </div>`;
 }
-function openProduct(h, size) {
+function openProduct(h, size, colour) {
   const p = byH[h];
   if (!p) return;
-  Object.assign(view, { p, c: p.colours[0].v, i: 0, s: null });
-  if (size) { const c = p.colours.find(x => available(p, x.v, size)); if (c) { view.c = c.v; view.s = size; } }
+  Object.assign(view, { p, c: colour && colourOf(p, colour) ? colour : p.colours[0].v, i: 0, s: null });
+  if (size) { const c = available(p, view.c, size) ? colourOf(p, view.c) : p.colours.find(x => available(p, x.v, size)); if (c) { view.c = c.v; view.s = size; } }
   $$('dialog[open]').forEach(closeDlg);
   renderView();
   openDlg($('#pd'));
@@ -956,7 +980,7 @@ $('#pd').addEventListener('click', e => {
   else if (sh) { view.i = +sh.dataset.shot; renderView(); $(`#pd [data-shot="${view.i}"]`).focus(); }
   else if (e.target.closest('[data-view-add]') && view.s) { addToBag(view.p, view.c, view.s); closeDlg($('#pd')); }
 });
-document.addEventListener('click', e => { const o = e.target.closest('[data-open]'); if (o) openProduct(o.dataset.open, o.dataset.size); });
+document.addEventListener('click', e => { const o = e.target.closest('[data-open]'); if (o) openProduct(o.dataset.open, o.dataset.size, o.dataset.colourPick); });
 
 /* Fit guide */
 const FIT = [
@@ -981,7 +1005,7 @@ function renderFit() {
   $('#fit-results').innerHTML = FIT.map(r => {
     const p = byH[r.h], res = sizeFor(p, val[r.by]);
     return `<div class="res">
-      <div class="thumb t-${p.tone}"><img src="${cut(p, p.colours[0], 'flat')}" alt="" loading="lazy"></div>
+      <div class="thumb"><img src="${cut(p, p.colours[0], 'flat')}" alt="" loading="lazy"></div>
       <div><strong>${esc(r.name || p.name)}</strong><small>${esc(r.why)}</small></div>
       <div class="out">${res.size ? `<button type="button" data-open="${p.h}" data-size="${res.size}">Shop</button><span class="sz">${res.size}</span>` : `<span class="msg">${esc(res.msg)}</span>`}</div>
     </div>`;
@@ -995,7 +1019,7 @@ function renderSearch() {
   const q = $('#search-q').value.trim().toLowerCase();
   const list = q ? PRODUCTS.filter(p => matches(p, q)) : PRODUCTS.slice(0, 6);
   $('#search-results').innerHTML = list.length
-    ? list.map(p => `<li><button type="button" data-open="${p.h}"><span class="thumb t-${p.tone}"><img src="${cut(p, p.colours[0], 'flat')}" alt="" loading="lazy"></span><span><strong>${esc(p.name)}</strong><span>${esc(p.kind)}</span></span><span>${money(p.price)}</span></button></li>`).join('')
+    ? list.map(p => `<li><button type="button" data-open="${p.h}"><span class="thumb"><img src="${cut(p, p.colours[0], 'flat')}" alt="" loading="lazy"></span><span><strong>${esc(p.name)}</strong><span>${esc(p.kind)}</span></span><span>${money(p.price)}</span></button></li>`).join('')
     : `<li class="none">Nothing called “${esc(q)}” yet. Try a colour, like yellow, or a type, like poncho.</li>`;
 }
 $('#open-search').addEventListener('click', () => { $('#search-q').value = ''; renderSearch(); openDlg($('#search')); $('#search-q').focus(); });
@@ -1020,12 +1044,14 @@ const header = $('.site-header');
 const onScroll = () => header.classList.toggle('scrolled', scrollY > 30);
 addEventListener('scroll', onScroll, { passive: true });
 
-renderDays();
+renderModels();
+renderCols();
 renderSpot();
 renderChips();
 renderGrid();
 renderFit();
 saveBag();
+$('#loved-count').textContent = loved.size || '';
 onScroll();
 </script>
 </body>
