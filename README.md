@@ -45,6 +45,14 @@ The bandana photos are the store's own product photos, cut out onto the stone fl
 
 A few clean-ups were made to the cutouts themselves: the white neck form is gone from inside the tie-strap loops, polka dots that the cutout had made see-through are white again, and the soft edge along the Samoyed's plaid bandana was repaired. Photos whose original frame cut the dog off at one side sit flush against that side of the tile, so there's no straight edge floating in the middle.
 
+Several store photos had the usual tells of generated images, mostly in the paws (extra claws, melted or toe-less feet). Those photos are now framed chest-up, or cut just below the coat, so the whole garment still shows and the paws don't. Leftover background was cleaned from a few outlines (grass, specks, a ghost tail on the malamute, a smear on the corgi's rump), and the garbled small text under the logo on two Puddle Parade coats was removed (one read "petco").
+
 ## Hero film
 
-`assets/video/hero-2.mp4` (with a WebM copy) is cut from the store's hero video: the snow, woods and field clips only, so no other brand's gear shows on screen. It's re-encoded without sound at 1280 px in the standard 4:2:0 colour format that every phone can play (H.264 High and VP9 profile 0), and the captions under the film (Snow, Woods, Field) follow the clip that's playing. It plays muted, pauses when scrolled away, has a Pause/Play control, and doesn't autoplay for people who ask for reduced motion. Where a phone won't play video (Low Power Mode, some in-app browsers), `assets/video/hero-loop.webp`, a looping image of the same clips, stands in automatically.
+The film is cut from the store's hero video, using the 720p stream Shopify serves (the highest resolution the upload has). It keeps only the snow, woods and field clips, so no other brand's gear is on screen, and the woods clip is trimmed to its sharpest second. The captions under the film (Snow, Woods, Field) follow the clip that's playing.
+
+- `assets/video/hero-3.mp4` (and `.webm`): 1920 px wide for desktop, upscaled with Lanczos and lightly sharpened.
+- `assets/video/hero-3-sq.mp4`: a 1080 px square for phones, the same crop the phone layout shows, so it isn't stretched.
+- Both are H.264 High with 4:2:0 colour, the format every phone plays.
+
+It plays muted, pauses when scrolled away, has a Pause/Play control, and doesn't autoplay for people who ask for reduced motion. If a phone won't stream the film from the host, the page downloads it whole and plays it from memory. If the phone won't autoplay video at all (Low Power Mode, some in-app browsers), a looping image of the same clips stands in (`hero-loop-3-sq.webp` on phones, `hero-loop-3.webp` wider).
