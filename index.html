@@ -101,7 +101,8 @@ h1, h2, h3 { margin: 0; font-family: var(--serif); font-weight: 300; font-optica
 .hero video { opacity: 0; transition: opacity 0.8s ease; }
 .hero video.ready { opacity: 1; }
 .hero::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(to top, rgba(15, 17, 21, 0.55), rgba(15, 17, 21, 0) 55%); }
-.hero-copy { position: absolute; left: 0; right: 0; bottom: 0; max-width: var(--wrap); margin-inline: auto; padding: 0 var(--gr) clamp(40px, 6vw, 80px) var(--gl); display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 24px; }
+.hero-copy { position: absolute; left: 0; right: 0; bottom: 0; max-width: var(--wrap); margin-inline: auto; padding: 0 var(--gr) clamp(40px, 6vw, 80px) var(--gl); }
+.hero-copy > div { max-width: 760px; }
 .hero .label { color: rgba(255, 255, 255, 0.85); margin-bottom: 20px; animation: fadeUp 0.7s 0.25s var(--ease) both; }
 .hero h1 { font-size: clamp(52px, 8vw, 124px); line-height: 0.96; letter-spacing: -0.025em; margin-bottom: 22px; }
 .hero h1 .ln { display: block; overflow: hidden; padding-bottom: 0.08em; margin-bottom: -0.08em; }
@@ -110,7 +111,7 @@ h1, h2, h3 { margin: 0; font-family: var(--serif); font-weight: 300; font-optica
 .hero .lede { font-size: 18px; max-width: 38ch; color: rgba(255, 255, 255, 0.9); animation: fadeUp 0.7s 0.3s var(--ease) both; }
 .hero .ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 32px; margin-top: 30px; animation: fadeUp 0.7s 0.38s var(--ease) both; }
 .hero .tlink { color: var(--paper); }
-.play { color: var(--paper); font-size: 11px; }
+.play { position: absolute; right: max(var(--gr), calc((100% - var(--wrap)) / 2 + var(--gr))); bottom: calc(clamp(40px, 6vw, 80px) + 14px); color: var(--paper); font-size: 11px; }
 .play[hidden] { display: none; }
 @keyframes rise { from { transform: translateY(100%); } }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } }
@@ -466,8 +467,7 @@ dialog[open]::backdrop { animation: fade 0.3s ease; }
   .mobile-nav li a { display: block; padding: 14px 0; border-bottom: 1px solid var(--line); font: 300 32px/1.1 var(--serif); text-decoration: none; }
   .mobile-nav .tlink { margin: 4px 0 22px; }
   .hero { height: calc(100svh - 92px); min-height: 560px; }
-  .hero-copy { grid-template-columns: minmax(0, 1fr); }
-  .play { position: absolute; top: 20px; left: var(--gl); }
+  .play { top: 18px; bottom: auto; right: var(--gr); }
   .facts { grid-template-columns: minmax(0, 1fr); border-bottom: 0; }
   .fact { border-left: 0; border-bottom: 1px solid var(--line); padding: 20px 0; }
   .kinds-grid { grid-template-columns: minmax(0, 1fr); }
@@ -479,6 +479,7 @@ dialog[open]::backdrop { animation: fade 0.3s ease; }
   .kind-row .thumb img { position: absolute; left: 50%; bottom: 0; width: 92%; height: 92%; object-fit: contain; object-position: 50% 100%; transform: translateX(-50%); }
   .story .wrap { grid-template-columns: minmax(0, 1fr); gap: 0; }
   .stage { top: 56px; height: 46vh; min-height: 300px; z-index: 2; background: var(--stone); padding-bottom: 34px; }
+  .stage::after { content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 28px; background: linear-gradient(var(--stone), rgba(237, 237, 234, 0)); pointer-events: none; }
   .steps-col { padding-block: 24px 72px; }
   .story-steps { position: relative; z-index: 1; }
   .step { min-height: 52vh; justify-content: flex-start; padding-top: 20px; }
@@ -595,8 +596,8 @@ dialog[open]::backdrop { animation: fade 0.3s ease; }
           <a class="tlink" href="#fit">Find their size</a>
         </div>
       </div>
-      <button class="tlink play" type="button" id="hero-play" hidden>Pause</button>
     </div>
+    <button class="tlink play" type="button" id="hero-play" hidden>Pause</button>
   </section>
 
   <section class="wrap" aria-label="About Waggl">
