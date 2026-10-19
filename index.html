@@ -1376,15 +1376,23 @@ function onFrame() {
   if (!anyOpen && y > 600 && y > lastY + 2) header.classList.add('away');
   else if (y < lastY - 2 || y <= 600) header.classList.remove('away');
   lastY = y;
+  syncStep();
 }
 addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onFrame); } }, { passive: true });
 
-const stepMargin = () => {
-  if (wide()) return '-48% 0px -48% 0px';
-  const line = Math.round(Math.min(innerHeight - 40, $('.stage').getBoundingClientRect().height + 28 + 0.22 * innerHeight));
-  return `-${line}px 0px -${innerHeight - line - 1}px 0px`;
-};
-const stepIO = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) setStep(+en.target.dataset.step); }), { rootMargin: stepMargin() });
+/* Story steps: light the step whose heading is nearest the reading line. Measured on scroll, not with an
+   IntersectionObserver, because a frame (like the preview) ignores the observer's margins and lights steps early. */
+let curStep = 0;
+function syncStep() {
+  const steps = $$('.step');
+  if (!steps.length) return;
+  // Desktop: the middle of the window. Phones and tablets: the middle of the space below the coat.
+  const line = wide() ? innerHeight / 2 : (Math.max(0, $('.stage').getBoundingClientRect().bottom) + 28 + innerHeight) / 2;
+  let k = 0, best = Infinity;
+  steps.forEach((s, i) => { const h = s.querySelector('h3').getBoundingClientRect(), d = Math.abs((h.top + h.bottom) / 2 - line); if (d < best) { best = d; k = i; } });
+  if (k !== curStep) { curStep = k; setStep(k); }
+}
+addEventListener('resize', syncStep);
 
 
 renderKinds();
@@ -1399,7 +1407,6 @@ renderBag();
 const dockIO = new IntersectionObserver(es => { es.forEach(en => { vis[en.target.id === 'hero' ? 'hero' : 'foot'] = en.isIntersecting; }); renderDock(); });
 dockIO.observe($('#hero'));
 dockIO.observe($('#foot'));
-$$('.step').forEach(s => stepIO.observe(s));
 onFrame();
 </script>
 </body>
