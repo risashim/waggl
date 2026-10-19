@@ -610,8 +610,8 @@ dialog[open]::backdrop { animation: fade 0.3s ease; }
     <div class="film">
       <img class="poster" src="assets/video/hero-poster.webp" alt="" fetchpriority="high">
       <video id="hero-video" muted loop playsinline preload="metadata" poster="assets/video/hero-poster.webp" aria-hidden="true">
-        <source src="assets/video/hero.mp4" type="video/mp4">
-        <source src="assets/video/hero.webm" type="video/webm">
+        <source src="assets/video/hero-2.mp4" type="video/mp4">
+        <source src="assets/video/hero-2.webm" type="video/webm">
       </video>
     </div>
     <div class="wrap film-bar">
@@ -1350,12 +1350,16 @@ function showFilmState() { playBtn.textContent = film.paused ? 'Play' : 'Pause';
 function playFilm() { const p = film.play(); if (p) p.then(showFilmState).catch(showFilmState); }
 film.addEventListener('canplay', () => film.classList.add('ready'), { once: true });
 const sceneEls = $$('#scenes li');
-film.addEventListener('timeupdate', () => {
+let sceneOn = 0, sceneRaf = 0;
+function syncScene() {
   const t = film.currentTime;
   let k = 0;
   sceneEls.forEach((li, i) => { if (t >= +li.dataset.t) k = i; });
-  sceneEls.forEach((li, i) => li.classList.toggle('on', i === k));
-});
+  if (k !== sceneOn) { sceneOn = k; sceneEls.forEach((li, i) => li.classList.toggle('on', i === k)); }
+}
+const sceneLoop = () => { syncScene(); sceneRaf = film.paused ? 0 : requestAnimationFrame(sceneLoop); };
+film.addEventListener('timeupdate', syncScene);
+film.addEventListener('playing', () => { if (!sceneRaf) sceneRaf = requestAnimationFrame(sceneLoop); });
 film.addEventListener('playing', () => film.classList.add('ready'));
 film.addEventListener('pause', showFilmState);
 film.addEventListener('play', showFilmState);

@@ -47,4 +47,4 @@ A few clean-ups were made to the cutouts themselves: the white neck form is gone
 
 ## Hero film
 
-`assets/video/hero.mp4` (with a WebM copy) is cut from the store's hero video: the snow, woods and field clips only, so no other brand's gear shows on screen. It's re-encoded without sound at 1280 px, and the captions under the film (Snow, Woods, Field) follow the clip that's playing. It plays muted, pauses when scrolled away, has a Pause/Play control, and doesn't autoplay for people who ask for reduced motion.
+`assets/video/hero-2.mp4` (with a WebM copy) is cut from the store's hero video: the snow, woods and field clips only, so no other brand's gear shows on screen. It's re-encoded without sound at 1280 px in the standard 4:2:0 colour format that every phone can play (H.264 High and VP9 profile 0), and the captions under the film (Snow, Woods, Field) follow the clip that's playing. It plays muted, pauses when scrolled away, has a Pause/Play control, and doesn't autoplay for people who ask for reduced motion.
