@@ -542,6 +542,11 @@ dialog[open]::backdrop { animation: fade 0.3s ease; }
   .join .btn { width: 100%; }
   .sizerun { font-size: 13px; gap: 2px; padding-block: 16px; }
 }
+@media (max-width: 900px) and (max-height: 560px) {
+  .stage { position: relative; top: auto; height: 86svh; min-height: 0; padding-top: 16px; }
+  .stage::after { display: none; }
+  .step { min-height: 60svh; }
+}
 @media (hover: none) { .quick { display: none; } }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition-duration: 150ms !important; transition-delay: 0s !important; }
@@ -887,7 +892,7 @@ const STEPS = [
   { t: 'A hood that stays put', d: 'Cord toggles pull it snug, so it stays out of their eyes and ears.', c: 'Yellow', x: 50, y: 9 },
   { t: 'An opening for the leash', d: 'There’s a covered slot at the back of the neck, so you can clip on without taking the coat off.', c: 'Blue', x: 50, y: 31 },
   { t: 'Properly waterproof', d: 'Waterproof Taslan on the outside and a mesh lining inside, so it doesn’t get stuffy.', c: 'Green', x: 62, y: 52 },
-  { t: 'Reflective trim', d: 'It picks up headlights on early mornings and late evenings.', c: 'Orange', x: 22, y: 80 },
+  { t: 'Reflective trim', d: 'It picks up headlights on early mornings and late evenings.', c: 'Orange', x: 22, y: 91 },
   { t: 'A loop for the tail', d: 'A stretchy loop goes around the tail and keeps the back of the coat in place.', c: 'Yellow', x: 50, y: 95 }
 ];
 const INSERTS = [
@@ -1068,8 +1073,9 @@ function setStep(i, quiet) {
   $$('#ticks i').forEach((el, k) => el.classList.toggle('on', k === i));
   $('#look').style.transformOrigin = `${s.x}% ${s.y}%`;
   $('#look').style.transform = reduce || quiet ? 'none' : 'scale(1.14)';
+  const before = spot.c;
   if (!quiet) showColour(s.c);
-  renderBuy();
+  if (quiet || spot.c !== before) renderBuy();
 }
 function renderBuy() {
   const { p, c, s } = spot, col = colourOf(p, c);
@@ -1081,8 +1087,13 @@ function renderBuy() {
     <div class="opt"><div class="opt-head"><span class="label">Size</span><span>${s || 'Choose one'}</span></div><div class="sizes" role="radiogroup" aria-label="Size">${sizes(p, c, s)}</div></div>
     <div class="row"><button class="btn btn-ink" type="button" data-spot-add ${s ? '' : 'disabled'}>${s ? `Add to bag · ${money(p.price)}` : 'Choose a size'}</button><button class="tlink" type="button" data-open="${p.h}" data-colour-pick="${c}">View details</button></div>
     ${stock(p, c, s)}`;
+  // keep keyboard focus on the same control when the box is redrawn
+  const a = document.activeElement, box = a && a.closest('.buy');
+  const key = box && ['data-colour', 'data-size', 'data-spot-add', 'data-open'].find(k => a.hasAttribute(k));
+  const val = key && a.getAttribute(key);
   $('#spot-buy').innerHTML = html;
   $('#spot-buy-m').innerHTML = html;
+  if (key) { const el = box.querySelector(val ? `[${key}="${CSS.escape(val)}"]` : `[${key}]`); if (el) el.focus({ preventScroll: true }); }
 }
 $$('.buy').forEach(box => box.addEventListener('click', e => {
   const sw = e.target.closest('[data-colour]'), sz = e.target.closest('[data-size]');
@@ -1343,31 +1354,53 @@ $('#menu-btn').addEventListener('click', () => {
   $('#menu-btn').setAttribute('aria-expanded', String(open));
 });
 
-/* Hero film: muted, pauses off screen, with a Pause / Play control */
-const film = $('#hero-video'), playBtn = $('#hero-play');
-let filmWanted = !reduce;
-function showFilmState() { playBtn.textContent = film.paused ? 'Play' : 'Pause'; playBtn.setAttribute('aria-label', film.paused ? 'Play the video' : 'Pause the video'); playBtn.hidden = false; }
-function playFilm() { const p = film.play(); if (p) p.then(showFilmState).catch(showFilmState); }
+/* Hero film: muted, pauses off screen, with a Pause / Play control. Where a phone won't play it (Low Power Mode,
+   some in-app browsers, a host it can't stream from), a looping image of the same clips stands in. */
+const film = $('#hero-video'), playBtn = $('#hero-play'), still = $('.film .poster');
+const POSTER = still.getAttribute('src'), LOOP = 'assets/video/hero-loop.webp', LOOP_MS = 4600;
+let filmWanted = !reduce, loopMode = false, loopOn = false, loopStart = 0, filmStarted = false, filmTimer = 0;
+const filmRunning = () => loopMode ? loopOn : !film.paused;
+function showFilmState() { const on = filmRunning(); playBtn.textContent = on ? 'Pause' : 'Play'; playBtn.setAttribute('aria-label', on ? 'Pause the video' : 'Play the video'); playBtn.hidden = false; }
+function startLoop() { loopOn = true; still.src = LOOP; loopStart = performance.now(); if (!sceneRaf) sceneRaf = requestAnimationFrame(sceneLoop); showFilmState(); }
+function stopLoop() { loopOn = false; still.src = POSTER; showFilmState(); }
+function useLoop() {
+  if (loopMode) return;
+  loopMode = true; clearTimeout(filmTimer);
+  film.pause(); film.hidden = true;
+  if (filmWanted) startLoop(); else showFilmState();
+}
+function playFilm() {
+  if (loopMode) { startLoop(); return; }
+  const p = film.play();
+  if (p) p.then(showFilmState).catch(() => { showFilmState(); if (filmWanted) useLoop(); });
+  // a phone that never gets going (nothing loaded after a few seconds) gets the loop as well
+  clearTimeout(filmTimer);
+  filmTimer = setTimeout(() => { if (filmWanted && !filmStarted && film.readyState < 2) useLoop(); }, 6000);
+}
+still.addEventListener('load', () => { if (loopOn) loopStart = performance.now(); });
+film.addEventListener('error', useLoop);
+film.querySelector('source:last-of-type').addEventListener('error', useLoop);
+film.addEventListener('playing', () => { filmStarted = true; clearTimeout(filmTimer); });
 film.addEventListener('canplay', () => film.classList.add('ready'), { once: true });
 const sceneEls = $$('#scenes li');
 let sceneOn = 0, sceneRaf = 0;
 function syncScene() {
-  const t = film.currentTime;
+  const t = loopMode ? ((performance.now() - loopStart) % LOOP_MS) / 1000 : film.currentTime;
   let k = 0;
   sceneEls.forEach((li, i) => { if (t >= +li.dataset.t) k = i; });
   if (k !== sceneOn) { sceneOn = k; sceneEls.forEach((li, i) => li.classList.toggle('on', i === k)); }
 }
-const sceneLoop = () => { syncScene(); sceneRaf = film.paused ? 0 : requestAnimationFrame(sceneLoop); };
+const sceneLoop = () => { syncScene(); sceneRaf = filmRunning() ? requestAnimationFrame(sceneLoop) : 0; };
 film.addEventListener('timeupdate', syncScene);
 film.addEventListener('playing', () => { if (!sceneRaf) sceneRaf = requestAnimationFrame(sceneLoop); });
 film.addEventListener('playing', () => film.classList.add('ready'));
 film.addEventListener('pause', showFilmState);
 film.addEventListener('play', showFilmState);
-playBtn.addEventListener('click', () => { filmWanted = film.paused; filmWanted ? playFilm() : film.pause(); });
+playBtn.addEventListener('click', () => { filmWanted = !filmRunning(); if (filmWanted) playFilm(); else if (loopMode) stopLoop(); else film.pause(); });
 new IntersectionObserver(es => es.forEach(en => {
   if (en.isIntersecting && filmWanted) playFilm();
-  else if (!en.isIntersecting && !film.paused) film.pause();
-})).observe(film);
+  else if (!en.isIntersecting && filmRunning()) loopMode ? stopLoop() : film.pause();
+})).observe(film.parentElement);
 if (reduce) showFilmState();
 
 /* Header on scroll */
@@ -1386,7 +1419,7 @@ addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimat
 
 /* Story steps: light the step whose heading is nearest the reading line. Measured on scroll, not with an
    IntersectionObserver, because a frame (like the preview) ignores the observer's margins and lights steps early. */
-let curStep = 0;
+let curStep = -1;  // -1: the reader hasn't reached step 1 yet
 function syncStep() {
   const steps = $$('.step');
   if (!steps.length) return;
@@ -1394,7 +1427,9 @@ function syncStep() {
   const line = wide() ? innerHeight / 2 : (Math.max(0, $('.stage').getBoundingClientRect().bottom) + 28 + innerHeight) / 2;
   let k = 0, best = Infinity;
   steps.forEach((s, i) => { const h = s.querySelector('h3').getBoundingClientRect(), d = Math.abs((h.top + h.bottom) / 2 - line); if (d < best) { best = d; k = i; } });
-  if (k !== curStep) { curStep = k; setStep(k); }
+  const h0 = steps[0].querySelector('h3').getBoundingClientRect();
+  if (k === 0 && (h0.top + h0.bottom) / 2 > line) k = -1;
+  if (k !== curStep) { curStep = k; k < 0 ? setStep(0, true) : setStep(k); }
 }
 addEventListener('resize', syncStep);
 
