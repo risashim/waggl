@@ -1,0 +1,1164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Waggl Pets</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Waggl Pets makes jackets, rain ponchos, base layers and bandanas for dogs. Life is better together.">
+<link rel="icon" href="assets/waggl-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@500;600;700;800&family=Funnel+Sans:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one idea per band, product first, lots of air. The woven side tag from the bandanas is the only ornament. */
+:root {
+  --paper: #F7F4EF;
+  --panel: #EDE8E0;
+  --card: #FFFDF9;
+  --ink: #1C2527;
+  --ink-soft: #5A6260;
+  --line: #D9D2C6;
+  --red: #D42623;
+  --red-dark: #B01D1A;
+  --display: "Funnel Display", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body: "Funnel Sans", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --mono: "Spline Sans Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --r-lg: 28px;
+  --r-md: 18px;
+  --r-sm: 10px;
+  --wrap: 1320px;
+  --gutter-l: max(20px, env(safe-area-inset-left, 0px));
+  --gutter-r: max(20px, env(safe-area-inset-right, 0px));
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px);
+  z-index: 60;
+  background: var(--paper);
+}
+img { max-width: 100%; display: block; }
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+a { color: inherit; }
+h1, h2, h3 { font-family: var(--display); font-weight: 700; line-height: 1.02; letter-spacing: -0.025em; margin: 0; text-wrap: balance; }
+p { margin: 0; }
+:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; border-radius: 6px; }
+.wrap { max-width: var(--wrap); margin-inline: auto; padding-left: var(--gutter-l); padding-right: var(--gutter-r); }
+.label {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* The Waggl side tag: a small woven label stitched into the seam */
+.tag {
+  position: absolute;
+  width: 18px;
+  height: 56px;
+  background: var(--card);
+  border-radius: 2px 3px 3px 2px;
+  box-shadow: 0 1px 2px rgba(28, 37, 39, 0.22), inset 0 0 0 1px rgba(28, 37, 39, 0.05);
+  pointer-events: none;
+  transition: transform 0.25s ease;
+}
+.tag::before {
+  content: "";
+  position: absolute;
+  left: 3px; right: 3px; top: 4px;
+  border-top: 1px dashed rgba(28, 37, 39, 0.25);
+}
+.tag::after {
+  content: "";
+  position: absolute;
+  left: 50%; top: 52%;
+  width: 42px; height: 13px;
+  transform: translate(-50%, -50%) rotate(90deg);
+  background: url("assets/waggl-logo.png") center / contain no-repeat;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 24px;
+  border-radius: 999px;
+  border: 1.5px solid transparent;
+  font-weight: 600;
+  font-size: 16px;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.btn-red { background: var(--red); color: var(--card); }
+.btn-red:hover { background: var(--red-dark); }
+.btn-line { border-color: currentColor; background: transparent; }
+.btn-line:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.btn[disabled] { opacity: 0.45; cursor: not-allowed; }
+.btn .arrow { transition: transform 0.2s ease; }
+.btn:hover .arrow { transform: translateX(3px); }
+
+/* Top strip + header */
+.strip { background: var(--ink); color: var(--paper); }
+.strip .wrap { display: flex; justify-content: center; gap: 28px; padding-block: 9px; flex-wrap: wrap; }
+.strip p { font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; }
+.strip s { opacity: 0.6; }
+
+.site-header {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 50;
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: saturate(1.4) blur(14px);
+  -webkit-backdrop-filter: saturate(1.4) blur(14px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
+}
+.site-header.scrolled { border-bottom-color: var(--line); }
+.site-header .wrap { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; min-height: 68px; gap: 16px; }
+.brand { display: inline-flex; align-items: center; width: max-content; }
+.brand img { height: 34px; width: auto; }
+.nav { display: flex; gap: 4px; }
+.nav a {
+  padding: 8px 14px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 15.5px;
+  transition: background-color 0.2s ease;
+}
+.nav a:hover { background: var(--panel); }
+.tools { display: flex; justify-content: flex-end; gap: 6px; align-items: center; }
+.icon-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  height: 42px; min-width: 42px; padding: 0 12px;
+  border-radius: 999px; border: 0; background: transparent;
+  font-weight: 500; font-size: 15px;
+}
+.icon-btn:hover { background: var(--panel); }
+.icon-btn svg { width: 20px; height: 20px; }
+.bag-count {
+  min-width: 22px; height: 22px; padding: 0 6px;
+  border-radius: 999px; background: var(--ink); color: var(--paper);
+  font-family: var(--mono); font-size: 12px; line-height: 22px; text-align: center;
+}
+.bag-count.has { background: var(--red); }
+.menu-btn { display: none; }
+.mobile-nav { display: none; }
+
+/* Hero */
+.hero { padding-block: clamp(40px, 7vw, 96px) 0; }
+.hero-top { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 32px 48px; align-items: end; }
+.hero h1 { font-size: clamp(56px, 10.4vw, 156px); font-weight: 800; letter-spacing: -0.045em; line-height: 0.9; }
+.hero h1 .red { color: var(--red); }
+.hero-side { display: grid; gap: 24px; padding-bottom: 10px; max-width: 420px; }
+.hero-side p { font-size: 19px; color: var(--ink-soft); }
+.hero-ctas { display: flex; flex-wrap: wrap; gap: 10px; }
+.hero-photo { position: relative; margin: clamp(32px, 5vw, 56px) 0 0; }
+.hero-photo .frame { border-radius: var(--r-lg); overflow: hidden; aspect-ratio: 16 / 7.4; background: var(--panel); }
+.hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 42%; }
+.hero-photo .tag { right: -8px; top: 38%; height: 64px; width: 20px; }
+.pills { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; position: absolute; left: 20px; bottom: 20px; right: 20px; }
+.pills li {
+  background: color-mix(in srgb, var(--card) 86%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Section scaffolding */
+.band { padding-block: clamp(72px, 10vw, 140px); }
+.band-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; margin-bottom: clamp(32px, 4vw, 52px); }
+.band-head h2 { font-size: clamp(38px, 5.4vw, 76px); }
+.band-head .label { margin-bottom: 14px; display: block; }
+
+/* Days */
+.days-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(28px, 4vw, 64px); align-items: stretch; }
+.days-tabs { list-style: none; margin: 0 0 32px; padding: 0; border-top: 1px solid var(--line); }
+.days-tabs li { border-bottom: 1px solid var(--line); }
+.days-tabs button {
+  width: 100%; display: flex; align-items: baseline; gap: 18px;
+  padding: 16px 0; border: 0; background: none; text-align: left;
+  font-family: var(--display); font-weight: 600; font-size: clamp(24px, 2.4vw, 32px); letter-spacing: -0.02em;
+  color: var(--ink-soft); transition: color 0.2s ease;
+}
+.days-tabs button .label { font-size: 12px; }
+.days-tabs button:hover { color: var(--ink); }
+.days-tabs button[aria-selected="true"] { color: var(--ink); }
+.days-tabs button[aria-selected="true"]::after {
+  content: ""; margin-left: auto; align-self: center;
+  width: 10px; height: 10px; border-radius: 50%; background: var(--red);
+}
+.day-copy { display: grid; gap: 16px; }
+.day-copy h3 { font-size: clamp(30px, 3vw, 42px); }
+.day-copy p { color: var(--ink-soft); max-width: 40ch; }
+.day-copy .btn { justify-self: start; margin-top: 6px; }
+.day-visual { position: relative; border-radius: var(--r-lg); overflow: hidden; background: var(--panel); min-height: 520px; }
+.day-visual > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.day-count { position: absolute; top: 18px; left: 20px; color: var(--card); font-family: var(--mono); font-size: 13px; letter-spacing: 0.08em; text-shadow: 0 1px 8px rgba(0,0,0,0.35); }
+.day-picks { position: absolute; left: 14px; right: 14px; bottom: 14px; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+.day-picks::-webkit-scrollbar { display: none; }
+.pick {
+  flex: 0 0 auto; display: flex; align-items: center; gap: 12px;
+  padding: 8px 16px 8px 8px; border: 0; border-radius: 16px;
+  background: color-mix(in srgb, var(--card) 92%, transparent);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  text-align: left;
+}
+.pick img { width: 48px; height: 56px; object-fit: cover; border-radius: 10px; background: var(--panel); }
+.pick strong { display: block; font-size: 15px; font-weight: 600; }
+.pick span { font-size: 13.5px; color: var(--ink-soft); }
+.pick:hover { background: var(--card); }
+
+/* Spotlight */
+.spotlight { background: var(--ink); color: var(--paper); overflow: hidden; }
+.spotlight .label { color: color-mix(in srgb, var(--paper) 62%, transparent); }
+.spot-name {
+  font-family: var(--display); font-weight: 800; text-transform: uppercase;
+  font-size: clamp(54px, 11.6vw, 176px); line-height: 0.86; letter-spacing: -0.03em;
+  margin: 18px 0 clamp(36px, 5vw, 64px);
+}
+.spot-name span { color: var(--red); }
+.spot-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 80px); align-items: start; }
+.spot-media { position: relative; }
+.spot-media .frame { border-radius: var(--r-lg); overflow: hidden; background: #F1F1EF; aspect-ratio: 3 / 4; }
+.spot-media img { width: 100%; height: 100%; object-fit: cover; }
+.spot-media .tag { right: -8px; top: 46%; }
+.spot-info { display: grid; gap: 28px; }
+.spot-line { font-family: var(--display); font-size: clamp(28px, 3vw, 40px); font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; }
+.spot-blurb { color: color-mix(in srgb, var(--paper) 72%, transparent); max-width: 52ch; }
+.specs { margin: 0; border-top: 1px solid color-mix(in srgb, var(--paper) 18%, transparent); }
+.specs div { display: grid; grid-template-columns: 9rem minmax(0, 1fr); gap: 16px; padding: 13px 0; border-bottom: 1px solid color-mix(in srgb, var(--paper) 18%, transparent); }
+.specs dt { font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--paper) 58%, transparent); padding-top: 2px; }
+.specs dd { margin: 0; }
+.spot-buy { display: grid; gap: 18px; }
+.price-row { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.price-row .now { font-family: var(--display); font-size: 34px; font-weight: 700; letter-spacing: -0.02em; }
+.price-row s { opacity: 0.55; }
+.price-row .cur { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; opacity: 0.7; }
+.spotlight .btn-line { color: var(--paper); }
+.spotlight .btn-line:hover { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+
+/* Option pickers (shared by spotlight + product view) */
+.opt { display: grid; gap: 10px; }
+.opt-head { display: flex; gap: 10px; align-items: baseline; }
+.opt-head strong { font-weight: 600; }
+.swatches, .sizes { display: flex; flex-wrap: wrap; gap: 8px; }
+.swatch {
+  width: 38px; height: 38px; border-radius: 50%; padding: 0;
+  border: 2px solid transparent; background-clip: padding-box;
+  box-shadow: 0 0 0 1px rgba(28, 37, 39, 0.16) inset;
+  outline-offset: 2px;
+}
+.swatch[aria-checked="true"] { box-shadow: 0 0 0 2px var(--paper), 0 0 0 4px currentColor; }
+.size {
+  min-width: 52px; height: 44px; padding: 0 12px; border-radius: 12px;
+  border: 1.5px solid var(--line); background: transparent;
+  font-family: var(--mono); font-size: 14px;
+}
+.size:hover { border-color: currentColor; }
+.size[aria-checked="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.size:disabled { opacity: 0.4; text-decoration: line-through; cursor: not-allowed; }
+.spotlight .size { border-color: color-mix(in srgb, var(--paper) 30%, transparent); }
+.spotlight .size[aria-checked="true"] { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+
+/* Shop */
+.shop-tools { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; margin-bottom: 32px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  height: 40px; padding: 0 16px; border-radius: 999px;
+  border: 1.5px solid var(--line); background: transparent; font-weight: 500; font-size: 15px;
+}
+.chip:hover { border-color: var(--ink); }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.chip .n { font-family: var(--mono); font-size: 12px; opacity: 0.6; margin-left: 4px; }
+.find { position: relative; flex: 0 1 300px; min-width: 0; }
+.find input {
+  width: 100%; height: 44px; padding: 0 16px 0 42px; border-radius: 999px;
+  border: 1.5px solid var(--line); background: var(--card);
+}
+.find input:focus { outline: none; border-color: var(--ink); }
+.find svg { position: absolute; left: 14px; top: 50%; width: 18px; height: 18px; transform: translateY(-50%); color: var(--ink-soft); }
+.grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 40px 24px; }
+.card { min-width: 0; }
+.card-hit { display: block; width: 100%; padding: 0; border: 0; background: none; text-align: left; border-radius: var(--r-md); }
+.card-media { position: relative; margin-bottom: 16px; }
+.card-media .frame { position: relative; aspect-ratio: 3 / 4; border-radius: var(--r-md); overflow: hidden; background: var(--panel); }
+.card-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 0.35s ease, transform 0.6s ease; }
+.card-media img.alt { opacity: 0; }
+.card-hit:hover .card-media img.main { opacity: 0; }
+.card-hit:hover .card-media img.alt { opacity: 1; }
+.card-hit:hover .card-media img { transform: scale(1.025); }
+.card-media .tag { right: -7px; top: 54%; }
+.card-hit:hover .tag { transform: translateX(3px); }
+.card-media .sale {
+  position: absolute; top: 12px; left: 12px;
+  padding: 4px 10px; border-radius: 999px; background: var(--card);
+  font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.06em; text-transform: uppercase;
+}
+.card h3 { font-size: 21px; font-weight: 600; letter-spacing: -0.015em; }
+.card .kind { color: var(--ink-soft); font-size: 15px; margin-top: 2px; }
+.card .meta { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 10px; }
+.card .price { font-weight: 600; }
+.card .price s { font-weight: 400; color: var(--ink-soft); margin-left: 6px; font-size: 15px; }
+.dots { display: flex; gap: 5px; }
+.dots i { width: 12px; height: 12px; border-radius: 50%; box-shadow: 0 0 0 1px rgba(28, 37, 39, 0.16) inset; }
+.empty { padding: 48px 0; color: var(--ink-soft); grid-column: 1 / -1; }
+.empty button { border: 0; background: none; padding: 0; text-decoration: underline; color: var(--ink); }
+
+/* Label story */
+.label-story { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 80px); align-items: center; }
+.label-story .frame { border-radius: var(--r-lg); overflow: hidden; aspect-ratio: 1 / 1; background: var(--panel); }
+.label-story img { width: 100%; height: 100%; object-fit: cover; }
+.label-story h2 { font-size: clamp(38px, 5vw, 68px); margin: 14px 0 20px; }
+.label-story p { color: var(--ink-soft); max-width: 46ch; }
+.label-story p + p { margin-top: 14px; }
+.facts { list-style: none; padding: 0; margin: 32px 0 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); }
+.facts li { padding: 18px 16px 0 0; }
+.facts strong { display: block; font-family: var(--display); font-size: clamp(26px, 2.6vw, 36px); font-weight: 700; letter-spacing: -0.02em; }
+.facts span { font-size: 14.5px; color: var(--ink-soft); }
+
+/* Fit finder */
+.fit { background: var(--panel); }
+.fit-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(28px, 5vw, 72px); align-items: start; }
+.fit-intro h2 { font-size: clamp(38px, 5vw, 68px); margin: 14px 0 20px; }
+.fit-intro p { color: var(--ink-soft); max-width: 44ch; }
+.fit-form { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 32px; }
+.field { display: grid; gap: 6px; }
+.field label { font-size: 14px; font-weight: 600; }
+.field label span { font-weight: 400; color: var(--ink-soft); }
+.field .in { position: relative; }
+.field input {
+  width: 100%; height: 52px; padding: 0 40px 0 14px; border-radius: 12px;
+  border: 1.5px solid var(--line); background: var(--card);
+  font-family: var(--mono); font-size: 17px; font-variant-numeric: tabular-nums;
+}
+.field input:focus { outline: none; border-color: var(--ink); }
+.field .unit { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font-family: var(--mono); font-size: 13px; color: var(--ink-soft); pointer-events: none; }
+.fit-note { margin-top: 16px; font-size: 14.5px; color: var(--ink-soft); }
+.fit-results { background: var(--card); border-radius: var(--r-lg); padding: clamp(8px, 1.6vw, 16px) clamp(16px, 2.4vw, 32px); }
+.fit-row { display: grid; grid-template-columns: 64px minmax(0, 1fr) auto; gap: 18px; align-items: center; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.fit-row:last-child { border-bottom: 0; }
+.fit-row img { width: 64px; height: 76px; object-fit: cover; border-radius: 10px; background: var(--panel); }
+.fit-row strong { font-weight: 600; display: block; }
+.fit-row .why { font-size: 14px; color: var(--ink-soft); }
+.fit-size { display: flex; align-items: center; gap: 12px; }
+.fit-size .big { font-family: var(--display); font-weight: 700; font-size: 30px; letter-spacing: -0.02em; min-width: 2.2ch; text-align: right; font-variant-numeric: tabular-nums; }
+.fit-size .msg { font-size: 14px; color: var(--ink-soft); max-width: 16ch; text-align: right; }
+.fit-size button { height: 36px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--line); background: none; font-size: 14px; font-weight: 600; white-space: nowrap; }
+.fit-size button:hover { border-color: var(--ink); }
+
+/* Newsletter */
+.join { background: var(--red); color: var(--card); }
+.join .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px 64px; align-items: end; padding-block: clamp(64px, 8vw, 112px); }
+.join .label { color: color-mix(in srgb, var(--card) 78%, transparent); }
+.join h2 { font-size: clamp(44px, 6.4vw, 96px); font-weight: 800; letter-spacing: -0.04em; margin-top: 14px; }
+.join p { font-size: 18px; }
+.join form { display: flex; gap: 8px; margin-top: 22px; flex-wrap: wrap; }
+.join input {
+  flex: 1 1 220px; min-width: 0; height: 52px; padding: 0 20px; border-radius: 999px;
+  border: 1.5px solid color-mix(in srgb, var(--card) 55%, transparent);
+  background: color-mix(in srgb, var(--card) 12%, transparent); color: var(--card);
+}
+.join input::placeholder { color: color-mix(in srgb, var(--card) 72%, transparent); }
+.join input:focus { outline: none; border-color: var(--card); }
+.join .btn { background: var(--card); color: var(--red-dark); min-height: 52px; }
+.join .btn:hover { background: var(--ink); color: var(--card); }
+.join .small { font-size: 14px; margin-top: 12px; color: color-mix(in srgb, var(--card) 82%, transparent); min-height: 1.5em; }
+
+/* Footer */
+.site-footer { background: var(--ink); color: var(--paper); }
+.site-footer .wrap { padding-block: 64px 40px; }
+.foot-top { display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr)); gap: 32px; }
+.foot-top img { height: 44px; width: auto; }
+.foot-top .say { margin-top: 18px; font-family: var(--display); font-size: 26px; font-weight: 600; letter-spacing: -0.02em; max-width: 14ch; line-height: 1.1; }
+.foot-col h3 { font-family: var(--mono); font-weight: 400; font-size: 12.5px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--paper) 55%, transparent); margin-bottom: 14px; }
+.foot-col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.foot-col a, .foot-col button { color: var(--paper); text-decoration: none; background: none; border: 0; padding: 0; font-size: 16px; text-align: left; }
+.foot-col a:hover, .foot-col button:hover { text-decoration: underline; }
+.foot-base { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 56px; padding-top: 22px; border-top: 1px solid color-mix(in srgb, var(--paper) 16%, transparent); font-size: 14px; color: color-mix(in srgb, var(--paper) 62%, transparent); }
+
+/* Dialogs */
+dialog { border: 0; padding: 0; color: var(--ink); background: var(--paper); max-width: none; max-height: none; }
+dialog::backdrop { background: rgba(20, 26, 28, 0.5); backdrop-filter: blur(3px); }
+.x {
+  position: absolute; top: 14px; right: 14px; z-index: 2;
+  width: 42px; height: 42px; border-radius: 50%; border: 0;
+  background: var(--card); display: grid; place-items: center;
+  box-shadow: 0 1px 3px rgba(28, 37, 39, 0.15);
+}
+.x svg { width: 18px; height: 18px; }
+
+.pd { width: min(1120px, calc(100% - 32px)); max-height: calc(100% - 32px); border-radius: var(--r-lg); overflow: auto; overscroll-behavior: contain; }
+.pd-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); }
+.pd-gallery { position: relative; background: #F1F1EF; padding: 16px; display: grid; gap: 12px; align-content: start; }
+.pd-main { position: relative; aspect-ratio: 3 / 4; border-radius: var(--r-md); overflow: hidden; background: var(--panel); }
+.pd-main img { width: 100%; height: 100%; object-fit: cover; }
+.pd-thumbs { display: flex; gap: 8px; }
+.pd-thumbs button { width: 64px; height: 76px; padding: 0; border-radius: 10px; overflow: hidden; border: 2px solid transparent; background: var(--panel); }
+.pd-thumbs button[aria-current="true"] { border-color: var(--ink); }
+.pd-thumbs img { width: 100%; height: 100%; object-fit: cover; }
+.pd-info { padding: clamp(24px, 3.4vw, 48px); display: grid; gap: 22px; align-content: start; }
+.pd-info h2 { font-size: clamp(34px, 3.6vw, 48px); margin-top: 8px; }
+.pd-info .line { font-size: 19px; margin-top: 10px; }
+.pd-info .blurb { color: var(--ink-soft); }
+.pd-info .price-row .now { font-size: 30px; }
+.pd-info .price-row s { color: var(--ink-soft); opacity: 1; }
+.pd-acc { border-top: 1px solid var(--line); }
+.pd-acc details { border-bottom: 1px solid var(--line); }
+.pd-acc summary {
+  list-style: none; cursor: pointer; padding: 16px 0; font-weight: 600;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.pd-acc summary::-webkit-details-marker { display: none; }
+.pd-acc summary::after { content: "+"; font-family: var(--mono); font-weight: 400; font-size: 20px; transition: transform 0.2s ease; }
+.pd-acc details[open] summary::after { transform: rotate(45deg); }
+.pd-acc .body { padding-bottom: 18px; color: var(--ink-soft); display: grid; gap: 10px; font-size: 15.5px; }
+.pd-acc ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+.chart-wrap { overflow-x: auto; }
+.chart { border-collapse: collapse; width: 100%; font-family: var(--mono); font-size: 13px; font-variant-numeric: tabular-nums; color: var(--ink); }
+.chart th, .chart td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.chart th { font-weight: 500; color: var(--ink-soft); font-size: 11.5px; letter-spacing: 0.06em; text-transform: uppercase; }
+.chart tr.hit td { background: color-mix(in srgb, var(--red) 9%, transparent); }
+.store-link { font-size: 15px; font-weight: 600; text-underline-offset: 3px; }
+
+.drawer { margin: 0 0 0 auto; width: min(440px, 100%); height: 100%; max-height: 100%; display: none; flex-direction: column; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+.drawer[open] { display: flex; }
+.drawer-head { padding: 22px 24px; padding-right: max(24px, env(safe-area-inset-right, 0px)); border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; }
+.drawer-head h2 { font-size: 28px; }
+.drawer-head .x { position: static; }
+.drawer-body { flex: 1; overflow: auto; padding: 8px 24px; padding-right: max(24px, env(safe-area-inset-right, 0px)); }
+.drawer-foot { padding: 20px 24px 24px; padding-right: max(24px, env(safe-area-inset-right, 0px)); border-top: 1px solid var(--line); display: grid; gap: 12px; }
+.line-item { display: grid; grid-template-columns: 72px minmax(0, 1fr) auto; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--line); align-items: start; }
+.line-item img { width: 72px; height: 88px; object-fit: cover; border-radius: 10px; background: var(--panel); }
+.line-item strong { font-weight: 600; display: block; }
+.line-item .sub { font-size: 14px; color: var(--ink-soft); }
+.qty { display: inline-flex; align-items: center; border: 1.5px solid var(--line); border-radius: 999px; margin-top: 10px; }
+.qty button { width: 32px; height: 32px; border: 0; background: none; border-radius: 50%; font-size: 17px; }
+.qty span { min-width: 22px; text-align: center; font-family: var(--mono); font-size: 14px; }
+.remove { border: 0; background: none; padding: 0; font-size: 13.5px; color: var(--ink-soft); text-decoration: underline; margin-left: 12px; }
+.line-item .lp { font-weight: 600; text-align: right; }
+.total { display: flex; justify-content: space-between; align-items: baseline; font-size: 18px; }
+.total strong { font-family: var(--display); font-size: 26px; letter-spacing: -0.02em; }
+.drawer-foot .note { font-size: 13.5px; color: var(--ink-soft); }
+.bag-empty { padding: 48px 0; display: grid; gap: 16px; justify-items: start; }
+.bag-empty p { color: var(--ink-soft); }
+
+.search-dlg { width: min(720px, calc(100% - 32px)); margin-top: max(72px, calc(env(safe-area-inset-top, 0px) + 56px)); border-radius: var(--r-lg); }
+.search-dlg .in { position: relative; border-bottom: 1px solid var(--line); }
+.search-dlg input { width: 100%; height: 68px; border: 0; background: transparent; padding: 0 64px 0 56px; font-size: 20px; }
+.search-dlg input:focus { outline: none; }
+.search-dlg .in svg { position: absolute; left: 20px; top: 50%; width: 22px; height: 22px; transform: translateY(-50%); color: var(--ink-soft); }
+.search-dlg .x { top: 13px; box-shadow: none; background: var(--panel); }
+.results { list-style: none; margin: 0; padding: 8px; max-height: min(60vh, 520px); overflow: auto; }
+.results button { width: 100%; display: grid; grid-template-columns: 52px minmax(0, 1fr) auto; gap: 14px; align-items: center; padding: 8px; border: 0; border-radius: 14px; background: none; text-align: left; }
+.results button:hover, .results button:focus-visible { background: var(--panel); }
+.results img { width: 52px; height: 62px; object-fit: cover; border-radius: 8px; background: var(--panel); }
+.results strong { font-weight: 600; display: block; }
+.results span { font-size: 14px; color: var(--ink-soft); }
+.results .none { padding: 24px 12px; color: var(--ink-soft); }
+
+.toast {
+  position: fixed; left: 50%; bottom: max(24px, calc(env(safe-area-inset-bottom, 0px) + 16px)); z-index: 90;
+  transform: translate(-50%, 20px); opacity: 0; pointer-events: none;
+  display: flex; align-items: center; gap: 16px;
+  background: var(--ink); color: var(--paper); border-radius: 999px; padding: 10px 10px 10px 22px;
+  transition: opacity 0.25s ease, transform 0.25s ease; max-width: calc(100% - 32px);
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+.toast button { border: 0; border-radius: 999px; height: 36px; padding: 0 16px; background: var(--paper); color: var(--ink); font-weight: 600; white-space: nowrap; }
+
+/* Responsive */
+@media (max-width: 1080px) {
+  .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .nav a { padding: 8px 10px; }
+}
+@media (max-width: 900px) {
+  .site-header .wrap { grid-template-columns: auto 1fr; }
+  .nav { display: none; }
+  .menu-btn { display: inline-flex; }
+  .mobile-nav { display: none; border-top: 1px solid var(--line); }
+  .mobile-nav.open { display: block; }
+  .mobile-nav ul { list-style: none; margin: 0; padding: 8px 0 16px; }
+  .mobile-nav a { display: block; padding: 12px 0; font-family: var(--display); font-size: 26px; font-weight: 600; text-decoration: none; letter-spacing: -0.02em; }
+  .hero-top, .days-grid, .spot-grid, .label-story, .fit-grid, .join .wrap { grid-template-columns: minmax(0, 1fr); }
+  .hero-side { max-width: none; }
+  .hero-photo .frame { aspect-ratio: 4 / 4.4; }
+  .hero-photo img { object-position: 46% 50%; }
+  .day-visual { min-height: 0; aspect-ratio: 4 / 4.6; order: -1; }
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 16px; }
+  .foot-top { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .foot-top > :first-child { grid-column: 1 / -1; }
+  .pd { width: 100%; max-height: calc(100% - 24px); margin: auto 0 0; border-radius: var(--r-lg) var(--r-lg) 0 0; padding-bottom: env(safe-area-inset-bottom, 0px); }
+  .pd-grid { grid-template-columns: minmax(0, 1fr); }
+  .pd-main { aspect-ratio: 4 / 4.2; }
+}
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .strip .wrap { gap: 4px 16px; }
+  .brand img { height: 28px; }
+  .icon-btn .txt { display: none; }
+  .pills li { font-size: 13px; padding: 6px 11px; }
+  .pills { left: 12px; bottom: 12px; right: 12px; }
+  .fit-form { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .fit-form .field:last-child { grid-column: 1 / -1; }
+  .fit-row { grid-template-columns: 52px minmax(0, 1fr); }
+  .fit-row img { width: 52px; height: 62px; }
+  .fit-size { grid-column: 2; justify-content: space-between; }
+  .fit-size .big { text-align: left; }
+  .fit-size .msg { text-align: left; }
+  .facts { grid-template-columns: minmax(0, 1fr); }
+  .facts li { padding: 14px 0; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .specs div { grid-template-columns: 7.2rem minmax(0, 1fr); }
+  .card h3 { font-size: 18px; }
+  .card .meta { flex-direction: column; align-items: flex-start; gap: 6px; }
+  .shop-tools { display: grid; grid-template-columns: minmax(0, 1fr); }
+  .chips { flex-wrap: nowrap; overflow-x: auto; margin-inline: calc(-1 * var(--gutter-l)) calc(-1 * var(--gutter-r)); padding-inline: var(--gutter-l) var(--gutter-r); scrollbar-width: none; }
+  .chips::-webkit-scrollbar { display: none; }
+  .chip { flex: 0 0 auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="strip">
+  <div class="wrap">
+    <p>Bandanas $13 <s>$20</s></p>
+    <p>Jackets from $65</p>
+    <p>Prices in CAD</p>
+  </div>
+</div>
+
+<header class="site-header" id="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Waggl Pets, back to top"><img src="assets/waggl-logo.png" alt="Waggl Pets" width="900" height="274"></a>
+    <nav class="nav" aria-label="Shop by day">
+      <a href="#shop" data-filter="outdoors">Outdoors</a>
+      <a href="#shop" data-filter="urban">Urban</a>
+      <a href="#shop" data-filter="home">At Home</a>
+      <a href="#shop" data-filter="accessories">Accessories</a>
+      <a href="#fit">Fit guide</a>
+    </nav>
+    <div class="tools">
+      <button class="icon-btn" type="button" id="open-search" aria-label="Search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
+      </button>
+      <button class="icon-btn" type="button" id="open-bag" aria-label="Bag, 0 items">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12H6.2L5 8Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8" stroke-linecap="round"/></svg>
+        <span class="txt">Bag</span><span class="bag-count" id="bag-count">0</span>
+      </button>
+      <button class="icon-btn menu-btn" type="button" id="menu-btn" aria-expanded="false" aria-controls="mobile-nav" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobile-nav">
+    <div class="wrap">
+      <ul>
+        <li><a href="#shop" data-filter="outdoors">Outdoors</a></li>
+        <li><a href="#shop" data-filter="urban">Urban</a></li>
+        <li><a href="#shop" data-filter="home">At Home</a></li>
+        <li><a href="#shop" data-filter="accessories">Accessories</a></li>
+        <li><a href="#fit">Fit guide</a></li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero wrap" aria-labelledby="hero-title">
+    <div class="hero-top">
+      <h1 id="hero-title">Life is better together<span class="red">.</span></h1>
+      <div class="hero-side">
+        <p>Jackets, rain ponchos, base layers and bandanas for the big adventures, the little detours, and all the good days in between.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-red" href="#shop">Shop all 12 <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="btn btn-line" href="#fit">Find their size</a>
+        </div>
+      </div>
+    </div>
+    <figure class="hero-photo">
+      <div class="frame"><img src="assets/img/life-hero.webp" alt="A golden retriever in a grey Waggl jacket on a mountain ridge at sunrise" width="2000" height="1000" fetchpriority="high"></div>
+      <span class="tag" aria-hidden="true"></span>
+      <ul class="pills" aria-label="At a glance">
+        <li>Sizes XS to 9XL</li>
+        <li>Sized in inches</li>
+        <li>Reflective details</li>
+        <li>Bandanas from $13</li>
+      </ul>
+    </figure>
+  </section>
+
+  <section class="band wrap" id="days" aria-labelledby="days-title">
+    <div class="band-head">
+      <div>
+        <span class="label">Shop by day</span>
+        <h2 id="days-title">For every kind of day.</h2>
+      </div>
+    </div>
+    <div class="days-grid">
+      <div>
+        <ul class="days-tabs" role="tablist" aria-label="Kinds of day" id="days-tabs"></ul>
+        <div class="day-copy" id="day-copy" role="tabpanel" aria-live="polite"></div>
+      </div>
+      <div class="day-visual" id="day-visual"></div>
+    </div>
+  </section>
+
+  <section class="spotlight" id="spotlight" aria-labelledby="spot-title">
+    <div class="wrap band">
+      <span class="label">In focus · Outdoors</span>
+      <h2 class="spot-name" id="spot-title">Puddle<br>Parade<span>.</span></h2>
+      <div class="spot-grid">
+        <div class="spot-media">
+          <div class="frame"><img id="spot-img" src="assets/img/puddle-parade-waterproof-dog-jacket-yellow-flat.webp" alt="Puddle Parade jacket in City Yellow" width="1000" height="1333"></div>
+          <span class="tag" aria-hidden="true"></span>
+        </div>
+        <div class="spot-info">
+          <p class="spot-line">Gray skies. Colorful walks.</p>
+          <p class="spot-blurb">A hooded waterproof jacket for rainy-day routines. Bold colour-block panels, a breathable mesh lining, and a covered opening for the leash.</p>
+          <dl class="specs">
+            <div><dt>Outer</dt><dd>Waterproof Taslan</dd></div>
+            <div><dt>Lining</dt><dd>Breathable mesh</dd></div>
+            <div><dt>Hood</dt><dd>Adjustable, with cord toggles</dd></div>
+            <div><dt>Fastening</dt><dd>Hook-and-loop belly panel</dd></div>
+            <div><dt>Visibility</dt><dd>Reflective detailing</dd></div>
+            <div><dt>Leash</dt><dd>Covered opening at the back of the neck</dd></div>
+            <div><dt>Sizes</dt><dd>L to 5XL, for medium to large dogs</dd></div>
+          </dl>
+          <div class="spot-buy" id="spot-buy"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band wrap" id="shop" aria-labelledby="shop-title">
+    <div class="band-head">
+      <div>
+        <span class="label" id="shop-count">12 pieces</span>
+        <h2 id="shop-title">The full line.</h2>
+      </div>
+    </div>
+    <div class="shop-tools">
+      <div class="chips" id="chips" role="group" aria-label="Filter by day"></div>
+      <div class="find">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
+        <label class="visually-hidden" for="shop-q">Search the line</label>
+        <input id="shop-q" type="search" placeholder="Search by name or colour" autocomplete="off">
+      </div>
+    </div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section class="band wrap" id="label" aria-labelledby="label-title">
+    <div class="label-story">
+      <div class="frame"><img src="assets/img/label-detail.webp" alt="Close-up of a black and white houndstooth bandana with red embroidered Waggl logo and a white woven side label" width="522" height="500" loading="lazy"></div>
+      <div>
+        <span class="label">The little white tag</span>
+        <h2 id="label-title">You'll know it's Waggl.</h2>
+        <p>Every bandana is finished with an embroidered Waggl logo and a woven side label, stitched into the seam. It's small and it's always in the same place.</p>
+        <p>It's how you can tell a Waggl piece across the park, and it's why the same little tag turns up all over this site.</p>
+        <ul class="facts">
+          <li><strong>12</strong><span>pieces in the line</span></li>
+          <li><strong>13</strong><span>sizes, XS to 9XL</span></li>
+          <li><strong>$13</strong><span>for any bandana</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="fit band" id="fit" aria-labelledby="fit-title">
+    <div class="wrap fit-grid">
+      <div class="fit-intro">
+        <span class="label">Fit guide</span>
+        <h2 id="fit-title">Measure first. Then choose.</h2>
+        <p>Measure your dog once and see their size across the whole line. Chest fit matters most for jackets. Bandanas go by neck. Weight and breed are guides only.</p>
+        <form class="fit-form" id="fit-form" novalidate>
+          <div class="field">
+            <label for="fit-neck">Neck</label>
+            <div class="in"><input id="fit-neck" type="number" inputmode="decimal" min="5" max="45" step="0.1" value="15"><span class="unit">in</span></div>
+          </div>
+          <div class="field">
+            <label for="fit-chest">Chest</label>
+            <div class="in"><input id="fit-chest" type="number" inputmode="decimal" min="8" max="60" step="0.1" value="22"><span class="unit">in</span></div>
+          </div>
+          <div class="field">
+            <label for="fit-girth">Belly <span>(poncho)</span></label>
+            <div class="in"><input id="fit-girth" type="number" inputmode="decimal" min="8" max="60" step="0.1" placeholder="= chest"><span class="unit">in</span></div>
+          </div>
+        </form>
+        <p class="fit-note">The numbers filled in are an example. Swap in your dog's. If they fall between sizes, go up a size.</p>
+      </div>
+      <div class="fit-results" id="fit-results" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="join" aria-labelledby="join-title">
+    <div class="wrap">
+      <div>
+        <span class="label">Good things, every now &amp; then</span>
+        <h2 id="join-title">Stay in the WAGGL.</h2>
+      </div>
+      <div>
+        <p>Fresh stories, new favourites, and a little everyday joy.</p>
+        <form id="join-form" novalidate>
+          <label class="visually-hidden" for="join-email">Email address</label>
+          <input id="join-email" type="email" placeholder="Your email address" autocomplete="email">
+          <button class="btn" type="submit">Join the WAGGL</button>
+        </form>
+        <p class="small" id="join-msg" aria-live="polite">You can unsubscribe at any time.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <img src="assets/waggl-logo-white.png" alt="Waggl Pets" width="900" height="274" loading="lazy">
+        <p class="say">Made for a life together.</p>
+      </div>
+      <div class="foot-col">
+        <h3>Find your day</h3>
+        <ul>
+          <li><a href="#shop" data-filter="outdoors">Outdoors</a></li>
+          <li><a href="#shop" data-filter="urban">Urban</a></li>
+          <li><a href="#shop" data-filter="home">At Home</a></li>
+          <li><a href="#shop" data-filter="accessories">Accessories</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h3>Here to help</h3>
+        <ul>
+          <li><a href="#fit">Fit guide</a></li>
+          <li><button type="button" data-open-bag>Your bag</button></li>
+          <li><a href="https://fkrc04-us.myshopify.com/" target="_blank" rel="noopener">Waggl store ↗</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h3>Country / currency</h3>
+        <ul>
+          <li>Canada · CAD $</li>
+          <li>United States · USD $ at checkout</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-base">
+      <span>© 2026 Waggl Pets</span>
+      <a href="#top">Back to the top ↑</a>
+    </div>
+  </div>
+</footer>
+
+<dialog class="pd" id="pd" aria-labelledby="pd-name"></dialog>
+
+<dialog class="drawer" id="bag" aria-labelledby="bag-title">
+  <div class="drawer-head">
+    <h2 id="bag-title">Your bag</h2>
+    <button class="x" type="button" data-close aria-label="Close bag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  </div>
+  <div class="drawer-body" id="bag-body"></div>
+  <div class="drawer-foot" id="bag-foot"></div>
+</dialog>
+
+<dialog class="search-dlg" id="search" aria-label="Search Waggl">
+  <div class="in">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
+    <label class="visually-hidden" for="search-q">Search</label>
+    <input id="search-q" type="search" placeholder="Try “yellow”, “bandana” or “rain”" autocomplete="off">
+    <button class="x" type="button" data-close aria-label="Close search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  </div>
+  <ul class="results" id="search-results"></ul>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"><span id="toast-text"></span><button type="button" data-open-bag>View bag</button></div>
+
+<script>
+const STORE = 'https://fkrc04-us.myshopify.com';
+const PRODUCTS = [{"h":"puddle-parade-waterproof-dog-jacket","name":"Puddle Parade","kind":"Hooded waterproof jacket","cat":"outdoors","price":65.0,"was":78.0,"tagline":"Gray skies. Colorful walks.","blurb":"Meet Puddle Parade, the hooded waterproof dog jacket that brings a little color to rainy-day routines. Its waterproof Taslan outer fabric helps shed rain and splashes, while a breathable mesh lining adds an airy layer underneath. Bold color-block panels make every neighborhood stroll feel a little brighter.","details":["Waterproof Taslan outer fabric","Breathable mesh lining","Adjustable hood with cord toggles","Hook-and-loop belly fastenings","Reflective detailing for visibility when illuminated","Covered leash-access opening near the back of the neck","Elastic tail loop to help hold the coat in place","Four colorways; sizes L, XL, 2XL, 3XL, 4XL and 5XL"],"fit":["Measure your dog’s back length, chest girth, and neck girth before ordering. Check all three against the size guide, prioritizing a comfortable chest fit. Weight and breed are references only. If your dog falls between sizes, compare the larger size and leave room for any layer worn underneath.","Size numbers are product size codes, not measurements in inches. Manual measurements may vary slightly.","Keep the hood clear of your dog’s eyes and ears. Attach the leash to a suitable collar or harness, with its attachment point aligned to the coat opening."],"colours":[{"v":"Yellow","name":"City Yellow","hex":"#F2C230","s":"yellow"},{"v":"Green","name":"Neon Lime","hex":"#C6E03A","s":"green"},{"v":"Blue","name":"Harbor Aqua","hex":"#5DC1E6","s":"blue"},{"v":"Orange","name":"Orange","hex":"#F06A1F","s":"orange"}],"sizes":["L","XL","2XL","3XL","4XL","5XL"],"var":{"Yellow/L":[62890365222993,1],"Yellow/XL":[62890365255761,1],"Yellow/2XL":[62890365288529,1],"Yellow/3XL":[62890365321297,1],"Yellow/4XL":[62890365354065,1],"Yellow/5XL":[62890365386833,1],"Green/L":[62890365419601,1],"Green/XL":[62890365452369,1],"Green/2XL":[62890365485137,1],"Green/3XL":[62890365517905,1],"Green/4XL":[62890365550673,1],"Green/5XL":[62890365583441,1],"Blue/L":[62890365616209,1],"Blue/XL":[62890365648977,1],"Blue/2XL":[62890365681745,1],"Blue/3XL":[62890365714513,1],"Blue/4XL":[62890365747281,1],"Blue/5XL":[62890365780049,1],"Orange/L":[62891695374417,1],"Orange/XL":[62891695407185,1],"Orange/2XL":[62891695439953,1],"Orange/3XL":[62891695472721,1],"Orange/4XL":[62891695505489,1],"Orange/5XL":[62891695538257,1]},"chart":{"by":"chest","kind":"range","cols":["Back","Neck","Chest","Weight (lb)"],"rows":[["L","14.6–16.9","13.0–14.6","19.7–23.6","16.5–27.6"],["XL","16.5–18.9","13.8–16.5","22.8–26.8","27.6–38.6"],["2XL","18.5–20.9","15.0–17.3","23.6–28.3","38.6–49.6"],["3XL","20.5–22.8","16.1–18.9","25.6–30.3","49.6–60.6"],["4XL","22.4–24.8","17.7–20.5","28.7–33.1","60.6–71.7"],["5XL","26.4–28.7","20.9–25.2","33.1–38.2","71.7–88.2"]]}},{"h":"drizzle-scout-outdoor-dog-jacket","name":"Drizzle Scout","kind":"Outdoor dog jacket","cat":"outdoors","price":65.0,"was":79.0,"tagline":"Built for the next sniff, stroll, and trail.","blurb":"Meet Drizzle Scout, an outdoor dog jacket for curious noses and everyday adventures. Its shell-style design pairs a water-resistant outer fabric with a high collar for added coverage, making it a practical layer for neighborhood walks and leafy trails. The sleeveless cut leaves your dog’s legs free to move.","details":["Water-resistant outer fabric for light rain and everyday splashes","High collar with a reflective band","Adjustable drawcords at the collar and back hem","Hook-and-loop closure for an adjustable fit","Zippered back opening for access to a harness worn underneath","Sleeveless design with open leg openings","Four colors and six sizes: S, M, L, XL, 2XL, and 3XL"],"fit":["Measure your dog’s chest, neck, and back before ordering. Prioritize chest fit and check all three measurements against the size guide. Weight is a reference only, since dogs of the same weight can have different proportions. If your dog falls between sizes, compare the larger size and allow room for any layer worn underneath.","Measurements are approximate; allow 0.4–0.8 in variation.","Attach the leash to your dog’s harness or collar. The jacket itself is not a restraint device."],"colours":[{"v":"Olive Green","name":"Olive Green","hex":"#6E7449","s":"olive-green"},{"v":"Amber Brown","name":"Amber Brown","hex":"#B5652A","s":"amber-brown"}],"sizes":["S","M","L","XL","2XL","3XL"],"var":{"Olive Green/S":[62935424368721,1],"Olive Green/M":[62935424401489,1],"Olive Green/L":[62935424434257,1],"Olive Green/XL":[62935424467025,1],"Olive Green/2XL":[62935424499793,1],"Olive Green/3XL":[62935424532561,1],"Amber Brown/S":[62935424565329,0],"Amber Brown/M":[62935424598097,1],"Amber Brown/L":[62935424630865,1],"Amber Brown/XL":[62935424663633,1],"Amber Brown/2XL":[62935424696401,1],"Amber Brown/3XL":[62935424729169,1]},"chart":{"by":"chest","kind":"point","cols":["Back","Chest","Neck","Weight (lb)"],"rows":[["S","8.3","16.1","13.0","5.5–7.7"],["M","9.8","17.7","14.2","7.7–11.0"],["L","11.4","19.3","15.0","11.0–15.4"],["XL","13.0","20.9","16.1","15.4–19.8"],["2XL","14.6","22.4","16.9","19.8–26.5"],["3XL","16.1","24.0","18.1","26.5–33.1"]]}},{"h":"cloud-cruise-waterproof-dog-rain-poncho","name":"Cloud Cruise","kind":"Waterproof rain poncho","cat":"urban","price":35.0,"was":49.0,"tagline":"For walks beneath the clouds.","blurb":"Meet Cloud Cruise, a waterproof dog rain poncho made for rainy-day wandering. Its soft, flexible PU outer fabric drapes over the back and sides, while the open-leg cape design gives your dog room to step, sniff, and explore.","details":["Waterproof PU outer fabric with a soft, flexible feel","Sleeveless poncho shape with coverage over the back and sides","Hood with a clear TPU brim","Extended neck coverage with an adjustable drawcord","Adjustable body strap with a buckle","Elastic rear straps to help hold the cape in place","Protective belly panel for added coverage from ground splashes","Hidden leash-access opening","Three colors; eleven sizes from M to 9XL"],"fit":["Measure your dog’s back length, neck girth, and body girth where the strap sits. Check the maximum measurements in the size guide and allow room for a comfortable fit. Poncho length and maximum dog back length are different measurements. Weight and breed are guides only.","If your dog falls between sizes, compare the larger size. Adjust the hood so it stays clear of the eyes and ears, and attach the leash to a suitable collar or harness. The poncho is not a restraint device."],"colours":[{"v":"Yellow","name":"Sunbeam Yellow","hex":"#F4C430","s":"yellow"},{"v":"Blue","name":"Sky Blue","hex":"#7CC8EC","s":"blue"},{"v":"Green","name":"Neon Lime","hex":"#C9E84A","s":"green"}],"sizes":["M","L","XL","2XL","3XL","4XL","5XL","6XL","7XL","8XL","9XL"],"var":{"Yellow/M":[62907667644497,1],"Yellow/L":[62907681865809,1],"Yellow/XL":[62907681898577,1],"Yellow/2XL":[62907681931345,1],"Yellow/3XL":[62907681964113,1],"Yellow/4XL":[62907681996881,1],"Yellow/5XL":[62907682029649,1],"Yellow/6XL":[62907682062417,1],"Yellow/7XL":[62907682095185,1],"Yellow/8XL":[62907682127953,1],"Yellow/9XL":[62907682160721,1],"Blue/M":[62907667677265,1],"Blue/L":[62907682193489,1],"Blue/XL":[62907682226257,1],"Blue/2XL":[62907682259025,1],"Blue/3XL":[62907682291793,1],"Blue/4XL":[62907682324561,1],"Blue/5XL":[62907682357329,1],"Blue/6XL":[62907682390097,1],"Blue/7XL":[62907682422865,1],"Blue/8XL":[62907682455633,1],"Blue/9XL":[62907682488401,1],"Green/M":[62907667710033,1],"Green/L":[62907682521169,1],"Green/XL":[62907682553937,1],"Green/2XL":[62907682586705,1],"Green/3XL":[62907682619473,1],"Green/4XL":[62907682652241,1],"Green/5XL":[62907682685009,1],"Green/6XL":[62907682717777,1],"Green/7XL":[62907682750545,1],"Green/8XL":[62907682783313,1],"Green/9XL":[62907682816081,1]},"chart":{"by":"girth","kind":"max","cols":["Poncho length","Back max","Neck max","Girth max","Weight (lb)"],"rows":[["M","9.1","9.1","12.6","15.7","4.4–6.6"],["L","11.0","11.0","13.4","16.5","7.7–11.0"],["XL","13.0","13.8","15.0","17.7","11.0–16.5"],["2XL","14.6","15.4","16.5","19.7","16.5–22.0"],["3XL","17.3","18.1","18.9","22.8","22.0–30.9"],["4XL","18.1","18.9","20.5","23.6","30.9–38.6"],["5XL","20.5","21.3","22.8","25.6","38.6–49.6"],["6XL","22.0","22.8","24.4","29.5","49.6–55.1"],["7XL","24.0","24.8","26.0","31.5","55.1–66.1"],["8XL","26.0","26.8","28.3","33.5","66.1–99.2"],["9XL","31.9","32.7","31.5","39.4","99.2–132.3"]]}},{"h":"daydream-dog-base-layer-onesie","name":"Daydream","kind":"Base layer onesie","cat":"home","price":41.0,"was":57.0,"tagline":"For slow mornings and everyday adventures.","blurb":"Meet Daydream, a simple dog base layer that brings a relaxed look to your best friend’s wardrobe. A soft brushed finish and gentle stretch make it an inviting choice for lounging at home, everyday outings, or layering beneath a suitably sized coat on cooler days.","details":["Soft brushed fabric with stretch","Four-leg design with a raised neckline","Pullover construction","Open underside and tail opening","Wear on its own or as a base layer","Available in XS, S, M, L, XL, and 2XL"],"fit":["Measure your dog’s chest, neck, and back length before ordering, then compare with the size chart. Allow room for comfortable movement and choose by measurements rather than breed or weight alone.","Measurements are taken manually and may vary by 0.5–1.0 in. Colors may appear slightly different across screens."],"colours":[{"v":"Yellow","name":"Butter Yellow","hex":"#EBCB6B","s":"yellow"},{"v":"Silver","name":"Light Grey","hex":"#C4C4C2","s":"silver"},{"v":"Gray","name":"Charcoal Grey","hex":"#4A4B4D","s":"gray"},{"v":"Brown","name":"Brown","hex":"#A89283","s":"brown"}],"sizes":["XS","S","M","L","XL","2XL"],"var":{"Yellow/XS":[62872146018385,1],"Yellow/S":[62872146051153,1],"Yellow/M":[62872146083921,1],"Yellow/L":[62872146116689,1],"Yellow/XL":[62872146149457,1],"Yellow/2XL":[62872146182225,1],"Silver/XS":[62872146214993,1],"Silver/S":[62872146247761,1],"Silver/M":[62872146280529,1],"Silver/L":[62872146313297,1],"Silver/XL":[62872146346065,1],"Silver/2XL":[62872146378833,1],"Gray/XS":[62872146411601,1],"Gray/S":[62872146444369,1],"Gray/M":[62872146477137,1],"Gray/L":[62872146509905,1],"Gray/XL":[62872146542673,1],"Gray/2XL":[62872146575441,1],"Brown/XS":[62872146608209,1],"Brown/S":[62872146640977,1],"Brown/M":[62872146673745,1],"Brown/L":[62872146706513,1],"Brown/XL":[62872146739281,1],"Brown/2XL":[62872146772049,1]},"chart":{"by":"chest","kind":"point","cols":["Back","Chest","Neck"],"rows":[["XS","10.2","15.0","9.8"],["S","11.8","16.5","10.6"],["M","13.4","18.1","11.4"],["L","15.0","19.7","12.4"],["XL","16.5","21.3","13.4"],["2XL","18.1","23.6","14.2"]]}},{"h":"trail-tails-buffalo-plaid-dog-bandana","name":"Trail Tails","kind":"Tie-strap bandana, buffalo plaid","cat":"accessories","price":13.0,"was":20.0,"tagline":"Big checks. Happy trails.","blurb":"Bring a little outdoor spirit to everyday walks with Trail Tails by WAGGL Pets. Bold buffalo plaid gives this dog bandana a classic, adventurous look, while four colorful combinations make it easy to find your pup’s perfect match.","details":["Bold buffalo plaid pattern","Dedicated tie straps for easy fastening","Adjustable fit through knot placement","Pointed front panel with WAGGL Pets logo detailing","Four color options: Orange & Black, Hot Pink & Black, Blue & Black, and Teal & Navy","Three sizes: M, L, and XL","Sold individually: one bandana in your chosen color and size"],"fit":["Measure your dog’s neck before ordering and allow enough strap length for tying. Leave room for two fingers between the bandana and your dog’s neck.","Supervise your dog while wearing this accessory. Remove it during sleep or unattended time. This bandana is not a collar and must not be used to attach a leash."],"colours":[{"v":"Orange","name":"Orange & Black","hex":"#E8642C","s":"orange"},{"v":"Red","name":"Hot Pink & Black","hex":"#D8325A","s":"red"},{"v":"Blue","name":"Blue & Black","hex":"#2F6BD8","s":"blue"},{"v":"Green","name":"Teal & Navy","hex":"#1F7F73","s":"green"}],"sizes":["M","L","XL"],"var":{"Orange/M":[62916711940177,1],"Orange/L":[62916711972945,1],"Orange/XL":[62916712005713,1],"Red/M":[62916712038481,1],"Red/L":[62916712071249,1],"Red/XL":[62916712104017,1],"Blue/M":[62916712136785,1],"Blue/L":[62916712169553,1],"Blue/XL":[62916712202321,1],"Green/M":[62916712235089,1],"Green/L":[62916712267857,1],"Green/XL":[62916712300625,1]},"chart":{"by":"neck","kind":"max","cols":["Fits necks up to","Panel depth"],"rows":[["M","13","7"],["L","18","9.5"],["XL","26","11.5"]]}},{"h":"dapper-hound-houndstooth-dog-bandana","name":"Dapper Hound","kind":"Tie-strap bandana, houndstooth","cat":"accessories","price":13.0,"was":20.0,"tagline":"Classic checks. A little canine charm.","blurb":"Give everyday outings a stylish finishing touch with Dapper Hound by WAGGL Pets. The timeless houndstooth pattern brings a hint of vintage charm, while four distinctive color combinations let your dog’s personality shine—from classic Black & White to cheerful Mustard & Black.","details":["Classic houndstooth pattern","Dedicated tie straps for easy fastening","Adjustable fit through knot placement","Pointed front panel with WAGGL Pets logo detailing","Four color options: Mustard & Black, Teal & Black, Black & White, and Dusty Rose & White","Three sizes: M, L, and XL","Sold individually: one bandana in your selected color and size"],"fit":["Measure your dog’s neck before ordering and allow enough strap length for tying. Once fastened, leave room for two fingers between the bandana and your dog’s neck.","Supervise your dog while wearing this accessory. Remove it during sleep or unattended time. This bandana is not a collar and must not be used to attach a leash."],"colours":[{"v":"Red","name":"Dusty Rose & White","hex":"#D58AA6","s":"red"},{"v":"Green","name":"Teal & Black","hex":"#2C8A8E","s":"green"},{"v":"Yellow","name":"Mustard & Black","hex":"#B98A2E","s":"yellow"},{"v":"Black","name":"Black & White","hex":"#58595B","s":"black"}],"sizes":["M","L","XL"],"var":{"Red/M":[62912662110289,1],"Red/L":[62912662143057,1],"Red/XL":[62912662175825,1],"Green/M":[62912662208593,1],"Green/L":[62912662241361,1],"Green/XL":[62912662274129,1],"Yellow/M":[62912662306897,1],"Yellow/L":[62912662339665,1],"Yellow/XL":[62912662372433,1],"Black/M":[62912662405201,1],"Black/L":[62912662437969,1],"Black/XL":[62912662470737,1]},"chart":{"by":"neck","kind":"max","cols":["Fits necks up to","Panel depth"],"rows":[["M","13","7"],["L","18","9.5"],["XL","26","11.5"]]}},{"h":"dottie-days-polka-dot-dog-bandana","name":"Dottie Days","kind":"Tie-strap bandana, small dots","cat":"accessories","price":13.0,"was":20.0,"tagline":"Little dots. Happy days.","blurb":"Bring a little charm to your dog’s daily adventures with Dottie Days by WAGGL Pets. Delicate white polka dots pair with rich Navy Blue or Burgundy for a timeless look, finished with WAGGL Pets logo detailing.","details":["Dedicated tie straps for easy fastening","Adjustable fit through knot placement","Small white polka dots for a classic, playful look","Pointed front panel with WAGGL Pets logo detailing","Available in Navy Blue and Burgundy","Sizes: M, L, and XL","Sold individually: one bandana in your chosen color and size"],"fit":["Measure your dog’s neck before ordering and allow enough strap length for tying. Leave room for two fingers between the bandana and your dog’s neck.","Supervise your dog while wearing this accessory and remove it during sleep or unattended time. This bandana is not a collar and must not be used to attach a leash."],"colours":[{"v":"Red","name":"Burgundy","hex":"#8E1F2C","s":"red"},{"v":"Blue","name":"Navy Blue","hex":"#1E2C4F","s":"blue"}],"sizes":["M","L","XL"],"var":{"Red/M":[62912644448337,1],"Red/L":[62912644481105,0],"Red/XL":[62912644513873,0],"Blue/M":[62912644546641,0],"Blue/L":[62912644579409,0],"Blue/XL":[62912644612177,0]},"chart":{"by":"neck","kind":"max","cols":["Fits necks up to","Panel depth"],"rows":[["M","13","7"],["L","18","9.5"],["XL","26","11.5"]]}},{"h":"dot-and-dash-tie-strap-dog-bandana","name":"Dot & Dash","kind":"Tie-strap bandana, polka dot","cat":"accessories","price":13.0,"was":20.0,"tagline":"A little knot. A lot of personality.","blurb":"Meet Dot & Dash, the WAGGL Pets dog bandana that brings a playful touch to everyday outings. Crisp white polka dots stand out against Navy Blue or Burgundy, while WAGGL Pets logo detailing adds a signature finishing touch.","details":["Dedicated tie straps for easy fastening","Adjustable fit through knot placement","Classic white polka dot pattern","Pointed front panel with WAGGL Pets logo detailing","Two color options: Navy Blue and Burgundy","Three size options: M, L, and XL"],"fit":["Measure your dog’s neck before choosing a size and allow enough strap length for tying. Once fastened, leave room for two fingers between the bandana and your dog’s neck.","Supervise your dog while wearing the bandana. Remove it during sleep or unattended time. This accessory is not a collar and must not be used to attach a leash.","Includes one bandana in your selected color and size."],"colours":[{"v":"Red","name":"Burgundy","hex":"#9A1E2B","s":"red"},{"v":"Blue","name":"Navy Blue","hex":"#1C2850","s":"blue"}],"sizes":["M","L","XL"],"var":{"Red/M":[62912641728593,1],"Red/L":[62912641761361,1],"Red/XL":[62912641794129,1],"Blue/M":[62912641826897,0],"Blue/L":[62912641859665,1],"Blue/XL":[62912641892433,1]},"chart":{"by":"neck","kind":"max","cols":["Fits necks up to","Panel depth"],"rows":[["M","13","7"],["L","18","9.5"],["XL","26","11.5"]]}},{"h":"little-dots-polka-dot-dog-bandana","name":"Little Dots","kind":"Classic bandana, mini dots","cat":"accessories","price":13.0,"was":20.0,"tagline":"Little dots. Big charm.","blurb":"Give everyday outings a touch of vintage charm with Little Dots. Neat white mini polka dots bring a playful rhythm to rich red or classic navy, creating a look that feels equally at home on a neighborhood stroll or at a weekend gathering.","details":["Fine white polka dot pattern in two classic colorways","Triangular shape with a tie-on fastening","White embroidered WAGGL Pets logo","Branded side label","A charming accessory for everyday walks, photos, and special occasions"],"fit":["Measure your dog’s neck and check the size guide before ordering. Allow room for tying and a comfortable fit. Select the size by measurements rather than breed alone."],"colours":[{"v":"Red","name":"Classic Red","hex":"#B3202E","s":"red"},{"v":"Blue","name":"Navy Blue","hex":"#1D2A4E","s":"blue"}],"sizes":["M","L","XL"],"var":{"Red/XL":[62866663407697,1],"Red/L":[62866663440465,1],"Red/M":[62866663473233,1],"Blue/XL":[62866663506001,1],"Blue/L":[62866663538769,1],"Blue/M":[62866663571537,1]},"chart":null},{"h":"dot-and-dash-polka-dot-dog-bandana","name":"Dot & Dash Classic","kind":"Classic bandana, polka dot","cat":"accessories","price":13.0,"was":20.0,"tagline":"Classic dots. A dash of personality.","blurb":"Meet Dot & Dash, a playful finishing touch for your dog’s everyday adventures. Crisp white polka dots stand out against Cherry Red or Navy Blue, bringing a little retro charm to neighborhood walks, weekend outings, and moments worth capturing.","details":["Classic white polka dots in two distinctive colorways","Cherry Red for a cheerful pop of color, or Navy Blue for timeless style","Triangular shape with a tie-on fastening","White embroidered WAGGL Pets logo and branded side label","An easy way to dress up everyday outings and special occasions"],"fit":["Measure your dog’s neck and refer to the size guide before ordering. Leave enough room for the knot and a comfortable fit. Choose by measurements rather than breed alone."],"colours":[{"v":"Red","name":"Cherry Red","hex":"#C21F2F","s":"red"},{"v":"Blue","name":"Navy Blue","hex":"#1C2850","s":"blue"}],"sizes":["M","L","XL"],"var":{"Red/XL":[62866507399249,1],"Red/L":[62866507432017,1],"Red/M":[62866507464785,1],"Blue/XL":[62866507497553,1],"Blue/L":[62866507530321,1],"Blue/M":[62866507563089,1]},"chart":null},{"h":"dapper-days-houndstooth-dog-bandana","name":"Dapper Days","kind":"Classic bandana, houndstooth","cat":"accessories","price":13.0,"was":20.0,"tagline":"A little charm for every outing.","blurb":"Meet Dapper Days: a classic houndstooth dog bandana with a playful WAGGL Pets touch. Its intricate two-tone pattern and embroidered logo bring a polished look to everyday walks, café stops, and photo-worthy moments with your best friend.","details":["Classic houndstooth pattern in four distinctive colorways","Triangular shape with a tie-on fastening","Embroidered WAGGL Pets logo and branded side label","A finishing touch for everyday outings and special occasions"],"fit":["Measure your dog’s neck and check the size guide before ordering. Allow enough room for a comfortable knot and a relaxed fit."],"colours":[{"v":"Gold","name":"Mustard Yellow","hex":"#B58B2C","s":"gold"},{"v":"Green","name":"Teal","hex":"#2B8E95","s":"green"},{"v":"Black","name":"Black & White","hex":"#505052","s":"black"},{"v":"Red","name":"Rose Pink","hex":"#D98AA8","s":"red"}],"sizes":["M","L","XL"],"var":{"Gold/M":[62861073842257,1],"Gold/L":[62861073875025,1],"Gold/XL":[62861073907793,1],"Green/M":[62861073940561,1],"Green/L":[62861073973329,1],"Green/XL":[62861074006097,1],"Black/M":[62861074038865,1],"Black/L":[62861074071633,1],"Black/XL":[62861074104401,1],"Red/M":[62861074137169,1],"Red/L":[62861074169937,1],"Red/XL":[62861074202705,1]},"chart":null},{"h":"plaid-dog-bandana","name":"Buffalo Plaid","kind":"Classic bandana, buffalo plaid","cat":"accessories","price":13.0,"was":20.0,"tagline":"Add a classic plaid look to your dog’s everyday style.","blurb":"This triangular dog bandana features a bold buffalo check pattern, a tie-on design, and embroidered WAGGL Pets branding. Available in four colors: orange, blue, red, and green.","details":["Triangular plaid dog bandana","Tie-on design","Embroidered WAGGL Pets logo","Four color options: orange, blue, red, and green"],"fit":["Tie the bandana comfortably around your dog’s neck and adjust the knot for a secure fit. Please measure your dog’s neck before ordering and supervise your pet while wearing the bandana."],"colours":[{"v":"Orange","name":"Orange & Black","hex":"#E8642C","s":"orange"},{"v":"Blue","name":"Blue & Black","hex":"#2F6BD8","s":"blue"},{"v":"Green","name":"Green & Black","hex":"#1F7F73","s":"green"},{"v":"Red","name":"Red & Black","hex":"#C62A2F","s":"red"}],"sizes":["M","L","XL"],"var":{"Orange/M":[62850956492881,1],"Orange/L":[62850956525649,1],"Orange/XL":[62850956558417,1],"Blue/M":[62850956591185,1],"Blue/L":[62850956623953,1],"Blue/XL":[62850956656721,1],"Green/M":[62850956689489,1],"Green/L":[62850956722257,1],"Green/XL":[62850956755025,1],"Red/M":[62850956787793,1],"Red/L":[62850956820561,1],"Red/XL":[62850956853329,1]},"chart":null}];
+
+const DAYS = [
+  { key: 'outdoors', label: 'Outdoors', eyebrow: 'Outdoors / A little further', title: 'Take the scenic route.', copy: 'Follow the interesting smells. Chase the last light. There is a whole world to share.', cta: 'Explore outdoors', img: 'life-outdoors', alt: 'A golden retriever in a Waggl jacket on a sunlit forest trail' },
+  { key: 'urban', label: 'Urban', eyebrow: 'Urban / Everyday discoveries', title: 'New streets. Same best friend.', copy: 'Coffee stops, familiar corners, unexpected friends. Make a little adventure of the everyday.', cta: 'Walk this way', img: 'life-urban', alt: 'A golden retriever in a yellow rain poncho on a wet city street' },
+  { key: 'home', label: 'At Home', eyebrow: 'Home / The art of slowing down', title: 'Nowhere to be. Just here.', copy: 'A favourite corner. A patch of afternoon sun. The best company you could ask for.', cta: 'Find your cosy', img: 'life-home', alt: 'A golden retriever in a soft base layer resting in a sunny living room' },
+  { key: 'accessories', label: 'Accessories', eyebrow: 'Accessories / A little extra you', title: 'Small details. Big personality.', copy: 'A pop of colour. A playful finishing touch. Because being yourself looks good on you.', cta: 'Meet the little extras', img: 'life-accessories', alt: 'A golden retriever sitting in a red polka dot Waggl bandana' }
+];
+const CAT_LABEL = { outdoors: 'Outdoors', urban: 'Urban', home: 'At Home', accessories: 'Accessories' };
+
+const $ = (s, el = document) => el.querySelector(s);
+const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const money = n => '$' + (Number.isInteger(n) ? n : n.toFixed(2));
+const byH = Object.fromEntries(PRODUCTS.map(p => [p.h, p]));
+const img = (p, colour, kind) => `assets/img/${p.h}-${colour.s}-${kind}.webp`;
+const cover = p => `assets/img/${p.h}-cover.webp`;
+const variant = (p, c, s) => p.var[c + '/' + s];
+const available = (p, c, s) => { const v = variant(p, c, s); return !!(v && v[1]); };
+
+const store = {
+  get(k, fallback) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : fallback; } catch (e) { return fallback; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* storage unavailable */ } }
+};
+
+/* ---------- Bag ---------- */
+let bag = store.get('waggl-bag', []).filter(l => byH[l.h] && variant(byH[l.h], l.c, l.s));
+
+function saveBag() {
+  store.set('waggl-bag', bag);
+  const n = bag.reduce((a, l) => a + l.q, 0);
+  const el = $('#bag-count');
+  el.textContent = n;
+  el.classList.toggle('has', n > 0);
+  $('#open-bag').setAttribute('aria-label', `Bag, ${n} item${n === 1 ? '' : 's'}`);
+  renderBag();
+}
+
+function addToBag(p, c, s, q = 1) {
+  const line = bag.find(l => l.h === p.h && l.c === c && l.s === s);
+  if (line) line.q += q; else bag.push({ h: p.h, c, s, q });
+  saveBag();
+  const colour = p.colours.find(x => x.v === c);
+  toast(`${p.name}, ${colour.name}, ${s} added`);
+}
+
+function renderBag() {
+  const body = $('#bag-body'), foot = $('#bag-foot');
+  if (!bag.length) {
+    body.innerHTML = `<div class="bag-empty"><p>Your bag is empty.</p><a class="btn btn-red" href="#shop" data-close>Shop the line</a></div>`;
+    foot.innerHTML = '';
+    return;
+  }
+  body.innerHTML = bag.map((l, i) => {
+    const p = byH[l.h], colour = p.colours.find(x => x.v === l.c);
+    return `<div class="line-item">
+      <img src="${img(p, colour, 'flat')}" alt="" width="72" height="88" loading="lazy">
+      <div>
+        <strong>${esc(p.name)}</strong>
+        <span class="sub">${esc(colour.name)} · ${esc(l.s)}</span>
+        <div>
+          <span class="qty"><button type="button" data-qty="${i}" data-d="-1" aria-label="One fewer">−</button><span>${l.q}</span><button type="button" data-qty="${i}" data-d="1" aria-label="One more">+</button></span>
+          <button class="remove" type="button" data-remove="${i}">Remove</button>
+        </div>
+      </div>
+      <span class="lp">${money(p.price * l.q)}</span>
+    </div>`;
+  }).join('');
+  const total = bag.reduce((a, l) => a + byH[l.h].price * l.q, 0);
+  const saved = bag.reduce((a, l) => a + (byH[l.h].was - byH[l.h].price) * l.q, 0);
+  const href = `${STORE}/cart/${bag.map(l => variant(byH[l.h], l.c, l.s)[0] + ':' + l.q).join(',')}`;
+  foot.innerHTML = `<div class="total"><span>Subtotal</span><strong>${money(total)} <span class="label">CAD</span></strong></div>
+    ${saved > 0 ? `<p class="note">You save ${money(saved)} on today's prices.</p>` : ''}
+    <a class="btn btn-red" href="${href}" target="_blank" rel="noopener">Check out on the Waggl store <span class="arrow" aria-hidden="true">↗</span></a>
+    <p class="note">Checkout opens in a new tab with this bag already filled in. Shipping and taxes are worked out there.</p>`;
+}
+
+$('#bag').addEventListener('click', e => {
+  const q = e.target.closest('[data-qty]'), r = e.target.closest('[data-remove]');
+  if (q) {
+    const l = bag[+q.dataset.qty];
+    l.q = Math.max(0, l.q + +q.dataset.d);
+    if (!l.q) bag.splice(+q.dataset.qty, 1);
+    saveBag();
+  } else if (r) {
+    bag.splice(+r.dataset.remove, 1);
+    saveBag();
+  }
+});
+
+/* ---------- Dialog helpers ---------- */
+function openDlg(d) { if (!d.open) d.showModal(); document.documentElement.style.overflow = 'hidden'; }
+function closeDlg(d) { if (d.open) d.close(); }
+$$('dialog').forEach(d => {
+  d.addEventListener('close', () => { if (!$$('dialog').some(x => x.open)) document.documentElement.style.overflow = ''; });
+  d.addEventListener('click', e => {
+    if (e.target === d) closeDlg(d);
+    if (e.target.closest('[data-close]')) closeDlg(d);
+  });
+});
+document.addEventListener('click', e => {
+  if (e.target.closest('[data-open-bag]')) { e.preventDefault(); $$('dialog[open]').forEach(closeDlg); openDlg($('#bag')); }
+});
+$('#open-bag').addEventListener('click', () => openDlg($('#bag')));
+
+let toastTimer;
+function toast(text) {
+  $('#toast-text').textContent = text;
+  $('#toast').classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => $('#toast').classList.remove('show'), 3600);
+}
+
+/* ---------- Pickers (shared) ---------- */
+function swatchHTML(p, current) {
+  return p.colours.map(c => `<button type="button" class="swatch" role="radio" aria-checked="${c.v === current}" aria-label="${esc(c.name)}" data-colour="${esc(c.v)}" style="background:${c.hex}"></button>`).join('');
+}
+function sizeHTML(p, colour, current) {
+  return p.sizes.map(s => {
+    const ok = available(p, colour, s);
+    return `<button type="button" class="size" role="radio" aria-checked="${s === current}" data-size="${s}" ${ok ? '' : 'disabled aria-label="' + s + ', sold out"'}>${s}</button>`;
+  }).join('');
+}
+
+/* ---------- Spotlight ---------- */
+const spot = { p: byH['puddle-parade-waterproof-dog-jacket'], c: 'Yellow', s: null };
+function renderSpot() {
+  const { p, c, s } = spot;
+  const colour = p.colours.find(x => x.v === c);
+  $('#spot-img').src = img(p, colour, 'flat');
+  $('#spot-img').alt = `Puddle Parade jacket in ${colour.name}`;
+  $('#spot-buy').innerHTML = `
+    <div class="price-row"><span class="now">${money(p.price)}</span><s>${money(p.was)}</s><span class="cur">CAD</span></div>
+    <div class="opt"><div class="opt-head"><span class="label">Colour</span><strong>${esc(colour.name)}</strong></div><div class="swatches" role="radiogroup" aria-label="Colour">${swatchHTML(p, c)}</div></div>
+    <div class="opt"><div class="opt-head"><span class="label">Size</span><strong>${s || ''}</strong></div><div class="sizes" role="radiogroup" aria-label="Size">${sizeHTML(p, c, s)}</div></div>
+    <div class="hero-ctas">
+      <button class="btn btn-red" type="button" data-spot-add ${s ? '' : 'disabled'}>${s ? 'Add to bag' : 'Choose a size'}</button>
+      <button class="btn btn-line" type="button" data-open="${p.h}">Full details</button>
+    </div>`;
+}
+$('#spot-buy').addEventListener('click', e => {
+  const sw = e.target.closest('[data-colour]'), sz = e.target.closest('[data-size]');
+  if (sw) { spot.c = sw.dataset.colour; if (spot.s && !available(spot.p, spot.c, spot.s)) spot.s = null; renderSpot(); $(`#spot-buy [data-colour="${spot.c}"]`).focus(); }
+  else if (sz && !sz.disabled) { spot.s = sz.dataset.size; renderSpot(); $(`#spot-buy [data-size="${spot.s}"]`).focus(); }
+  else if (e.target.closest('[data-spot-add]') && spot.s) addToBag(spot.p, spot.c, spot.s);
+});
+
+/* ---------- Days ---------- */
+let day = 0;
+function renderDays() {
+  $('#days-tabs').innerHTML = DAYS.map((d, i) => `<li role="presentation"><button type="button" role="tab" id="tab-${d.key}" aria-selected="${i === day}" tabindex="${i === day ? 0 : -1}" data-day="${i}"><span class="label">0${i + 1}</span>${d.label}</button></li>`).join('');
+  const d = DAYS[day];
+  $('#day-copy').setAttribute('aria-labelledby', 'tab-' + d.key);
+  $('#day-copy').innerHTML = `<span class="label">${esc(d.eyebrow)}</span><h3>${esc(d.title)}</h3><p>${esc(d.copy)}</p><a class="btn btn-line" href="#shop" data-filter="${d.key}">${esc(d.cta)} <span class="arrow" aria-hidden="true">→</span></a>`;
+  const picks = PRODUCTS.filter(p => p.cat === d.key).slice(0, 4);
+  $('#day-visual').innerHTML = `<img src="assets/img/${d.img}.webp" alt="${esc(d.alt)}" width="2000" height="1000">
+    <span class="day-count">0${day + 1} / 0${DAYS.length}</span>
+    <div class="day-picks">${picks.map(p => `<button class="pick" type="button" data-open="${p.h}"><img src="${img(p, p.colours[0], 'flat')}" alt="" width="48" height="56" loading="lazy"><span><strong>${esc(p.name)}</strong><span>${money(p.price)} CAD</span></span></button>`).join('')}</div>`;
+}
+$('#days-tabs').addEventListener('click', e => {
+  const b = e.target.closest('[data-day]');
+  if (b) { day = +b.dataset.day; renderDays(); $(`[data-day="${day}"]`).focus(); }
+});
+$('#days-tabs').addEventListener('keydown', e => {
+  const k = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key];
+  if (!k) return;
+  e.preventDefault();
+  day = (day + k + DAYS.length) % DAYS.length;
+  renderDays();
+  $(`[data-day="${day}"]`).focus();
+});
+
+/* ---------- Shop grid ---------- */
+let filter = 'all', query = '';
+const haystack = p => [p.name, p.kind, CAT_LABEL[p.cat], ...p.colours.map(c => c.name + ' ' + c.v)].join(' ').toLowerCase();
+function matches(p, q) { return q.split(/\s+/).filter(Boolean).every(t => haystack(p).includes(t)); }
+
+function renderChips() {
+  const counts = { all: PRODUCTS.length };
+  PRODUCTS.forEach(p => counts[p.cat] = (counts[p.cat] || 0) + 1);
+  $('#chips').innerHTML = [['all', 'All'], ...Object.entries(CAT_LABEL)].map(([k, l]) => `<button type="button" class="chip" aria-pressed="${filter === k}" data-chip="${k}">${l}<span class="n">${counts[k]}</span></button>`).join('');
+}
+function cardHTML(p) {
+  const c = p.colours[0];
+  return `<article class="card">
+    <button type="button" class="card-hit" data-open="${p.h}" aria-label="${esc(p.name)}, ${esc(p.kind)}, ${money(p.price)}">
+      <div class="card-media">
+        <div class="frame">
+          <img class="main" src="${img(p, c, 'dog')}" alt="" width="1086" height="1448" loading="lazy">
+          <img class="alt" src="${cover(p)}" alt="" width="1086" height="1448" loading="lazy">
+          ${p.was > p.price ? `<span class="sale">Save ${money(p.was - p.price)}</span>` : ''}
+        </div>
+        <span class="tag" aria-hidden="true"></span>
+      </div>
+      <h3>${esc(p.name)}</h3>
+      <p class="kind">${esc(p.kind)}</p>
+      <div class="meta">
+        <span class="price">${money(p.price)}${p.was > p.price ? `<s>${money(p.was)}</s>` : ''}</span>
+        <span class="dots" aria-hidden="true">${p.colours.map(x => `<i style="background:${x.hex}"></i>`).join('')}</span>
+      </div>
+    </button>
+  </article>`;
+}
+function renderGrid() {
+  const list = PRODUCTS.filter(p => (filter === 'all' || p.cat === filter) && matches(p, query));
+  $('#grid').innerHTML = list.length ? list.map(cardHTML).join('') :
+    `<p class="empty">Nothing matches “${esc(query)}”${filter !== 'all' ? ' in ' + CAT_LABEL[filter] : ''}. Try a colour like yellow, or <button type="button" data-reset>show everything</button>.</p>`;
+  $('#shop-count').textContent = list.length === PRODUCTS.length ? `${PRODUCTS.length} pieces` : `Showing ${list.length} of ${PRODUCTS.length}`;
+}
+function setFilter(k) { filter = k; renderChips(); renderGrid(); }
+$('#chips').addEventListener('click', e => { const b = e.target.closest('[data-chip]'); if (b) setFilter(b.dataset.chip); });
+$('#shop-q').addEventListener('input', e => { query = e.target.value.trim().toLowerCase(); renderGrid(); });
+$('#grid').addEventListener('click', e => { if (e.target.closest('[data-reset]')) { query = ''; $('#shop-q').value = ''; setFilter('all'); } });
+document.addEventListener('click', e => {
+  const f = e.target.closest('a[data-filter]');
+  if (f) {
+    setFilter(f.dataset.filter);
+    $('#mobile-nav').classList.remove('open');
+    $('#menu-btn').setAttribute('aria-expanded', 'false');
+  }
+});
+
+/* ---------- Product view ---------- */
+const view = { p: null, c: null, s: null, i: 0 };
+function chartHTML(p, mark) {
+  const c = p.chart;
+  if (!c) return '';
+  return `<div class="chart-wrap"><table class="chart"><thead><tr><th>Size</th>${c.cols.map(x => `<th>${esc(x)}</th>`).join('')}</tr></thead>
+    <tbody>${c.rows.map(r => `<tr class="${r[0] === mark ? 'hit' : ''}">${r.map(x => `<td>${esc(x)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+}
+function renderView() {
+  const { p, c, s, i } = view;
+  const colour = p.colours.find(x => x.v === c);
+  const shots = [[img(p, colour, 'dog'), `${p.name} in ${colour.name}, worn`], [img(p, colour, 'flat'), `${p.name} in ${colour.name}`], [cover(p), `${p.name}, all colours`]];
+  const unit = p.chart ? 'Measurements in inches.' : '';
+  $('#pd').innerHTML = `
+    <button class="x" type="button" data-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <div class="pd-grid">
+      <div class="pd-gallery">
+        <div class="pd-main"><img src="${shots[i][0]}" alt="${esc(shots[i][1])}" width="1086" height="1448"></div>
+        <div class="pd-thumbs">${shots.map((x, k) => `<button type="button" data-shot="${k}" aria-current="${k === i}" aria-label="Photo ${k + 1}"><img src="${x[0]}" alt="" width="64" height="76" loading="lazy"></button>`).join('')}</div>
+      </div>
+      <div class="pd-info">
+        <div>
+          <span class="label">${esc(CAT_LABEL[p.cat])} · ${esc(p.kind)}</span>
+          <h2 id="pd-name">${esc(p.name)}</h2>
+          <p class="line">${esc(p.tagline)}</p>
+        </div>
+        <div class="price-row"><span class="now">${money(p.price)}</span>${p.was > p.price ? `<s>${money(p.was)}</s>` : ''}<span class="cur label">CAD</span></div>
+        <div class="opt"><div class="opt-head"><span class="label">Colour</span><strong>${esc(colour.name)}</strong></div><div class="swatches" role="radiogroup" aria-label="Colour">${swatchHTML(p, c)}</div></div>
+        <div class="opt"><div class="opt-head"><span class="label">Size</span><strong>${s || ''}</strong></div><div class="sizes" role="radiogroup" aria-label="Size">${sizeHTML(p, c, s)}</div></div>
+        <button class="btn btn-red" type="button" data-view-add ${s ? '' : 'disabled'}>${s ? `Add to bag · ${money(p.price)}` : 'Choose a size'}</button>
+        <p class="blurb">${esc(p.blurb)}</p>
+        <div class="pd-acc">
+          <details><summary>Details</summary><div class="body"><ul>${p.details.map(d => `<li>${esc(d)}</li>`).join('')}</ul></div></details>
+          <details ${s && p.chart ? 'open' : ''}><summary>Fit${p.chart ? ' and size guide' : ''}</summary><div class="body">${p.fit.map(f => `<p>${esc(f)}</p>`).join('')}${chartHTML(p, s)}${unit ? `<p>${unit}</p>` : ''}</div></details>
+        </div>
+        <a class="store-link" href="${STORE}/products/${p.h}" target="_blank" rel="noopener">See it on the Waggl store ↗</a>
+      </div>
+    </div>`;
+}
+function openProduct(h, size) {
+  const p = byH[h];
+  if (!p) return;
+  view.p = p; view.c = p.colours[0].v; view.i = 0;
+  view.s = size && available(p, view.c, size) ? size : null;
+  $$('dialog[open]').forEach(closeDlg);
+  renderView();
+  openDlg($('#pd'));
+  $('#pd').scrollTop = 0;
+}
+$('#pd').addEventListener('click', e => {
+  const sw = e.target.closest('[data-colour]'), sz = e.target.closest('[data-size]'), sh = e.target.closest('[data-shot]');
+  if (sw) { view.c = sw.dataset.colour; view.i = 0; if (view.s && !available(view.p, view.c, view.s)) view.s = null; renderView(); $(`#pd [data-colour="${view.c}"]`).focus(); }
+  else if (sz && !sz.disabled) { view.s = sz.dataset.size; renderView(); $(`#pd [data-size="${view.s}"]`).focus(); }
+  else if (sh) { view.i = +sh.dataset.shot; renderView(); $(`#pd [data-shot="${view.i}"]`).focus(); }
+  else if (e.target.closest('[data-view-add]') && view.s) { addToBag(view.p, view.c, view.s); closeDlg($('#pd')); }
+});
+document.addEventListener('click', e => {
+  const o = e.target.closest('[data-open]');
+  if (o) openProduct(o.dataset.open, o.dataset.size);
+});
+
+/* ---------- Fit finder ---------- */
+const FIT_ROWS = [
+  { h: 'puddle-parade-waterproof-dog-jacket', by: 'chest', why: 'By chest' },
+  { h: 'drizzle-scout-outdoor-dog-jacket', by: 'chest', why: 'By chest' },
+  { h: 'daydream-dog-base-layer-onesie', by: 'chest', why: 'By chest' },
+  { h: 'cloud-cruise-waterproof-dog-rain-poncho', by: 'girth', why: 'By belly girth, where the strap sits' },
+  { h: 'trail-tails-buffalo-plaid-dog-bandana', by: 'neck', why: 'By neck, for all tie-strap bandanas', name: 'Tie-strap bandanas' }
+];
+function sizeFor(p, val) {
+  const c = p.chart;
+  if (!(val > 0)) return { msg: 'Add a measurement' };
+  const col = c.by === 'neck' ? 1 : c.by === 'girth' ? c.cols.indexOf('Girth max') + 1 : c.cols.indexOf('Chest') + 1;
+  const nums = r => String(r[col]).split('–').map(Number);
+  if (c.kind === 'range' && val < nums(c.rows[0])[0]) return { msg: `Smaller than our smallest size (${c.rows[0][0]})` };
+  const row = c.rows.find(r => val <= nums(r).at(-1));
+  if (!row) return { msg: `Larger than our biggest size (${c.rows.at(-1)[0]})` };
+  return { size: row[0] };
+}
+function renderFit() {
+  const neck = parseFloat($('#fit-neck').value), chest = parseFloat($('#fit-chest').value);
+  const girthRaw = parseFloat($('#fit-girth').value), girth = girthRaw > 0 ? girthRaw : chest;
+  const val = { neck, chest, girth };
+  $('#fit-results').innerHTML = FIT_ROWS.map(r => {
+    const p = byH[r.h], res = sizeFor(p, val[r.by]);
+    const sold = res.size && !p.colours.some(c => available(p, c.v, res.size));
+    return `<div class="fit-row">
+      <img src="${img(p, p.colours[0], 'flat')}" alt="" width="64" height="76" loading="lazy">
+      <div><strong>${esc(r.name || p.name)}</strong><span class="why">${esc(r.why)}</span></div>
+      <div class="fit-size">${res.size
+        ? `<span class="big">${res.size}</span><button type="button" data-open="${p.h}" data-size="${res.size}">${sold ? 'Sold out' : 'Shop'}</button>`
+        : `<span class="msg">${esc(res.msg)}</span>`}</div>
+    </div>`;
+  }).join('');
+}
+$('#fit-form').addEventListener('input', renderFit);
+$('#fit-form').addEventListener('submit', e => e.preventDefault());
+
+/* ---------- Search ---------- */
+function renderSearch() {
+  const q = $('#search-q').value.trim().toLowerCase();
+  const list = q ? PRODUCTS.filter(p => matches(p, q)) : PRODUCTS.slice(0, 6);
+  $('#search-results').innerHTML = list.length ? list.map(p => `<li><button type="button" data-open="${p.h}"><img src="${img(p, p.colours[0], 'flat')}" alt="" width="52" height="62" loading="lazy"><span><strong>${esc(p.name)}</strong><span>${esc(p.kind)}</span></span><span>${money(p.price)}</span></button></li>`).join('')
+    : `<li class="none">No match for “${esc(q)}”. Try a colour, like yellow, or a type, like poncho.</li>`;
+}
+$('#open-search').addEventListener('click', () => { $('#search-q').value = ''; renderSearch(); openDlg($('#search')); $('#search-q').focus(); });
+$('#search-q').addEventListener('input', renderSearch);
+$('#search-q').addEventListener('keydown', e => { if (e.key === 'Enter') { const b = $('#search-results [data-open]'); if (b) b.click(); } });
+
+/* ---------- Newsletter ---------- */
+$('#join-form').addEventListener('submit', e => {
+  e.preventDefault();
+  const v = $('#join-email').value.trim(), msg = $('#join-msg');
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) { msg.textContent = 'That email address looks incomplete. Check it and try again.'; return; }
+  msg.textContent = 'Thanks. This preview is not connected to email yet, so nothing was sent.';
+});
+
+/* ---------- Header ---------- */
+$('#menu-btn').addEventListener('click', () => {
+  const open = $('#mobile-nav').classList.toggle('open');
+  $('#menu-btn').setAttribute('aria-expanded', String(open));
+});
+const header = $('.site-header');
+const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 40);
+window.addEventListener('scroll', onScroll, { passive: true });
+
+renderDays();
+renderSpot();
+renderChips();
+renderGrid();
+renderFit();
+saveBag();
+onScroll();
+</script>
+</body>
+</html>
