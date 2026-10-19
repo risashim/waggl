@@ -32,4 +32,4 @@ Then open http://localhost:8000.
 | Headlines | Fraunces, light weight, soft cut, red italic accents |
 | Body | Zen Maru Gothic; buttons and labels in spaced capitals |
 
-Products sit as background-free cutouts (`assets/cutouts/`) on matching tiles, and the photo of a dog wearing it fades in on hover. "Best dressed" uses pop-out portraits where each dog's head rises above its circle. The signature detail is the white woven side tag from the bandanas, which peeks out of every tile and wags on hover.
+Products sit as background-free cutouts (`assets/cutouts/`) on matching tiles. Every dog photo in `assets/studio/` is the dog cut out of its original photo and placed on a plain studio backdrop with a soft floor shadow and light film grain, so the whole site looks like one photo shoot. "Best dressed" uses pop-out portraits where each dog's head rises above its circle. The signature detail is the white woven side tag from the bandanas, which peeks out of every tile and wags on hover.
