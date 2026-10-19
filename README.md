@@ -23,11 +23,11 @@ Then open http://localhost:8000.
 
 | Role | Value |
 | --- | --- |
-| Paper | `#F7F4EF` |
-| Ink | `#1C2527` |
-| Waggl red | `#D42623` |
-| Display type | Funnel Display |
-| Body type | Funnel Sans |
-| Labels and numbers | Spline Sans Mono |
+| Page | `#FFFFFF` white |
+| Text | `#1F2747` navy |
+| Accent | `#D9272E` Waggl red, used sparingly |
+| Soft tiles | blush `#F6E1E1`, powder `#DDE8F4`, butter `#F6EDCB`, sage `#E1EBDA` |
+| Headlines | Fraunces, soft cut, with red italic accents |
+| Body | Zen Maru Gothic |
 
-The signature detail is the small white woven side tag from the bandanas. On the page it's the `.tag` element, sticking out from the edge of each product photo.
+Products are shown as background-free cutouts (`assets/cutouts/`) on soft colour tiles. Lifestyle photos live in `assets/img/`. The signature detail is the small white woven side tag from the bandanas: the `.tag` element on every product tile, and the large tag in "Look for the little tag".
