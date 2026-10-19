@@ -54,10 +54,6 @@ h1, h2, h3 { margin: 0; font-family: var(--serif); font-weight: 300; font-optica
 .h2 { font-size: clamp(32px, 3.6vw, 52px); line-height: 1.06; }
 .num { font-feature-settings: "tnum" 1; }
 
-[data-reveal] { transition: opacity 0.9s var(--ease), transform 0.9s var(--ease); transition-delay: calc(var(--d, 0) * 60ms); }
-[data-reveal].pre { opacity: 0; transform: translateY(16px); }
-.reveal-img { transition: clip-path 1.2s var(--ease), transform 1.2s var(--ease); }
-.reveal-img.pre { clip-path: inset(10% 0 0 0); transform: scale(1.04); }
 
 /* Buttons and links */
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 48px; padding: 0 28px; border-radius: 2px; border: 1px solid transparent; font: 500 12px/1 var(--sans); letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; white-space: nowrap; transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease; }
@@ -95,26 +91,24 @@ h1, h2, h3 { margin: 0; font-family: var(--serif); font-weight: 300; font-optica
 .icon .n { position: absolute; left: 32px; top: 9px; font: 600 11px/1 var(--sans); color: var(--red); }
 .mobile-nav { display: none; }
 
-/* Hero film */
-.hero { position: relative; height: min(calc(100svh - 108px), 880px); min-height: 560px; background: var(--ink); color: var(--paper); overflow: hidden; isolation: isolate; }
-.hero video, .hero .poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%; z-index: -2; }
-.hero video { opacity: 0; transition: opacity 0.8s ease; }
-.hero video.ready { opacity: 1; }
-.hero::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(to top, rgba(15, 17, 21, 0.55), rgba(15, 17, 21, 0) 55%); }
-.hero-copy { position: absolute; left: 0; right: 0; bottom: 0; max-width: var(--wrap); margin-inline: auto; padding: 0 var(--gr) clamp(40px, 6vw, 80px) var(--gl); }
-.hero-copy > div { max-width: 760px; }
-.hero .label { color: rgba(255, 255, 255, 0.85); margin-bottom: 20px; animation: fadeUp 0.7s 0.25s var(--ease) both; }
-.hero h1 { font-size: clamp(52px, 8vw, 124px); line-height: 0.96; letter-spacing: -0.025em; margin-bottom: 22px; }
-.hero h1 .ln { display: block; overflow: hidden; padding-bottom: 0.08em; margin-bottom: -0.08em; }
-.hero h1 .ln > span { display: inline-block; animation: rise 1s var(--ease) both; }
-.hero h1 .ln + .ln > span { animation-delay: 0.09s; }
-.hero .lede { font-size: 18px; max-width: 38ch; color: rgba(255, 255, 255, 0.9); animation: fadeUp 0.7s 0.3s var(--ease) both; }
-.hero .ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 32px; margin-top: 30px; animation: fadeUp 0.7s 0.38s var(--ease) both; }
-.hero .tlink { color: var(--paper); }
-.play { position: absolute; right: max(var(--gr), calc((100% - var(--wrap)) / 2 + var(--gr))); bottom: calc(clamp(40px, 6vw, 80px) + 14px); color: var(--paper); font-size: 11px; }
-.play[hidden] { display: none; }
-@keyframes rise { from { transform: translateY(100%); } }
-@keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } }
+/* Hero: headline on white, then the film */
+.hero-intro { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 24px 48px; align-items: end; padding-block: clamp(40px, 6vw, 88px) clamp(32px, 4vw, 52px); }
+.hero h1 { font-size: clamp(56px, 9.2vw, 148px); line-height: 0.92; letter-spacing: -0.03em; }
+.hero h1 em, .h-em em { font-style: italic; letter-spacing: -0.02em; }
+.hero-side { padding-bottom: 0.6em; }
+.hero .lede { font-size: 18px; max-width: 32ch; color: var(--graphite); }
+.hero .ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 28px; margin-top: 28px; }
+.film { position: relative; height: clamp(360px, 60vh, 720px); background: var(--stone); overflow: hidden; }
+.film video, .film .poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 55%; }
+.film video { opacity: 0; transition: opacity 1.2s ease; }
+.film video.ready { opacity: 1; }
+.film-bar { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-block: 14px; border-bottom: 1px solid var(--line); font-size: 13px; }
+.scenes { display: flex; gap: 18px; list-style: none; margin: 0; padding: 0; color: var(--graphite); }
+.scenes li { transition: color 0.4s ease; font-feature-settings: "tnum" 1; }
+.scenes li span { margin-right: 6px; }
+.scenes li.on { color: var(--ink); }
+.play { font-size: 11px; padding: 2px 0 6px; }
+.play[hidden] { visibility: hidden; display: inline-block; }
 
 /* Facts strip */
 .facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-bottom: 1px solid var(--line); }
@@ -142,7 +136,7 @@ h1, h2, h3 { margin: 0; font-family: var(--serif); font-weight: 300; font-optica
 .kinds-panel img.on { opacity: 1; }
 
 /* Puddle Parade */
-.story { background: var(--stone); }
+.story { background: var(--tint, var(--stone)); transition: background-color 0.9s ease; }
 .story .wrap { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: clamp(32px, 6vw, 96px); }
 .stage { position: sticky; top: 96px; height: calc(100vh - 140px); min-height: 460px; display: grid; place-items: center; }
 .look { position: relative; height: min(78%, 640px); aspect-ratio: 601 / 860; transition: transform 1.1s var(--ease); }
@@ -197,10 +191,9 @@ h1, h2, h3 { margin: 0; font-family: var(--serif); font-weight: 300; font-optica
 .pup img { height: 100%; width: auto; max-width: none; }
 .pup:hover, .pup:focus-visible { transform: translateY(-6px); }
 .pup:focus-visible { outline-offset: -2px; }
-.pup-label { display: block; height: 40px; padding-top: 14px; text-align: center; font: 500 13px/1 var(--sans); color: var(--ink); opacity: 0; transition: opacity 0.25s ease; pointer-events: none; }
-.pup-label.on { opacity: 1; }
-[data-reveal-pup] { transition: opacity 1s var(--ease), transform 1s var(--ease); transition-delay: calc(var(--i) * 70ms); }
-[data-reveal-pup].pre { opacity: 0; transform: translateY(24px); }
+.pup-label { display: block; min-height: 44px; padding-top: 14px; font: italic 300 16px/1.35 var(--serif); color: var(--graphite); }
+.pup-label.on { color: var(--ink); }
+.pup-label b { font-style: normal; font-weight: 400; }
 
 /* Bandana wall */
 .wall { padding-top: clamp(56px, 6vw, 88px); }
@@ -277,6 +270,8 @@ h1, h2, h3 { margin: 0; font-family: var(--serif); font-weight: 300; font-optica
 .insert:hover img { transform: scale(1.03); }
 .insert .cap { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-top: 16px; }
 .insert h3 { font-size: clamp(24px, 2.2vw, 32px); font-weight: 400; letter-spacing: -0.01em; }
+.insert h3 em { font-style: italic; font-weight: 300; }
+.insert .what { font-size: 13px; color: var(--graphite); margin-top: 4px; }
 .empty { grid-column: 1 / -1; padding: 24px 0; color: var(--graphite); }
 .empty button { border: 0; background: none; padding: 0; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
 
@@ -341,6 +336,7 @@ input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; border-radius
 .foot-grid { display: grid; grid-template-columns: minmax(0, 2fr) repeat(3, minmax(0, 1fr)); gap: 32px; padding-block: 72px 56px; }
 .foot-brand img { width: 132px; height: auto; }
 .foot-brand p { font: 300 24px/1.25 var(--serif); color: #DCDCDD; max-width: 14ch; margin-top: 20px; }
+.foot-brand em { font-style: italic; }
 .foot-col h3 { font: 500 13px/1.2 var(--sans); color: var(--on-ink-muted); margin-bottom: 18px; }
 .foot-col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; font-size: 15px; }
 .foot-col a, .foot-col button { color: var(--paper); text-decoration: none; background: none; border: 0; padding: 0; text-align: left; }
@@ -466,8 +462,8 @@ dialog[open]::backdrop { animation: fade 0.3s ease; }
   .mobile-nav ul { list-style: none; margin: 0; padding: 0 0 20px; }
   .mobile-nav li a { display: block; padding: 14px 0; border-bottom: 1px solid var(--line); font: 300 32px/1.1 var(--serif); text-decoration: none; }
   .mobile-nav .tlink { margin: 4px 0 22px; }
-  .hero { height: calc(100svh - 92px); min-height: 560px; }
-  .play { top: 18px; bottom: auto; right: var(--gr); }
+  .hero-intro { grid-template-columns: minmax(0, 1fr); }
+  .film { height: auto; aspect-ratio: 4 / 5; }
   .facts { grid-template-columns: minmax(0, 1fr); border-bottom: 0; }
   .fact { border-left: 0; border-bottom: 1px solid var(--line); padding: 20px 0; }
   .kinds-grid { grid-template-columns: minmax(0, 1fr); }
@@ -478,16 +474,17 @@ dialog[open]::backdrop { animation: fade 0.3s ease; }
   .kind-row .thumb { display: block; grid-column: 2; grid-row: 1 / 3; width: 64px; height: 80px; background: var(--stone); position: relative; overflow: hidden; }
   .kind-row .thumb img { position: absolute; left: 50%; bottom: 0; width: 92%; height: 92%; object-fit: contain; object-position: 50% 100%; transform: translateX(-50%); }
   .story .wrap { grid-template-columns: minmax(0, 1fr); gap: 0; }
-  .stage { top: 56px; height: 46vh; min-height: 300px; z-index: 2; background: var(--stone); padding-bottom: 34px; }
-  .stage::after { content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 28px; background: linear-gradient(var(--stone), rgba(237, 237, 234, 0)); pointer-events: none; }
+  .stage { top: 56px; height: 46vh; min-height: 300px; z-index: 2; background: var(--tint, var(--stone)); transition: background-color 0.9s ease; padding-bottom: 34px; }
+  .stage::after { content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 28px; background: linear-gradient(var(--tint, var(--stone)), transparent); pointer-events: none; }
   .steps-col { padding-block: 24px 72px; }
   .story-steps { position: relative; z-index: 1; }
   .step { min-height: 52vh; justify-content: flex-start; padding-top: 20px; }
   .buy-d { display: none; }
   .buy-m-wrap { display: block; padding-bottom: 72px; }
   .buy-m { margin-top: 0; }
-  .lineup { height: clamp(220px, 56vw, 380px); }
-  .pup:nth-child(1), .pup:nth-child(7) { display: none; }
+  .lineup { height: clamp(240px, 62vw, 380px); justify-content: flex-start; overflow-x: auto; scrollbar-width: none; padding-inline: 4%; }
+  .lineup::-webkit-scrollbar { display: none; }
+  .pup { flex: none; }
   .wall-head { grid-template-columns: minmax(0, 1fr); }
   .swatchbook { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .wg-head { flex-direction: column; gap: 4px; }
@@ -504,8 +501,9 @@ dialog[open]::backdrop { animation: fade 0.3s ease; }
   body { font-size: 15px; }
   .hero .lede { font-size: 16px; }
   .hero .ctas { gap: 24px; }
-  .lineup { height: 64vw; margin-inline: -6%; }
-  .pup { margin-inline: -2.6%; }
+  .scenes { gap: 12px; }
+  .lineup { height: 72vw; }
+  .pup { margin-inline: -18px; }
   .lineup-head p { width: 100%; }
   .filters { margin-inline: calc(-1 * var(--gl)) calc(-1 * var(--gr)); padding-inline: var(--gl) var(--gr); height: auto; flex-direction: column; gap: 0; }
   .tabs { height: 48px; align-items: stretch; }
@@ -529,7 +527,6 @@ dialog[open]::backdrop { animation: fade 0.3s ease; }
 @media (hover: none) { .quick { display: none; } }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition-duration: 150ms !important; transition-delay: 0s !important; }
-  [data-reveal].pre, .reveal-img.pre, [data-reveal-pup].pre { opacity: 1; transform: none; clip-path: none; }
   .step { opacity: 1; }
   .look, .pup:hover, .pup:focus-visible { transform: none !important; }
 }
@@ -582,29 +579,34 @@ dialog[open]::backdrop { animation: fade 0.3s ease; }
 
 <main>
   <section class="hero" id="hero" aria-labelledby="hero-title">
-    <img class="poster" src="assets/video/hero-poster.webp" alt="" fetchpriority="high">
-    <video id="hero-video" muted loop playsinline preload="metadata" poster="assets/video/hero-poster.webp" aria-hidden="true">
-      <source src="assets/video/hero.mp4" type="video/mp4">
-      <source src="assets/video/hero.webm" type="video/webm">
-    </video>
-    <div class="hero-copy">
-      <div>
-        <h1 id="hero-title"><span class="ln"><span>Good days.</span></span><span class="ln"><span>Together.</span></span></h1>
+    <div class="wrap hero-intro">
+      <h1 id="hero-title">Good days.<br><em>Together.</em></h1>
+      <div class="hero-side">
         <p class="lede">For muddy paths, slow mornings, and everything in between.</p>
         <div class="ctas">
-          <a class="btn btn-white" href="#shop">Shop the collection</a>
+          <a class="btn btn-ink" href="#shop">Shop the collection</a>
           <a class="tlink" href="#fit">Find their size</a>
         </div>
       </div>
     </div>
-    <button class="tlink play" type="button" id="hero-play" hidden>Pause</button>
+    <div class="film">
+      <img class="poster" src="assets/video/hero-poster.webp" alt="" fetchpriority="high">
+      <video id="hero-video" muted loop playsinline preload="metadata" poster="assets/video/hero-poster.webp" aria-hidden="true">
+        <source src="assets/video/hero.mp4" type="video/mp4">
+        <source src="assets/video/hero.webm" type="video/webm">
+      </video>
+    </div>
+    <div class="wrap film-bar">
+      <ol class="scenes" id="scenes" aria-hidden="true"><li class="on" data-t="0"><span>01</span>Snow</li><li data-t="1.8"><span>02</span>Woods</li><li data-t="3.0"><span>03</span>Field</li></ol>
+      <button class="tlink play" type="button" id="hero-play" hidden>Pause</button>
+    </div>
   </section>
 
   <section class="wrap" aria-label="About Waggl">
     <div class="facts">
-      <div class="fact" data-reveal><span class="label-s">Sizes XS to 9XL</span><p>Every piece has a size chart in inches, and the Cloud Cruise poncho goes all the way to 9XL.</p></div>
-      <div class="fact" data-reveal style="--d:1"><span class="label-s">Made for wet weather</span><p>Waterproof fabric and reflective trim. There’s an opening at the back of the neck, so you can clip the leash on without taking the coat off.</p></div>
-      <div class="fact" data-reveal style="--d:2"><span class="label-s">The little white tag</span><p>Every bandana has our tag sewn into the side, so you can tell it’s ours.</p></div>
+      <div class="fact"><span class="label-s">Sizes XS to 9XL</span><p>Every piece has a size chart in inches, and the Cloud Cruise poncho goes all the way to 9XL.</p></div>
+      <div class="fact"><span class="label-s">Made for wet weather</span><p>Waterproof fabric and reflective trim. There’s an opening at the back of the neck, so you can clip the leash on without taking the coat off.</p></div>
+      <div class="fact"><span class="label-s">The little white tag</span><p>Every bandana has our tag sewn into the side, so you can tell it’s ours.</p></div>
     </div>
   </section>
 
@@ -638,20 +640,20 @@ dialog[open]::backdrop { animation: fade 0.3s ease; }
 
   <section class="lineup-sec" aria-labelledby="crew-title">
     <div class="wrap lineup-head">
-      <h2 class="h2" id="crew-title" data-reveal>Everyone here is wearing a $13 bandana.</h2>
-      <p data-reveal style="--d:1">Choose a dog to shop theirs.</p>
+      <h2 class="h2" id="crew-title">Everyone here is wearing a $13 bandana</h2>
+      <p>Choose a dog to shop theirs.</p>
     </div>
     <div class="floor">
       <div class="lineup" id="lineup" role="group" aria-label="Dogs wearing Waggl bandanas. Choose one to shop it."></div>
     </div>
-    <span class="pup-label" id="pup-label" aria-hidden="true"></span>
+    <p class="wrap pup-label" id="pup-label" aria-hidden="true"></p>
   </section>
 
   <section class="wall" id="bandanas" aria-labelledby="wall-title">
     <div class="wrap">
       <div class="wall-head">
-        <h2 class="display" id="wall-title" data-reveal>Every colour we make.</h2>
-        <div data-reveal style="--d:1">
+        <h2 class="display" id="wall-title">Every colour we make</h2>
+        <div>
           <p>Eight designs in 24 colours, all $13 right now (usually $20). Plaid, houndstooth and dots, in two shapes.</p>
           <a class="btn btn-line" href="#shop" data-filter="accessories">Shop bandanas</a>
         </div>
@@ -681,7 +683,7 @@ dialog[open]::backdrop { animation: fade 0.3s ease; }
   <section class="wrap" id="fit" aria-labelledby="fit-title">
     <div class="fit section">
       <div class="fit-grid">
-        <div class="measure reveal-img" id="measure">
+        <div class="measure" id="measure">
           <div class="m">
             <img src="assets/cutouts/dot-and-dash-polka-dot-dog-bandana-red-dog.webp" alt="A golden retriever in the Dot &amp; Dash Classic bandana, with dotted lines where to measure the neck and chest" loading="lazy">
             <svg viewBox="0 0 609 860" preserveAspectRatio="none" aria-hidden="true">
@@ -696,7 +698,7 @@ dialog[open]::backdrop { animation: fade 0.3s ease; }
         </div>
         <div>
           <span class="label">Size guide</span>
-          <h2 class="display" id="fit-title">Find their size.</h2>
+          <h2 class="display" id="fit-title">Find their size</h2>
           <p class="intro">You’ll need a soft tape measure. Measure around the neck, then around the widest part of the chest, and move the sliders to match.</p>
           <div class="engine">
             <div class="engine-top" role="group" aria-label="Units">
@@ -718,9 +720,9 @@ dialog[open]::backdrop { animation: fade 0.3s ease; }
 
   <section class="wrap" aria-labelledby="join-title">
     <div class="join">
-      <h2 class="display" id="join-title" data-reveal>Hear about new colours first.</h2>
-      <div data-reveal style="--d:1">
-        <p>We’ll email when new colours arrive or something comes back in stock. That’s all.</p>
+      <h2 class="display h-em" id="join-title">New colours, <em>first</em></h2>
+      <div>
+        <p>We’ll email when new colours arrive or something comes back in stock. Now and then, a good dog photo.</p>
         <form id="join-form" novalidate>
           <label class="vh" for="join-email">Email address</label>
           <input id="join-email" type="email" placeholder="Email address" autocomplete="email">
@@ -737,7 +739,7 @@ dialog[open]::backdrop { animation: fade 0.3s ease; }
     <div class="foot-grid">
       <div class="foot-brand">
         <img src="assets/waggl-logo-white.png" alt="Waggl Pets" width="900" height="274" loading="lazy">
-        <p>Life is better together.</p>
+        <p>Life is better <em>together.</em></p>
       </div>
       <div class="foot-col">
         <h3>Shop</h3>
@@ -808,26 +810,26 @@ const KINDS = [
   { key: 'accessories', name: 'Bandanas', desc: 'Eight designs in 24 colours', img: 'dapper-days-houndstooth-dog-bandana-black' }
 ];
 const LINEUP = [
-  { h: 'dot-and-dash-polka-dot-dog-bandana', c: 'Blue', size: 0.98 },
-  { h: 'dapper-days-houndstooth-dog-bandana', c: 'Gold', size: 0.74 },
-  { h: 'trail-tails-buffalo-plaid-dog-bandana', c: 'Green', size: 0.84 },
-  { h: 'dapper-hound-houndstooth-dog-bandana', c: 'Black', size: 0.92 },
-  { h: 'dot-and-dash-tie-strap-dog-bandana', c: 'Red', size: 0.86 },
-  { h: 'dapper-days-houndstooth-dog-bandana', c: 'Green', size: 0.74 },
-  { h: 'plaid-dog-bandana', c: 'Blue', size: 1 }
+  { h: 'dot-and-dash-polka-dot-dog-bandana', c: 'Blue', size: 0.98, dog: 'Bailey', breed: 'Labrador' },
+  { h: 'dapper-days-houndstooth-dog-bandana', c: 'Gold', size: 0.74, dog: 'Mochi', breed: 'bichon frisé' },
+  { h: 'trail-tails-buffalo-plaid-dog-bandana', c: 'Green', size: 0.84, dog: 'Gus', breed: 'French bulldog' },
+  { h: 'dapper-hound-houndstooth-dog-bandana', c: 'Black', size: 0.92, dog: 'Scout', breed: 'rescue mix' },
+  { h: 'dot-and-dash-tie-strap-dog-bandana', c: 'Red', size: 0.86, dog: 'Pip', breed: 'corgi' },
+  { h: 'dapper-days-houndstooth-dog-bandana', c: 'Green', size: 0.74, dog: 'Lola', breed: 'Yorkshire terrier' },
+  { h: 'plaid-dog-bandana', c: 'Blue', size: 1, dog: 'Yuki', breed: 'Samoyed' }
 ];
 const BLURB = {
   'puddle-parade-waterproof-dog-jacket': 'A hooded raincoat in waterproof Taslan, with a mesh lining so it doesn’t get stuffy. The belly panel closes with hook-and-loop, the hood has cord toggles, and there’s a covered opening at the back of the neck for the leash. Reflective trim helps on dark walks.',
   'drizzle-scout-outdoor-dog-jacket': 'A sleeveless shell for light rain and splashes. It has a high collar with a reflective band, drawcords at the collar and hem, and a zip opening on the back so you can clip the leash to a harness underneath.',
   'cloud-cruise-waterproof-dog-rain-poncho': 'A waterproof poncho that covers the back and sides and leaves the legs free. The hood has a clear brim so they can still see where they’re going, and a belly panel keeps splashes off. Eleven sizes, from M to 9XL.',
   'daydream-dog-base-layer-onesie': 'A soft, brushed layer with a little stretch. It covers the body and legs and is open underneath. Wear it on its own around the house, or under a coat when it’s cold out.',
-  'trail-tails-buffalo-plaid-dog-bandana': 'Buffalo plaid with straps you tie behind the neck, so there’s no folding. Our logo is stitched small on the front.',
-  'dapper-hound-houndstooth-dog-bandana': 'Houndstooth in four colours, with tie straps and our logo stitched small on the front.',
+  'trail-tails-buffalo-plaid-dog-bandana': 'Buffalo plaid with straps you tie behind the neck, so there’s no folding. Our logo is stitched on the front.',
+  'dapper-hound-houndstooth-dog-bandana': 'Houndstooth in four colours, with tie straps and our logo stitched on the front.',
   'dottie-days-polka-dot-dog-bandana': 'Small white dots on navy or burgundy. The tie straps mean it goes on in seconds.',
-  'dot-and-dash-tie-strap-dog-bandana': 'Larger white dots on navy or burgundy, with tie straps and our logo stitched small on the front.',
+  'dot-and-dash-tie-strap-dog-bandana': 'Larger white dots on navy or burgundy, with tie straps and our logo stitched on the front.',
   'little-dots-polka-dot-dog-bandana': 'Tiny white dots on red or navy. The classic triangle shape, tied at the back, with our little tag on the side.',
   'dot-and-dash-polka-dot-dog-bandana': 'White polka dots on cherry red or navy, in the classic tie-on shape.',
-  'dapper-days-houndstooth-dog-bandana': 'Houndstooth in mustard, teal, rose or black and white. Classic tie-on shape with our logo stitched small on the front.',
+  'dapper-days-houndstooth-dog-bandana': 'Houndstooth in mustard, teal, rose or black and white. Classic tie-on shape with our logo stitched on the front.',
   'plaid-dog-bandana': 'Buffalo check in orange, blue, red or green. Tie it at the back and adjust the knot until it sits right.'
 };
 const STEPS = [
@@ -838,8 +840,8 @@ const STEPS = [
   { t: 'A loop for the tail', d: 'A stretchy loop goes around the tail and keeps the back of the coat in place.', c: 'Yellow', x: 50, y: 95 }
 ];
 const INSERTS = [
-  { after: 4, filter: 'rain', img: 'scene-rain', title: 'Made for puddles.', alt: 'A golden retriever in the Puddle Parade raincoat in City Yellow', link: 'Shop rain gear' },
-  { after: 8, filter: 'home', img: 'scene-cosy', title: 'Made for naps.', alt: 'A westie in the Daydream base layer in Light Grey', link: 'Shop base layers' }
+  { after: 4, filter: 'rain', img: 'scene-rain', who: 'Rufus,', when: 'before the walk', what: 'Puddle Parade in City Yellow, $65', alt: 'A golden retriever in the Puddle Parade raincoat in City Yellow', link: 'Shop rain gear' },
+  { after: 8, filter: 'home', img: 'scene-cosy', who: 'Mac,', when: 'after the walk', what: 'Daydream in Light Grey, $41', alt: 'A westie in the Daydream base layer in Light Grey', link: 'Shop base layers' }
 ];
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const wide = () => innerWidth > 900;
@@ -978,7 +980,7 @@ function renderKinds() {
   const extra = k => k === 'accessories' ? ', $13 each' : '';
   $('#kind-rows').innerHTML = KINDS.map((k, i) => {
     const n = count(k.key);
-    return `<li><a class="kind-row" href="#shop" data-filter="${k.key}" data-kind="${i}" data-reveal style="--d:${i}">
+    return `<li><a class="kind-row" href="#shop" data-filter="${k.key}" data-kind="${i}">
       <span class="kname">${k.name}</span>
       <span class="kdesc">${k.desc}<br>${n} piece${n === 1 ? '' : 's'}${extra(k.key)}</span>
       <span class="thumb"><img src="assets/cutouts/${k.img}-dog.webp" alt="" loading="lazy"></span>
@@ -1002,6 +1004,8 @@ function renderStory() {
 }
 function showColour(c) {
   spot.c = c;
+  const hex = colourOf(spot.p, c).hex;
+  $('#spotlight').style.setProperty('--tint', `color-mix(in srgb, #EDEDEA 88%, ${hex} 12%)`);
   $$('#look img').forEach(i => i.classList.toggle('on', i.dataset.c === c));
   $('#cname').textContent = colourOf(spot.p, c).name;
 }
@@ -1039,13 +1043,15 @@ $$('.buy').forEach(box => box.addEventListener('click', e => {
 function renderLineup() {
   $('#lineup').innerHTML = LINEUP.map((d, i) => {
     const p = byH[d.h], c = colourOf(p, d.c);
-    const lbl = `${p.name} · ${c.name} · ${money(p.price)}`;
-    return `<button type="button" class="pup" style="--h:${d.size};--i:${i}" data-reveal-pup data-open="${p.h}" data-colour-pick="${c.v}" data-label="${esc(lbl)}" aria-label="${esc(p.name)} in ${esc(c.name)}, ${money(p.price)}">
+    const lbl = `<b>${d.dog}</b>, ${d.breed}, in ${esc(p.name)} ${esc(c.name)} · ${money(p.price)}`;
+    return `<button type="button" class="pup" style="--h:${d.size};--i:${i}" data-open="${p.h}" data-colour-pick="${c.v}" data-label="${esc(lbl)}" aria-label="${d.dog}, ${d.breed}, wearing ${esc(p.name)} in ${esc(c.name)}, ${money(p.price)}">
       <img src="${cut(p, c, 'dog')}" alt="" loading="lazy">
     </button>`;
   }).join('');
   const lab = $('#pup-label');
-  const show = b => { lab.textContent = b ? b.dataset.label : ''; lab.classList.toggle('on', !!b); };
+  const rest = 'From left: ' + LINEUP.map(d => `${d.dog}, ${d.breed}`).join(' · ');
+  const show = b => { lab.innerHTML = b ? b.dataset.label : esc(rest); lab.classList.toggle('on', !!b); };
+  show(null);
   $('#lineup').addEventListener('pointerover', e => show(e.target.closest('.pup')));
   $('#lineup').addEventListener('pointerleave', () => show(null));
   $('#lineup').addEventListener('focusin', e => show(e.target.closest('.pup')));
@@ -1088,7 +1094,7 @@ function quick(p) {
 }
 function card(p, i) {
   const c = p.colours[0];
-  return `<article class="card" data-reveal style="--d:${i % 4}">
+  return `<article class="card">
     <div class="tile">
       <button type="button" class="open ${isBust(p, c) ? '' : 'stand'}" data-open="${p.h}" aria-label="${esc(p.name)}, ${esc(p.kind)}, ${money(p.price)}">
         <img class="dog ${isBust(p, c) ? 'bust' : ''}" src="${cut(p, c, 'dog')}" alt="" loading="lazy">
@@ -1104,7 +1110,7 @@ function card(p, i) {
     </button>
   </article>`;
 }
-const insertHTML = ins => `<a class="insert" href="#shop" data-filter="${ins.filter}" data-reveal><div class="pic"><img src="assets/studio/${ins.img}.webp" alt="${esc(ins.alt)}" loading="lazy"></div><div class="cap"><h3>${ins.title}</h3><span class="tlink">${ins.link}</span></div></a>`;
+const insertHTML = ins => `<a class="insert" href="#shop" data-filter="${ins.filter}"><div class="pic"><img src="assets/studio/${ins.img}.webp" alt="${esc(ins.alt)}" loading="lazy"></div><div class="cap"><div><h3>${ins.who} <em>${ins.when}</em></h3><p class="what">${ins.what}</p></div><span class="tlink">${ins.link}</span></div></a>`;
 function renderGrid() {
   const list = PRODUCTS.filter(p => inFilter(p) && matches(p, query));
   const editorial = filter === 'all' && !query;
@@ -1280,9 +1286,16 @@ $('#menu-btn').addEventListener('click', () => {
 /* Hero film: muted, pauses off screen, with a Pause / Play control */
 const film = $('#hero-video'), playBtn = $('#hero-play');
 let filmWanted = !reduce;
-function showFilmState() { playBtn.textContent = film.paused ? 'Play' : 'Pause'; playBtn.hidden = false; }
+function showFilmState() { playBtn.textContent = film.paused ? 'Play' : 'Pause'; playBtn.setAttribute('aria-label', film.paused ? 'Play the video' : 'Pause the video'); playBtn.hidden = false; }
 function playFilm() { const p = film.play(); if (p) p.then(showFilmState).catch(showFilmState); }
 film.addEventListener('canplay', () => film.classList.add('ready'), { once: true });
+const sceneEls = $$('#scenes li');
+film.addEventListener('timeupdate', () => {
+  const t = film.currentTime;
+  let k = 0;
+  sceneEls.forEach((li, i) => { if (t >= +li.dataset.t) k = i; });
+  sceneEls.forEach((li, i) => li.classList.toggle('on', i === k));
+});
 film.addEventListener('playing', () => film.classList.add('ready'));
 film.addEventListener('pause', showFilmState);
 film.addEventListener('play', showFilmState);
@@ -1308,12 +1321,6 @@ addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimat
 
 const stepIO = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) setStep(+en.target.dataset.step); }), { rootMargin: wide() ? '-48% 0px -48% 0px' : '-62% 0px -34% 0px' });
 
-const revealIO = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.remove('pre'); revealIO.unobserve(en.target); } }), { rootMargin: '0px 0px -8% 0px' });
-function armReveals(root = document) {
-  if (reduce) return;
-  $$('[data-reveal], .reveal-img, [data-reveal-pup]', root).forEach(el => { if (el.getBoundingClientRect().top > innerHeight) { el.classList.add('pre'); revealIO.observe(el); } });
-}
-new MutationObserver(() => armReveals($('#grid'))).observe($('#grid'), { childList: true });
 
 renderKinds();
 renderStory();
@@ -1328,7 +1335,6 @@ const dockIO = new IntersectionObserver(es => { es.forEach(en => { vis[en.target
 dockIO.observe($('#hero'));
 dockIO.observe($('#foot'));
 $$('.step').forEach(s => stepIO.observe(s));
-armReveals();
 onFrame();
 </script>
 </body>

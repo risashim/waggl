@@ -32,7 +32,7 @@ The page stays quiet so the dogs can be the cute part. It should feel at home fo
 | Text | `#16181D` ink, `#5E6168` graphite for secondary text |
 | Hairlines | `#E2E2DE`, `#C8C9C4` for controls |
 | Accent | `#D9262E` Waggl red, only for the logo and a few small marks: the active pin, the fit marker, a saved heart, 9XL in the footer |
-| Headlines | Newsreader, light weight, no italics |
+| Headlines | Newsreader, light weight, with one italic word where the line needs a little warmth |
 | Everything else | Hanken Grotesk; short labels and buttons in spaced capitals, longer labels in sentence case |
 | Shape | Square surfaces, 2px corners on controls, no pills, no patterns, no badges |
 
@@ -40,8 +40,8 @@ Every product is shown as a cutout on the stone floor. Dogs photographed from th
 
 ## Bandana photos
 
-The bandana photos show the embroidered logo at half its real size. The big logo was removed by copying the fabric from one pattern repeat away (plaid, houndstooth) or by regrowing the dot grid (polka dots), and the same logo was put back smaller. Three dog photos (Buffalo Plaid in Red, Trail Tails in Blue and in Orange) keep the original logo, because the fill left visible marks on the draped plaid. The real bandanas currently ship with the larger logo, so update these photos, or the product, before using them in ads.
+The bandana photos are the store's own product photos, cut out onto the stone floor. The embroidered logo is exactly as it appears on the real bandanas.
 
 ## Hero film
 
-`assets/video/hero.mp4` (with a WebM copy) is the store's hero video, re-encoded without sound at 1280 px. It plays muted, pauses when scrolled away, has a Pause/Play control, and doesn't autoplay for people who ask for reduced motion.
+`assets/video/hero.mp4` (with a WebM copy) is cut from the store's hero video: the snow, woods and field clips only, so no other brand's gear shows on screen. It's re-encoded without sound at 1280 px, and the captions under the film (Snow, Woods, Field) follow the clip that's playing. It plays muted, pauses when scrolled away, has a Pause/Play control, and doesn't autoplay for people who ask for reduced motion.
