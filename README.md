@@ -6,12 +6,13 @@ A redesigned storefront for Waggl Pets. It's a single static page: `index.html`,
 
 - The running-dogs film from the live store as the hero, with the store's own line: "Good days. Together."
 - A short facts strip: sizes XS to 9XL, made for wet weather, the little white tag
-- "Shop by kind": rain gear, base layers and bandanas as a type index, with a photo that changes as you hover
+- "Shop by type": rain gear, base layers and bandanas as an index, with a photo that changes as you hover
 - A Puddle Parade scroll story that walks through the jacket's details
-- A line-up of seven dogs in their bandanas, then every bandana colour on one swatch wall, grouped into tie-strap and classic
+- A line-up of seven dogs in their bandanas, then every bandana on one swatch wall, grouped into tie-strap and classic (a swipeable row on phones)
 - All 12 products from the live Shopify store, with their real prices, colours, sizes, stock and size charts
-- A size guide that suggests a size for each product from neck, chest and belly, in inches or centimetres
+- A size guide that suggests a size for each product from neck, chest and belly, in inches or centimetres; the size charts switch units too
 - A bag that hands off to the live store's checkout through a Shopify cart link
+- A newsletter form that signs people up on the live store (it opens the store in a new tab to confirm), and footer links to the store's shipping, returns and contact help
 
 ## Run it locally
 
@@ -41,6 +42,8 @@ Every product is shown as a cutout on the stone floor. Dogs photographed from th
 ## Bandana photos
 
 The bandana photos are the store's own product photos, cut out onto the stone floor. The embroidered logo is exactly as it appears on the real bandanas.
+
+A few clean-ups were made to the cutouts themselves: the white neck form is gone from inside the tie-strap loops, polka dots that the cutout had made see-through are white again, and the soft edge along the Samoyed's plaid bandana was repaired. Photos whose original frame cut the dog off at one side sit flush against that side of the tile, so there's no straight edge floating in the middle.
 
 ## Hero film
 
